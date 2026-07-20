@@ -201,3 +201,8 @@ document.getElementById("calculate-path").addEventListener("click",calculate);
 renderGrid("start");
 renderGrid("target");
 refreshSelection();
+
+const pathParams=new URLSearchParams(location.search);
+const startParam=pathParams.get("start"),targetParam=pathParams.get("target");
+if(startParam){const p=findPal(startParam);if(p)selectFromGrid("start",p.id)}
+if(targetParam){const p=findPal(targetParam);if(p)selectFromGrid("target",p.id)}
