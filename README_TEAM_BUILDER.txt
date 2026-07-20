@@ -36,3 +36,6 @@ SINERGIAS DE FARM — V2.3.3
 
 ATALHOS VISÍVEIS — V2.3.4
 Filtros de elemento, pesca e captura também aparecem como botões permanentes acima dos controles.
+
+RESULTADOS EXPANDIDOS — V2.4
+A seleção de Pal principal foi removida. O resultado mantém até cinco Pals no time sugerido e lista todos os demais candidatos positivos como alternativas compatíveis.
