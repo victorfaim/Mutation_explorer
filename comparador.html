@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Comparador de Pals</title>
+  <link rel="stylesheet" href="style.css?v=20260720-11">
+</head>
+<body>
+<header><nav>
+<a href="index.html">Início</a>
+<a href="reverso.html">Mutação reversa</a>
+<a href="enciclopedia.html">Enciclopédia</a>
+<a href="palpedia.html">Palpedia</a>
+<a href="itens.html">Itens</a>
+<a href="tierlist.html">Tier List</a>
+<a class="active" href="comparador.html">Comparador</a>
+<a href="impossiveis.html">Não obtíveis</a>
+<a href="caminho.html">Caminho de breeding</a>
+<a href="auditoria.html">Auditoria</a>
+</nav></header>
+<main>
+  <div class="compare-heading">
+    <div>
+      <span class="hero-kicker">ANÁLISE LADO A LADO</span>
+      <h1>Comparador de Pals</h1>
+      <p class="muted">Compare atributos-base e scores matemáticos em quatro modos de combate.</p>
+    </div>
+  </div>
+
+  <section class="panel compare-picker-panel">
+    <div class="compare-pickers">
+      <div class="compare-picker">
+        <span class="muted">PAL A</span>
+        <input id="compare-a-search" type="search" list="compare-pal-list" placeholder="Pesquisar Pal">
+      </div>
+      <div class="compare-vs">VS</div>
+      <div class="compare-picker">
+        <span class="muted">PAL B</span>
+        <input id="compare-b-search" type="search" list="compare-pal-list" placeholder="Pesquisar Pal">
+      </div>
+      <datalist id="compare-pal-list"></datalist>
+    </div>
+
+    <div class="compare-mode-row">
+      <label>Modo principal
+        <select id="compare-mode">
+          <option value="general">Combate geral</option>
+          <option value="ranged">Ranged</option>
+          <option value="melee">Melee</option>
+          <option value="tank">Tank</option>
+        </select>
+      </label>
+      <button id="compare-swap" type="button">Trocar lados</button>
+      <button id="compare-run" class="primary" type="button">Comparar</button>
+    </div>
+  </section>
+
+  <section id="compare-empty" class="panel compare-empty">
+    Escolha dois Pals para iniciar a comparação.
+  </section>
+
+  <section id="compare-result" hidden>
+    <div id="compare-hero" class="compare-hero"></div>
+    <div id="compare-modes" class="compare-mode-cards"></div>
+    <section class="panel">
+      <h2>Atributos-base</h2>
+      <div id="compare-stats" class="compare-stats"></div>
+    </section>
+    <section class="panel">
+      <h2>Composição do score</h2>
+      <div id="compare-breakdown" class="compare-breakdown"></div>
+    </section>
+  </section>
+
+  <script src="asset-config.js?v=20260720-11"></script>
+  <script src="data.js?v=20260720-11"></script>
+  <script src="palpedia-data.js?v=20260720-11"></script>
+  <script src="core.js?v=20260720-11"></script>
+  <script src="combat-score.js?v=20260720-11"></script>
+  <script src="comparador.js?v=20260720-11"></script>
+</main>
+</body>
+</html>
