@@ -338,3 +338,5 @@ header nav a{white-space:nowrap}
 @media(max-width:1100px){.team-slots{grid-template-columns:repeat(3,1fr)}}@media(max-width:700px){.team-heading,.team-result-heading{display:block}.team-beta{display:inline-block;margin-top:10px}.team-controls{grid-template-columns:1fr}.team-slots{grid-template-columns:1fr}.team-slot{display:grid;grid-template-columns:110px 1fr;gap:8px}.team-slot>a{grid-row:1/5}.team-slot>section,.team-reasons,.team-score{grid-column:2}.team-result-score{text-align:left}.team-picker-heading{display:block}}
 
 .team-slot-empty{display:flex;align-items:center;justify-content:center;min-height:330px;border-style:dashed;background:#101a28;text-align:center;color:#8294a8}.team-slot-empty strong{font-size:18px}.team-slot-empty p{font-size:11px;line-height:1.5}.team-controls [hidden]{display:none}
+
+.team-controls:has(#team-drop-type-wrap:not([hidden])){grid-template-columns:repeat(3,minmax(180px,1fr)) auto}@media(max-width:850px){.team-controls:has(#team-drop-type-wrap:not([hidden])){grid-template-columns:1fr 1fr}}@media(max-width:600px){.team-controls:has(#team-drop-type-wrap:not([hidden])){grid-template-columns:1fr}}

@@ -28,3 +28,8 @@ Quando existem menos de cinco especialistas, as demais posições aparecem como 
 
 OBJETIVOS DIRETOS — V2.3.2
 Drop de Normal, Fogo, Água, Planta, Eletricidade, Gelo, Terra, Sombra e Dragão aparecem diretamente no seletor de objetivo.
+
+SINERGIAS DE FARM — V2.3.3
+- Farm avançado combina até dois elementos sem repetir os atalhos diretos.
+- Pesca considera quantidade de itens, facilidade do minigame, progresso da captura e chance de Pals talentosos.
+- Efeitos complementares recebem justificativas diferentes no resultado.
