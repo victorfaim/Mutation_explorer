@@ -1,8 +1,153 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pal Mutation Explorer</title><link rel="stylesheet" href="style.css"></head><body>
-<header><nav>
-<a class="active" href="index.html">Início</a>
-<a class="" href="reverso.html">Mutação reversa</a>
-<a class="" href="enciclopedia.html">Enciclopédia</a>
-<a class="" href="impossiveis.html">Não obtíveis</a>
-<a class="" href="auditoria.html">Auditoria</a>
-</nav></header><main><h1>Pal Mutation Explorer</h1><div class="panel"><p>Versão multipágina e pré-auditada. Cada área carrega somente os scripts necessários.</p><div class="grid"><a class="card" href="reverso.html"><h2>Mutação reversa</h2><p>Digite Aegidron ou outro Pal e encontre os pais possíveis.</p></a><a class="card" href="enciclopedia.html"><h2>Enciclopédia</h2><p>Consulte o estado real de cada Pal.</p></a><a class="card" href="impossiveis.html"><h2>Não obtíveis</h2><p>Veja bloqueados e inalcançáveis.</p></a><a class="card" href="auditoria.html"><h2>Auditoria</h2><p>Estatísticas pré-calculadas da base.</p></a></div></div></main></body></html>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Pal Mutation Explorer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="home-page">
+<header>
+  <nav>
+    <a class="active" href="index.html">Início</a>
+    <a href="reverso.html">Mutação reversa</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="impossiveis.html">Não obtíveis</a>
+    <a href="auditoria.html">Auditoria</a>
+  </nav>
+</header>
+
+<main class="home-main">
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="hero-kicker">PALWORLD • MUTATION TOOLS</span>
+      <h1>Pal Mutation Explorer</h1>
+      <p>
+        Descubra quais cruzamentos podem gerar um Pal mutado, consulte toda a base
+        e identifique rapidamente os Pals bloqueados ou inalcançáveis.
+      </p>
+      <div class="hero-actions">
+        <a class="home-primary" href="reverso.html">Explorar mutações</a>
+        <a class="home-secondary" href="enciclopedia.html">Abrir enciclopédia</a>
+      </div>
+    </div>
+
+    <div class="hero-showcase" aria-label="Pals mutáveis em destaque">
+      <div class="hero-glow"></div>
+      <div id="hero-pals" class="hero-pals"></div>
+      <div class="hero-caption">
+        <strong>Base pré-auditada</strong>
+        <span>Resultados calculados com a mesma lógica da ferramenta.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section">
+    <div class="section-heading">
+      <div>
+        <span class="hero-kicker">FERRAMENTAS</span>
+        <h2>Escolha por onde começar</h2>
+      </div>
+      <p>Cada módulo carrega apenas o necessário para manter o site rápido.</p>
+    </div>
+
+    <div class="feature-grid">
+      <a class="feature-card feature-purple" href="reverso.html">
+        <div class="feature-visual">
+          <svg viewBox="0 0 160 160" role="img" aria-label="Ovo de mutação estilizado">
+            <defs>
+              <radialGradient id="eggGlow" cx="50%" cy="42%" r="65%">
+                <stop offset="0%" stop-color="#faf5ff"/>
+                <stop offset="35%" stop-color="#c4b5fd"/>
+                <stop offset="75%" stop-color="#7c3aed"/>
+                <stop offset="100%" stop-color="#2e1065"/>
+              </radialGradient>
+            </defs>
+            <path d="M80 18C55 18 33 65 33 101c0 28 20 44 47 44s47-16 47-44C127 65 105 18 80 18Z"
+                  fill="url(#eggGlow)" stroke="currentColor" stroke-width="5"/>
+            <path d="M48 85c12-14 22-4 32-18 12-17 24-4 34-20" fill="none"
+                  stroke="#f5d0fe" stroke-width="7" stroke-linecap="round"/>
+            <path d="M50 111c15-9 25 7 40-5 10-8 18-2 27 3" fill="none"
+                  stroke="#ddd6fe" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="64" cy="58" r="7" fill="#fff" opacity=".8"/>
+          </svg>
+        </div>
+        <div class="feature-content">
+          <span class="feature-tag">PRINCIPAL</span>
+          <h3>Mutação reversa</h3>
+          <p>Escolha o Pal desejado e veja todos os pares capazes de gerá-lo mutado.</p>
+          <span class="feature-link">Abrir ferramenta →</span>
+        </div>
+      </a>
+
+      <a class="feature-card feature-blue" href="enciclopedia.html">
+        <div class="feature-visual">
+          <svg viewBox="0 0 160 160" role="img" aria-label="Livro de enciclopédia estilizado">
+            <path d="M24 34c21-8 38-5 56 9v89c-18-14-35-17-56-9V34Z"
+                  fill="#dbeafe" stroke="currentColor" stroke-width="5"/>
+            <path d="M136 34c-21-8-38-5-56 9v89c18-14 35-17 56-9V34Z"
+                  fill="#bfdbfe" stroke="currentColor" stroke-width="5"/>
+            <path d="M80 43v89" stroke="currentColor" stroke-width="5"/>
+            <path d="M39 59h24M39 78h24M39 97h18M97 59h24M97 78h24M97 97h18"
+                  stroke="#2563eb" stroke-width="6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="feature-content">
+          <span class="feature-tag">BASE COMPLETA</span>
+          <h3>Enciclopédia</h3>
+          <p>Consulte o status, o CombiRank e a quantidade de pares de cada Pal.</p>
+          <span class="feature-link">Explorar Pals →</span>
+        </div>
+      </a>
+
+      <a class="feature-card feature-red" href="impossiveis.html">
+        <div class="feature-visual">
+          <svg viewBox="0 0 160 160" role="img" aria-label="Cadeado estilizado">
+            <rect x="31" y="68" width="98" height="72" rx="17"
+                  fill="#fecaca" stroke="currentColor" stroke-width="5"/>
+            <path d="M52 68V50c0-19 12-32 28-32s28 13 28 32v18"
+                  fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round"/>
+            <circle cx="80" cy="101" r="12" fill="#dc2626"/>
+            <path d="M80 110v14" stroke="#dc2626" stroke-width="8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="feature-content">
+          <span class="feature-tag">RESTRIÇÕES</span>
+          <h3>Não obtíveis</h3>
+          <p>Veja quais Pals são bloqueados ou inalcançáveis pela mecânica.</p>
+          <span class="feature-link">Ver lista →</span>
+        </div>
+      </a>
+
+      <a class="feature-card feature-green" href="auditoria.html">
+        <div class="feature-visual">
+          <svg viewBox="0 0 160 160" role="img" aria-label="Gráfico de auditoria estilizado">
+            <path d="M28 132V28M28 132h108" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+            <rect x="44" y="87" width="20" height="45" rx="5" fill="#86efac"/>
+            <rect x="76" y="60" width="20" height="72" rx="5" fill="#4ade80"/>
+            <rect x="108" y="36" width="20" height="96" rx="5" fill="#22c55e"/>
+            <path d="M43 65 74 43l24 9 31-30" fill="none" stroke="#dcfce7"
+                  stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="feature-content">
+          <span class="feature-tag">ESTATÍSTICAS</span>
+          <h3>Auditoria</h3>
+          <p>Confira a análise pré-calculada da base e os estados encontrados.</p>
+          <span class="feature-link">Ver auditoria →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <footer class="home-footer">
+    <span>Ferramenta não oficial para Palworld.</span>
+    <span>Dados baseados na versão analisada da base do projeto.</span>
+  </footer>
+</main>
+
+<script src="data.js"></script>
+<script src="core.js"></script>
+<script src="home.js"></script>
+</body>
+</html>
