@@ -1,0 +1,12 @@
+PAL MUTATION EXPLORER — V2.4 CONFIRMADA
+
+A página team-builder.html desta pasta NÃO possui seleção de Pal principal.
+O resultado possui Time sugerido e Alternativas compatíveis.
+Na pesca existem 6 candidatos: 5 no time e 1 alternativa.
+
+Arquivos essenciais desta atualização:
+- team-builder.html
+- team-builder.js
+- style.css
+
+Depois de publicar, confirme que aparece “V2.4” no topo do Team Builder.
