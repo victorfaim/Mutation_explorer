@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Partner Skills | Pal Mutation Explorer</title><link rel="stylesheet" href="style.css?v=20260720-15">
+</head><body>
+<header><nav>
+<a href="index.html">Início</a><a href="reverso.html">Mutação reversa</a><a href="enciclopedia.html">Enciclopédia</a><a href="palpedia.html">Palpedia</a><a class="active" href="partner-skills.html">Partner Skills</a><a href="itens.html">Itens</a><a href="tierlist.html">Tier Combate</a><a href="comparador.html">Comparador Combate</a><a href="tiertrabalho.html">Tier Trabalho</a><a href="worker-finder.html">Worker Finder</a><a href="impossiveis.html">Não obtíveis</a><a href="caminho.html">Caminho de breeding</a><a href="auditoria.html">Auditoria</a>
+</nav></header>
+<main>
+<div class="partner-heading"><div><span class="hero-kicker">SINERGIA DE EQUIPE</span><h1>Partner Skills</h1><p class="muted">Explore as habilidades de parceiro e filtre por função, ativação, elemento e tipo de montaria.</p></div><div class="partner-total"><strong id="partner-count">0</strong><span>habilidades encontradas</span></div></div>
+<section class="panel partner-controls">
+<label class="partner-search">Pesquisar<input id="partner-search" type="search" placeholder="Pal, habilidade ou efeito"></label>
+<label>Função<select id="partner-category"><option value="">Todas</option><option value="combat">Combate</option><option value="support">Suporte</option><option value="base">Base e rancho</option><option value="drops">Drops e captura</option><option value="exploration">Exploração</option><option value="mount">Montaria</option></select></label>
+<label>Ativação<select id="partner-activation"><option value="">Todas</option><option value="party">Na equipe</option><option value="active">Ao ativar</option><option value="mounted">Enquanto montado</option><option value="base">Na base</option><option value="ranch">No rancho</option></select></label>
+<label>Elemento<select id="partner-element"><option value="">Todos</option></select></label>
+<label>Montaria<select id="partner-mount"><option value="">Todas</option><option value="ground">Terrestre</option><option value="flying">Voadora</option><option value="none">Não é montaria</option></select></label>
+</section>
+<div id="partner-summary" class="partner-summary"></div>
+<section id="partner-grid" class="partner-grid"></section>
+<section class="panel partner-method"><h2>Como a classificação funciona</h2><p>As categorias combinam as tags existentes na base com condições escritas explicitamente na descrição da Partner Skill. Quando o texto não informa uma condição, ela permanece como não especificada.</p></section>
+<script src="asset-config.js?v=20260720-15"></script><script src="data.js?v=20260720-15"></script><script src="palpedia-data.js?v=20260720-15"></script><script src="core.js?v=20260720-15"></script><script src="partner-skills.js?v=20260720-15"></script>
+</main></body></html>

@@ -5,6 +5,7 @@ Todas as páginas agora usam o mesmo menu:
 - Mutação reversa
 - Enciclopédia
 - Palpedia
+- Partner Skills
 - Itens
 - Tier List
 - Comparador Combate
