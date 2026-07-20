@@ -33,3 +33,6 @@ SINERGIAS DE FARM — V2.3.3
 - Farm avançado combina até dois elementos sem repetir os atalhos diretos.
 - Pesca considera quantidade de itens, facilidade do minigame, progresso da captura e chance de Pals talentosos.
 - Efeitos complementares recebem justificativas diferentes no resultado.
+
+ATALHOS VISÍVEIS — V2.3.4
+Filtros de elemento, pesca e captura também aparecem como botões permanentes acima dos controles.
