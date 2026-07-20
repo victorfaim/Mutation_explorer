@@ -1,94 +1,66 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Tier List de Combate</title>
-  <link rel="stylesheet" href="style.css?v=20260720-21">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Tier List</title>
+  <link rel="stylesheet" href="style.css?v=20260720-22">
 </head>
 <body>
 <header><nav>
-<a href="index.html">Início</a>
-<a href="reverso.html">Mutação reversa</a>
-<a href="enciclopedia.html">Enciclopédia</a>
-<a href="palpedia.html">Palpedia</a>
-<a href="partner-skills.html">Partner Skills</a>
-<a href="team-builder.html">Team Builder</a>
-<a href="itens.html">Itens</a>
-<a class="active" href="tierlist.html">Tier Combate</a>
-<a href="comparador.html">Comparador Combate</a>
-<a href="tiertrabalho.html">Tier Trabalho</a>
-<a href="worker-finder.html">Worker Finder</a>
-<a href="impossiveis.html">Não obtíveis</a>
-<a href="caminho.html">Caminho de breeding</a>
-<a href="auditoria.html">Auditoria</a>
+<a href="index.html">Início</a><a href="reverso.html">Mutação reversa</a><a href="caminho.html">Caminho de breeding</a><a href="palpedia.html">Palpedia</a><a href="partner-skills.html">Partner Skills</a><a href="itens.html">Itens</a><a class="active" href="tierlist.html">Tier List</a><a href="comparador.html">Comparador Combate</a><a href="team-builder.html">Team Builder</a>
 </nav></header>
 <main>
   <div class="tier-heading">
-    <div>
-      <span class="hero-kicker">RANKING MATEMÁTICO</span>
-      <h1>Tier List de Combate</h1>
-      <p class="muted">
-        Ranking baseado nos atributos-base da base atual. Não considera IA, animações,
-        IVs, passivas, condensação, equipamentos ou buffs.
-      </p>
-    </div>
-    <div class="tier-total"><strong id="tier-count">—</strong><span>Pals avaliados</span></div>
+    <div><span class="hero-kicker">RANKINGS DA BASE</span><h1>Tier List</h1><p class="muted">Compare os melhores Pals em combate ou trabalho usando filtros e critérios específicos.</p></div>
   </div>
 
-  <section class="panel tier-controls">
-    <div class="tier-control-grid">
-      <label>Modo
-        <select id="tier-mode">
-          <option value="general">Combate geral</option>
-          <option value="ranged">Ranged</option>
-          <option value="melee">Melee</option>
-          <option value="tank">Tank</option>
-        </select>
-      </label>
+  <div class="tier-main-tabs" role="tablist" aria-label="Tipo de Tier List">
+    <button class="tier-main-tab is-active" type="button" data-tier-tab="combat">Combate</button>
+    <button class="tier-main-tab" type="button" data-tier-tab="work">Trabalho</button>
+  </div>
 
-      <label>Elemento
-        <select id="tier-element"><option value="">Todos</option></select>
-      </label>
-
-      <label>Pesquisar
-        <input id="tier-search" type="search" placeholder="Nome do Pal">
-      </label>
-
-      <label class="tier-check">
-        <input id="tier-show-boss" type="checkbox">
-        Incluir bosses
-      </label>
-    </div>
-
-    <details class="tier-weight-panel">
-      <summary>Pesos personalizados</summary>
-      <div id="tier-weight-sliders" class="tier-weight-sliders"></div>
-      <div class="tier-weight-actions">
-        <button id="tier-reset-weights" type="button">Restaurar pesos</button>
-        <span id="tier-weight-total"></span>
+  <div data-tier-panel="combat">
+    <div class="tier-section-heading"><div><h2>Tier List de Combate</h2><p class="muted">Atributos-base; sem IVs, passivas, condensação, equipamentos ou buffs.</p></div><div class="tier-total"><strong id="tier-count">—</strong><span>Pals avaliados</span></div></div>
+    <section class="panel tier-controls">
+      <div class="tier-control-grid">
+        <label>Modo<select id="tier-mode"><option value="general">Combate geral</option><option value="ranged">Ranged</option><option value="melee">Melee</option><option value="tank">Tank</option></select></label>
+        <label>Elemento<select id="tier-element"><option value="">Todos</option></select></label>
+        <label>Pesquisar<input id="tier-search" type="search" placeholder="Nome do Pal"></label>
+        <label class="tier-check"><input id="tier-show-boss" type="checkbox"> Incluir bosses</label>
       </div>
-    </details>
-  </section>
+      <details class="tier-weight-panel"><summary>Pesos personalizados</summary><div id="tier-weight-sliders" class="tier-weight-sliders"></div><div class="tier-weight-actions"><button id="tier-reset-weights" type="button">Restaurar pesos</button><span id="tier-weight-total"></span></div></details>
+    </section>
+    <section id="tier-summary" class="tier-summary"></section><section id="tier-board" class="tier-board"></section>
+    <section class="panel tier-method"><h2>Como o ranking é calculado</h2><p>Cada atributo é normalizado de 0 a 100. Os pesos do modo escolhido são aplicados e os tiers são divididos por percentis.</p></section>
+  </div>
 
-  <section id="tier-summary" class="tier-summary"></section>
-  <section id="tier-board" class="tier-board"></section>
+  <div data-tier-panel="work" hidden>
+    <div class="tier-section-heading"><div><h2>Tier List de Trabalho</h2><p class="muted">Ranking individual ou combinação de várias aptidões para encontrar o melhor trabalhador.</p></div><div class="work-total"><strong id="work-count">—</strong><span>Pals avaliados</span></div></div>
+    <div class="work-view-tabs" role="tablist" aria-label="Análise de trabalho">
+      <button class="work-view-tab is-active" type="button" data-work-view="single">Ranking individual</button>
+      <button class="work-view-tab" type="button" data-work-view="multi">Combinar aptidões</button>
+    </div>
+    <section class="panel">
+      <div id="work-single-controls" class="work-controls">
+        <label>Ranking<select id="work-mode"><option value="general">Trabalho geral</option><option value="versatility">Versatilidade</option><option value="specialization">Especialização</option></select></label>
+        <label>Atividade<select id="work-activity"><option value="">Selecione uma atividade</option></select></label>
+        <label>Pesquisar<input id="work-search" type="search" placeholder="Nome do Pal"></label>
+      </div>
+      <div id="work-multi-controls" hidden>
+        <p class="muted">Selecione duas ou mais aptidões para classificar os Pals pela cobertura e desempenho conjunto.</p>
+        <div id="finder-activities" class="finder-activities"></div>
+        <div class="work-controls finder-options">
+          <label>Mobilidade<select id="finder-mobility"><option value="normal">Peso normal</option><option value="high">Mais importante</option><option value="low">Menos importante</option></select></label>
+          <label>Pesquisar<input id="finder-search" type="search" placeholder="Nome do Pal"></label>
+          <label class="tier-check"><input id="finder-require-all" type="checkbox" checked> Exigir todas as aptidões</label>
+        </div>
+      </div>
+      <p id="work-mode-description" class="muted work-mode-description"></p>
+    </section>
+    <div id="finder-empty" class="panel finder-empty" hidden>Selecione ao menos uma aptidão.</div>
+    <section id="work-podium" class="work-podium"></section><section id="work-summary" class="tier-summary"></section><section id="work-board" class="tier-board"></section>
+    <section class="panel tier-method"><h2>Critério</h2><p id="work-method-text"></p></section>
+  </div>
 
-  <section class="panel tier-method">
-    <h2>Como o ranking é calculado</h2>
-    <p>
-      Cada atributo é normalizado de 0 a 100 dentro da própria base. Depois os pesos
-      do modo escolhido são aplicados. Os tiers são definidos por percentis:
-      S = top 10%, A = próximos 20%, B = próximos 30%, C = próximos 25% e D = restante.
-    </p>
-  </section>
-
-  <script src="asset-config.js?v=20260720-13"></script>
-  <script src="data.js?v=20260720-13"></script>
-  <script src="palpedia-data.js?v=20260720-13"></script>
-  <script src="core.js?v=20260720-13"></script>
-  <script src="combat-score.js?v=20260720-13"></script>
-  <script src="tierlist.js?v=20260720-13"></script>
-</main>
-</body>
-</html>
+  <script src="asset-config.js?v=20260720-22"></script><script src="data.js?v=20260720-22"></script><script src="palpedia-data.js?v=20260720-22"></script><script src="core.js?v=20260720-22"></script><script src="combat-score.js?v=20260720-22"></script><script src="work-score.js?v=20260720-22"></script><script src="tierlist.js?v=20260720-22"></script>
+</main></body></html>

@@ -8,22 +8,7 @@
 </head>
 <body>
 
-<header><nav>
-<a href="index.html">Início</a>
-<a href="reverso.html">Mutação reversa</a>
-<a href="enciclopedia.html">Enciclopédia</a>
-<a class="active" href="palpedia.html">Palpedia</a>
-<a href="partner-skills.html">Partner Skills</a>
-<a href="team-builder.html">Team Builder</a>
-<a href="itens.html">Itens</a>
-<a href="tierlist.html">Tier Combate</a>
-<a href="comparador.html">Comparador Combate</a>
-<a href="tiertrabalho.html">Tier Trabalho</a>
-<a href="worker-finder.html">Worker Finder</a>
-<a href="impossiveis.html">Não obtíveis</a>
-<a href="caminho.html">Caminho de breeding</a>
-<a href="auditoria.html">Auditoria</a>
-</nav></header>
+<header><nav><a href="index.html">Início</a><a href="reverso.html">Mutação reversa</a><a href="caminho.html">Caminho de breeding</a><a class="active" href="palpedia.html">Palpedia</a><a href="partner-skills.html">Partner Skills</a><a href="itens.html">Itens</a><a href="tierlist.html">Tier List</a><a href="comparador.html">Comparador Combate</a><a href="team-builder.html">Team Builder</a></nav></header>
 
 <main>
   <div class="palpedia-heading">
@@ -39,6 +24,7 @@
       <label class="picker-search palpedia-search"><span>⌕</span><input id="palpedia-search" type="search" placeholder="Pesquisar por nome ou número"></label>
       <label>Elemento<select id="palpedia-element"><option value="">Todos</option></select></label>
       <label>Aptidão<select id="palpedia-work"><option value="">Todas</option></select></label>
+      <label>Mutação<select id="palpedia-mutation"><option value="all">Todos os estados</option><option value="obtainable">Existe mutação</option><option value="not-obtainable">Sem mutação obtível</option><option value="blocked">Bloqueado</option><option value="unreachable">Inalcançável</option><option value="outside">Fora da mecânica</option></select></label>
       <label>Ordenar<select id="palpedia-sort"><option value="number">Número</option><option value="name">Nome</option><option value="rarity-desc">Maior raridade</option><option value="rarity-asc">Menor raridade</option></select></label>
     </div>
   </section>
@@ -46,9 +32,9 @@
   <div class="pagination palpedia-pagination"><button id="palpedia-more" type="button">Mostrar mais</button><span id="palpedia-shown"></span></div>
   <script src="data.js?v=20260720-13"></script>
   <script src="audit-data.js?v=20260720-13"></script>
-  <script src="asset-config.js?v=20260720-13"></script><script src="core.js?v=20260720-13"></script>
+  <script src="asset-config.js?v=20260720-13"></script><script src="core.js?v=20260720-22"></script>
   <script src="palpedia-data.js?v=20260720-13"></script>
-  <script src="palpedia.js?v=20260720-13"></script>
+  <script src="palpedia.js?v=20260720-22"></script>
 </main>
 </body>
 </html>

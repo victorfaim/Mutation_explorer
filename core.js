@@ -137,3 +137,21 @@ if(document.documentElement){
   assetFallbackObserver.observe(document.documentElement,{childList:true,subtree:true});
 }
 document.addEventListener("DOMContentLoaded",()=>activateAssetFallbacks(document));
+// Navegação canônica após a reorganização das ferramentas.
+(()=>{
+  const nav=document.querySelector("header nav");
+  if(!nav)return;
+  const page=location.pathname.split("/").pop()||"index.html";
+  const links=[
+    ["index.html","Início",["index.html",""]],
+    ["reverso.html","Mutação reversa",["reverso.html"]],
+    ["caminho.html","Caminho de breeding",["caminho.html"]],
+    ["palpedia.html","Palpedia",["palpedia.html","pal.html"]],
+    ["partner-skills.html","Partner Skills",["partner-skills.html"]],
+    ["itens.html","Itens",["itens.html","item.html"]],
+    ["tierlist.html","Tier List",["tierlist.html"]],
+    ["comparador.html","Comparador Combate",["comparador.html"]],
+    ["team-builder.html","Team Builder",["team-builder.html"]]
+  ];
+  nav.innerHTML=links.map(([href,label,pages])=>`<a${pages.includes(page)?' class="active"':''} href="${href}">${label}</a>`).join("");
+})();

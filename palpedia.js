@@ -68,13 +68,15 @@ function applyFilters(){
   const q=document.getElementById("palpedia-search").value.trim().toLowerCase();
   const element=document.getElementById("palpedia-element").value;
   const work=document.getElementById("palpedia-work").value;
+  const mutation=document.getElementById("palpedia-mutation").value;
   const sort=document.getElementById("palpedia-sort").value;
 
   filtered=palpediaPals.filter(p=>{
     const num=String(p.index??"")+(p.suffix||"");
     return (!q||p.name.toLowerCase().includes(q)||(p.slug||"").toLowerCase().includes(q)||num.toLowerCase().includes(q))
       &&(!element||(p.elements||[]).includes(element))
-      &&(!work||Object.prototype.hasOwnProperty.call(p.work||{},work));
+      &&(!work||Object.prototype.hasOwnProperty.call(p.work||{},work))
+      &&(mutation==="all"||(mutation==="not-obtainable"?PAL_STATUS?.[p.id]?.state!=="obtainable":PAL_STATUS?.[p.id]?.state===mutation));
   });
 
   filtered.sort((a,b)=>{
@@ -98,8 +100,10 @@ function renderMore(){
   document.getElementById("palpedia-more").hidden=visible>=filtered.length;
 }
 
-["palpedia-search","palpedia-element","palpedia-work","palpedia-sort"].forEach(id=>{
+["palpedia-search","palpedia-element","palpedia-work","palpedia-mutation","palpedia-sort"].forEach(id=>{
   document.getElementById(id).addEventListener(id==="palpedia-search"?"input":"change",applyFilters);
 });
 document.getElementById("palpedia-more").addEventListener("click",renderMore);
+const initialMutation=new URLSearchParams(location.search).get("mutation");
+if([...document.getElementById("palpedia-mutation").options].some(o=>o.value===initialMutation))document.getElementById("palpedia-mutation").value=initialMutation;
 applyFilters();
