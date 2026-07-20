@@ -15,3 +15,13 @@ Modos:
 - Base
 
 O Pal principal é opcional. Quando selecionado, permanece na primeira vaga e influencia a pontuação das outras quatro. A recomendação é heurística e cada escolha mostra seus motivos.
+
+FILTROS ESTRITOS DE DROP — V2.3.1
+- drops por elemento do inimigo;
+- captura;
+- pesca;
+- salvamento;
+- cutelo;
+- produção no rancho.
+
+Quando existem menos de cinco especialistas, as demais posições aparecem como vagas livres e não são preenchidas com sugestões irrelevantes.
