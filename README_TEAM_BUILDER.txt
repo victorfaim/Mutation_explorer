@@ -25,3 +25,6 @@ FILTROS ESTRITOS DE DROP — V2.3.1
 - produção no rancho.
 
 Quando existem menos de cinco especialistas, as demais posições aparecem como vagas livres e não são preenchidas com sugestões irrelevantes.
+
+OBJETIVOS DIRETOS — V2.3.2
+Drop de Normal, Fogo, Água, Planta, Eletricidade, Gelo, Terra, Sombra e Dragão aparecem diretamente no seletor de objetivo.

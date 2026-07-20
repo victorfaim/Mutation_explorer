@@ -18,3 +18,6 @@ Filtros:
 - ativação;
 - elemento;
 - montaria.
+
+FILTRO DETALHADO DE EFEITOS — V2.3.2
+Inclui grupos de movimentação, reforços elementais, drops por elemento e utilidade. Reforço elemental exclui Partner Skills cujo efeito real é apenas aumentar drop daquele elemento.
