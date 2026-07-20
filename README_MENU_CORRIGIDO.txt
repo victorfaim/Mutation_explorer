@@ -1,0 +1,16 @@
+MENU UNIFICADO
+
+Todas as páginas agora usam o mesmo menu:
+- Início
+- Mutação reversa
+- Enciclopédia
+- Palpedia
+- Itens
+- Tier List
+- Comparador
+- Não obtíveis
+- Caminho de breeding
+- Auditoria
+
+A página atual recebe a classe active automaticamente durante a geração.
+No GitHub Pages, substitua todos os arquivos do pacote e use Ctrl+F5.

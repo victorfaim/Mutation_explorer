@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Comparador de Trabalho</title><link rel="stylesheet" href="style.css?v=20260720-13">
+</head><body>
+<header><nav>
+<a href="index.html">Início</a>
+<a href="reverso.html">Mutação reversa</a>
+<a href="enciclopedia.html">Enciclopédia</a>
+<a href="palpedia.html">Palpedia</a>
+<a href="itens.html">Itens</a>
+<a href="tierlist.html">Tier Combate</a>
+<a href="comparador.html">Comparador</a>
+<a href="tiertrabalho.html">Tier Trabalho</a>
+<a class="active" href="comparador-trabalho.html">Comparador Trabalho</a>
+<a href="worker-finder.html">Worker Finder</a>
+<a href="impossiveis.html">Não obtíveis</a>
+<a href="caminho.html">Caminho de breeding</a>
+<a href="auditoria.html">Auditoria</a>
+</nav></header>
+<main>
+<div class="compare-heading"><div><span class="hero-kicker">BASE MANAGEMENT</span><h1>Comparador de Trabalho</h1>
+<p class="muted">Compare aptidões, velocidade, mobilidade, trabalho geral, especialização e versatilidade.</p></div></div>
+
+<section class="panel compare-picker-panel">
+  <div class="compare-pickers">
+    <div class="compare-picker"><span class="muted">PAL A</span><input id="work-compare-a" type="search" list="work-compare-list" placeholder="Pesquisar Pal"></div>
+    <div class="compare-vs">VS</div>
+    <div class="compare-picker"><span class="muted">PAL B</span><input id="work-compare-b" type="search" list="work-compare-list" placeholder="Pesquisar Pal"></div>
+    <datalist id="work-compare-list"></datalist>
+  </div>
+  <div class="compare-mode-row">
+    <label>Atividade em destaque
+      <select id="work-compare-activity"><option value="">Visão geral</option></select>
+    </label>
+    <button id="work-compare-swap" type="button">Trocar lados</button>
+    <button id="work-compare-run" class="primary" type="button">Comparar</button>
+  </div>
+</section>
+
+<section id="work-compare-empty" class="panel compare-empty">Escolha dois Pals para iniciar.</section>
+<section id="work-compare-result" hidden>
+  <div id="work-compare-hero" class="compare-hero"></div>
+  <div id="work-compare-scores" class="compare-mode-cards"></div>
+  <section class="panel"><h2>Aptidões de trabalho</h2><div id="work-compare-grid" class="work-compare-grid"></div></section>
+  <section class="panel"><h2>Velocidade e mobilidade</h2><div id="work-compare-stats" class="compare-stats"></div></section>
+</section>
+
+<script src="asset-config.js?v=20260720-13"></script><script src="data.js?v=20260720-13"></script>
+<script src="palpedia-data.js?v=20260720-13"></script><script src="core.js?v=20260720-13"></script>
+<script src="work-score.js?v=20260720-13"></script><script src="comparador-trabalho.js?v=20260720-13"></script>
+</main></body></html>
