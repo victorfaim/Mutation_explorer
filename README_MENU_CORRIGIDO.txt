@@ -6,6 +6,7 @@ Todas as páginas agora usam o mesmo menu:
 - Enciclopédia
 - Palpedia
 - Partner Skills
+- Team Builder
 - Itens
 - Tier List
 - Comparador Combate
