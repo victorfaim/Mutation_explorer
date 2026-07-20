@@ -1,0 +1,73 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mutação reversa</title><link rel="stylesheet" href="style.css"></head><body>
+<header><nav>
+<a class="" href="index.html">Início</a>
+<a class="active" href="reverso.html">Mutação reversa</a>
+<a class="" href="enciclopedia.html">Enciclopédia</a>
+<a class="" href="impossiveis.html">Não obtíveis</a>
+<a class="" href="auditoria.html">Auditoria</a>
+</nav></header>
+<main>
+<h1>Mutação reversa</h1>
+<div class="reverse-layout">
+  <aside class="pal-picker panel">
+    <div class="picker-head">
+      <label class="picker-search">
+        <span aria-hidden="true">⌕</span>
+        <input id="picker-search" type="search" placeholder="Pesquisar Pals">
+      </label>
+      <span id="picker-count" class="muted"></span>
+    </div>
+    <div class="picker-filter-row">
+      <label><input id="picker-only-obtainable" type="checkbox"> Somente obtíveis</label>
+    </div>
+    <div id="picker-grid" class="picker-grid"></div>
+  </aside>
+
+  <section class="reverse-work">
+    <div class="panel">
+      <div id="selected-target" class="selected-target">
+        <div class="selected-placeholder">Escolha um Pal na lista ao lado.</div>
+      </div>
+
+      <div class="toolbar reverse-filters">
+        <label>Chance mínima
+          <select id="min">
+            <option value="0">Qualquer</option>
+            <option value="10">10%</option>
+            <option value="20">20%</option>
+            <option value="25">25%</option>
+            <option value="50">50%</option>
+          </select>
+        </label>
+        <label>Pool máximo
+          <select id="pool">
+            <option value="999">Qualquer</option>
+            <option>1</option><option>2</option><option>3</option><option>5</option><option>10</option>
+          </select>
+        </label>
+        <button class="primary" id="search" disabled>Consultar novamente</button>
+      </div>
+
+      <input id="target" type="hidden">
+      <div id="status" class="status">Aguardando seleção.</div>
+    </div>
+
+    <div class="panel" id="result" hidden>
+      <div class="stats">
+        <div class="stat"><span>Melhor par</span><b id="best">—</b></div>
+        <div class="stat"><span>Melhor chance</span><b id="chance">—</b></div>
+        <div class="stat"><span>Pares encontrados</span><b id="count">—</b></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Pai A</th><th>Pai B</th><th>Filho normal</th><th>Chance</th><th>Pool</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <div class="pagination"><button id="more">Mostrar mais</button><span id="shown"></span></div>
+    </div>
+  </section>
+</div>
+<script src="data.js"></script><script src="audit-data.js"></script><script src="core.js"></script><script src="reverso.js"></script>
+</main>
+</body></html>
