@@ -23,3 +23,9 @@ Seletor visual:
 - A página reverso.html possui uma lista lateral com pesquisa, ícones e nomes.
 - Pals obtíveis executam a consulta automaticamente ao clicar.
 - Pals bloqueados, inalcançáveis ou fora da mecânica mostram o motivo sem iniciar cálculo.
+
+Home visual:
+- Banner inicial com Pals em destaque.
+- Quatro cards ilustrados para os módulos.
+- As ilustrações de ovo, livro, cadeado e auditoria são SVGs próprios.
+- Os Pals do banner usam os mesmos ícones carregados sob demanda.
