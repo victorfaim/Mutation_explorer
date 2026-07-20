@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Palpedia</title>
+  <link rel="stylesheet" href="style.css?v=20260720-4">
+</head>
+<body>
+
+<header><nav>
+<a href="index.html">Início</a>
+<a href="reverso.html">Mutação reversa</a>
+<a href="enciclopedia.html">Enciclopédia</a>
+<a class="active" href="palpedia.html">Palpedia</a>
+<a href="impossiveis.html">Não obtíveis</a>
+<a href="caminho.html">Caminho de breeding</a>
+<a href="auditoria.html">Auditoria</a>
+</nav></header>
+
+<main>
+  <div class="palpedia-heading">
+    <div>
+      <span class="hero-kicker">PALDECK</span>
+      <h1>Palpedia</h1>
+      <p class="muted">Informações gerais, atributos, aptidões, drops e habilidades dos Pals.</p>
+    </div>
+    <div class="palpedia-total"><strong id="palpedia-count">—</strong><span>Pals exibidos</span></div>
+  </div>
+  <section class="panel">
+    <div class="palpedia-toolbar">
+      <label class="picker-search palpedia-search"><span>⌕</span><input id="palpedia-search" type="search" placeholder="Pesquisar por nome ou número"></label>
+      <label>Elemento<select id="palpedia-element"><option value="">Todos</option></select></label>
+      <label>Aptidão<select id="palpedia-work"><option value="">Todas</option></select></label>
+      <label>Ordenar<select id="palpedia-sort"><option value="number">Número</option><option value="name">Nome</option><option value="rarity-desc">Maior raridade</option><option value="rarity-asc">Menor raridade</option></select></label>
+    </div>
+  </section>
+  <section id="palpedia-grid" class="palpedia-grid"></section>
+  <div class="pagination palpedia-pagination"><button id="palpedia-more" type="button">Mostrar mais</button><span id="palpedia-shown"></span></div>
+  <script src="data.js?v=20260720-4"></script>
+  <script src="audit-data.js?v=20260720-4"></script>
+  <script src="core.js?v=20260720-4"></script>
+  <script src="palpedia-data.js?v=20260720-4"></script>
+  <script src="palpedia.js?v=20260720-4"></script>
+</main>
+</body>
+</html>
