@@ -25,17 +25,23 @@ const labels={
 const palNumber=p=>`No. ${String(p.index??"—")}${p.suffix||""}`;
 
 function elementBadge(name){
-  return `<span class="paldex-element"><i>${ELEMENT_ICONS[name]||"◆"}</i>${esc(name)}</span>`;
+  const icon=elementIconName(name);
+  return `<span class="paldex-element">
+    ${icon?assetImg(ASSETS.elementsDirectory,icon,"","paldex-inline-icon"):`<i>${ELEMENT_ICONS[name]||"◆"}</i>`}
+    ${esc(name)}
+  </span>`;
 }
 function workRows(work){
   const rows=Object.entries(work||{}).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
   if(!rows.length)return '<div class="paldex-empty">Nenhuma aptidão registrada.</div>';
-  return rows.map(([name,level])=>`
-    <div class="paldex-work-row">
-      <span class="paldex-work-icon">${WORK_ICONS[name]||"◆"}</span>
+  return rows.map(([name,level])=>{
+    const icon=workIconName(name);
+    return `<div class="paldex-work-row">
+      <span class="paldex-work-icon">${icon?assetImg(ASSETS.workDirectory,icon,"","paldex-inline-icon"):(WORK_ICONS[name]||"◆")}</span>
       <span>${esc(name)}</span>
       <b>${level}</b>
-    </div>`).join("");
+    </div>`;
+  }).join("");
 }
 function statsRows(stats){
   const preferred=["hp","melee","shot","defense","support","craftSpeed","stamina","runSpeed","rideSprintSpeed","slowWalkSpeed","price"];
@@ -49,7 +55,9 @@ function dropRows(drops){
   if(!drops?.length)return '<div class="paldex-empty">Nenhum drop registrado.</div>';
   return `<div class="paldex-drop-grid">${drops.map(d=>`
     <article class="paldex-drop-card">
-      <div class="paldex-drop-placeholder" aria-hidden="true">◆</div>
+      <div class="paldex-drop-placeholder">
+        ${d.icon?assetImg(ASSETS.itemsDirectory,d.icon,d.name,"paldex-drop-image"):"◆"}
+      </div>
       <div>
         <strong>${esc(d.name)}</strong>
         <span>x${d.min??"—"}${d.max!==undefined&&d.max!==d.min?`–${d.max}`:""} · ${d.rate!==undefined?`${d.rate}%`:"—"}</span>
@@ -82,7 +90,7 @@ function relatedPals(p){
   if(!matches.length)return '<div class="paldex-empty">Nenhuma variação relacionada identificada.</div>';
   return `<div class="paldex-related-grid">${matches.map(r=>`
     <a href="pal.html?pal=${encodeURIComponent(r.slug||r.id)}">
-      <img loading="lazy" src="${palIconUrl(PALS[r.id]||r)}" alt="" onerror="this.style.display='none'">
+      ${assetImg(ASSETS.palsDirectory,(PALS[r.id]||r).icon,"","","lazy")}
       <span>${esc(r.name)}</span>
       <small>#${r.index??"—"}${r.suffix||""}</small>
     </a>`).join("")}</div>`;
@@ -128,7 +136,7 @@ if(!pal){
       <aside class="paldex-sidebar">
         <section class="paldex-identity">
           <div class="paldex-portrait">
-            <img src="${palIconUrl(compact)}" alt="${esc(pal.name)}" onerror="this.style.display='none'">
+            ${assetImg(ASSETS.palsDirectory,compact.icon,pal.name,"","eager")}
           </div>
           <span class="paldex-number">${palNumber(pal)}</span>
           <h1>${esc(pal.name)}</h1>
@@ -196,4 +204,5 @@ if(!pal){
   document.getElementById("pal-detail-loading").hidden=true;
   document.getElementById("pal-detail").hidden=false;
   initTabs();
+  activateAssetFallbacks(document.getElementById("pal-detail"));
 }

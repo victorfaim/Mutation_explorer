@@ -274,3 +274,8 @@ table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:9px;borde
 @media(max-width:680px){
  .paldex-sidebar{display:block}.paldex-side-section{border-left:0;border-top:1px solid #2b4055}.paldex-tabs{gap:8px;overflow:auto}.paldex-tabs button{white-space:nowrap}.paldex-breeding-summary{grid-template-columns:1fr}
 }
+
+/* Assets locais */
+.paldex-inline-icon{width:20px;height:20px;object-fit:contain;display:block}
+.paldex-drop-image{width:38px;height:38px;object-fit:contain}
+.paldex-drop-placeholder:has(.paldex-drop-image){background:#0b1925}

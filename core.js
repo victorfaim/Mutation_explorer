@@ -41,10 +41,99 @@ function stateBadge(meta){
 }
 
 
-const ICON_BASE="https://palbreed.com/images/full_palicon/";
-function palIconUrl(p){return p&&p.icon?ICON_BASE+encodeURIComponent(p.icon)+".png":""}
+const ASSETS=window.ASSET_CONFIG||{
+  extensions:["png","webp","jpg","svg"],
+  palsDirectory:"assets/pals",
+  itemsDirectory:"assets/items",
+  elementsDirectory:"assets/elements",
+  workDirectory:"assets/work",
+  elements:{},
+  work:{}
+};
+
+function assetCandidates(directory,name){
+  if(!name)return [];
+  const clean=String(name).replace(/\.(png|webp|jpg|jpeg|svg)$/i,"");
+  return (ASSETS.extensions||["png"]).map(ext=>`${directory}/${encodeURIComponent(clean)}.${ext}`);
+}
+
+function localAssetUrl(directory,name){
+  return assetCandidates(directory,name)[0]||"";
+}
+
+function fallbackImageAttributes(directory,name){
+  const candidates=assetCandidates(directory,name);
+  return {
+    src:candidates[0]||"",
+    candidates
+  };
+}
+
+function installImageFallback(img,candidates){
+  if(!img||!candidates?.length)return;
+  let index=0;
+  img.addEventListener("error",()=>{
+    index++;
+    if(index<candidates.length){
+      img.src=candidates[index];
+    }else{
+      img.style.display="none";
+    }
+  });
+}
+
+function palIconUrl(p){
+  return p?.icon?localAssetUrl(ASSETS.palsDirectory,p.icon):"";
+}
+
+function itemIconUrl(item){
+  return item?.icon?localAssetUrl(ASSETS.itemsDirectory,item.icon):"";
+}
+
+function elementIconName(element){
+  return ASSETS.elements?.[element]||"";
+}
+
+function elementIconUrl(element){
+  const name=elementIconName(element);
+  return name?localAssetUrl(ASSETS.elementsDirectory,name):"";
+}
+
+function workIconName(work){
+  return ASSETS.work?.[work]||"";
+}
+
+function workIconUrl(work){
+  const name=workIconName(work);
+  return name?localAssetUrl(ASSETS.workDirectory,name):"";
+}
+
+function assetImg(directory,name,alt="",className="",loading="lazy"){
+  const data=fallbackImageAttributes(directory,name);
+  if(!data.src)return "";
+  const encoded=encodeURIComponent(JSON.stringify(data.candidates));
+  return `<img src="${data.src}" alt="${esc(alt)}" class="${esc(className)}" loading="${loading}" decoding="async" data-asset-candidates="${encoded}">`;
+}
+
+function activateAssetFallbacks(root=document){
+  root.querySelectorAll("img[data-asset-candidates]").forEach(img=>{
+    if(img.dataset.assetFallbackReady)return;
+    img.dataset.assetFallbackReady="1";
+    try{
+      installImageFallback(img,JSON.parse(decodeURIComponent(img.dataset.assetCandidates)));
+    }catch{
+      img.addEventListener("error",()=>img.style.display="none");
+    }
+  });
+}
+
 function palChip(p,extraClass=""){
   if(!p)return "—";
-  const src=palIconUrl(p);
-  return `<span class="pal-chip ${extraClass}">${src?`<img loading="lazy" decoding="async" src="${src}" alt="" onerror="this.style.display='none'">`:""}<span>${esc(p.name)}</span></span>`;
+  return `<span class="pal-chip ${extraClass}">${p.icon?assetImg(ASSETS.palsDirectory,p.icon,"",""):""}<span>${esc(p.name)}</span></span>`;
 }
+
+const assetFallbackObserver=new MutationObserver(()=>activateAssetFallbacks(document));
+if(document.documentElement){
+  assetFallbackObserver.observe(document.documentElement,{childList:true,subtree:true});
+}
+document.addEventListener("DOMContentLoaded",()=>activateAssetFallbacks(document));
