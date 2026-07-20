@@ -7,7 +7,7 @@ Todas as páginas agora usam o mesmo menu:
 - Palpedia
 - Itens
 - Tier List
-- Comparador
+- Comparador Combate
 - Não obtíveis
 - Caminho de breeding
 - Auditoria

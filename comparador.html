@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Comparador de Pals</title>
-  <link rel="stylesheet" href="style.css?v=20260720-13">
+  <title>Comparador de Combate</title>
+  <link rel="stylesheet" href="style.css?v=20260720-14">
 </head>
 <body>
 <header><nav>
@@ -14,9 +14,8 @@
 <a href="palpedia.html">Palpedia</a>
 <a href="itens.html">Itens</a>
 <a href="tierlist.html">Tier Combate</a>
-<a class="active" href="comparador.html">Comparador</a>
+<a class="active" href="comparador.html">Comparador Combate</a>
 <a href="tiertrabalho.html">Tier Trabalho</a>
-<a href="comparador-trabalho.html">Comparador Trabalho</a>
 <a href="worker-finder.html">Worker Finder</a>
 <a href="impossiveis.html">Não obtíveis</a>
 <a href="caminho.html">Caminho de breeding</a>
@@ -26,23 +25,27 @@
   <div class="compare-heading">
     <div>
       <span class="hero-kicker">ANÁLISE LADO A LADO</span>
-      <h1>Comparador de Pals</h1>
+      <h1>Comparador de Combate</h1>
       <p class="muted">Compare atributos-base e scores matemáticos em quatro modos de combate.</p>
     </div>
   </div>
 
   <section class="panel compare-picker-panel">
-    <div class="compare-pickers">
-      <div class="compare-picker">
-        <span class="muted">PAL A</span>
-        <input id="compare-a-search" type="search" list="compare-pal-list" placeholder="Pesquisar Pal">
+    <div class="compare-select-grid">
+      <div class="compare-selector">
+        <div class="path-selector-title"><div><span class="muted">PRIMEIRO LUTADOR</span><h2>Pal A</h2></div><span id="compare-a-count" class="muted"></span></div>
+        <label class="picker-search"><span aria-hidden="true">⌕</span><input id="compare-a-search" type="search" placeholder="Pesquisar Pal A"></label>
+        <div id="compare-a-grid" class="compare-pal-grid"></div>
       </div>
-      <div class="compare-vs">VS</div>
-      <div class="compare-picker">
-        <span class="muted">PAL B</span>
-        <input id="compare-b-search" type="search" list="compare-pal-list" placeholder="Pesquisar Pal">
+      <div class="compare-vs" aria-hidden="true">VS</div>
+      <div class="compare-selector">
+        <div class="path-selector-title"><div><span class="muted">SEGUNDO LUTADOR</span><h2>Pal B</h2></div><span id="compare-b-count" class="muted"></span></div>
+        <label class="picker-search"><span aria-hidden="true">⌕</span><input id="compare-b-search" type="search" placeholder="Pesquisar Pal B"></label>
+        <div id="compare-b-grid" class="compare-pal-grid"></div>
       </div>
-      <datalist id="compare-pal-list"></datalist>
+    </div>
+    <div class="compare-selection-summary">
+      <div id="compare-selected-a" class="compare-selected-slot">Escolha o Pal A.</div><div class="compare-vs">VS</div><div id="compare-selected-b" class="compare-selected-slot">Escolha o Pal B.</div>
     </div>
 
     <div class="compare-mode-row">
@@ -55,7 +58,7 @@
         </select>
       </label>
       <button id="compare-swap" type="button">Trocar lados</button>
-      <button id="compare-run" class="primary" type="button">Comparar</button>
+      <button id="compare-run" class="primary" type="button" disabled>Comparar combate</button>
     </div>
   </section>
 
@@ -76,12 +79,12 @@
     </section>
   </section>
 
-  <script src="asset-config.js?v=20260720-13"></script>
-  <script src="data.js?v=20260720-13"></script>
-  <script src="palpedia-data.js?v=20260720-13"></script>
-  <script src="core.js?v=20260720-13"></script>
-  <script src="combat-score.js?v=20260720-13"></script>
-  <script src="comparador.js?v=20260720-13"></script>
+  <script src="asset-config.js?v=20260720-14"></script>
+  <script src="data.js?v=20260720-14"></script>
+  <script src="palpedia-data.js?v=20260720-14"></script>
+  <script src="core.js?v=20260720-14"></script>
+  <script src="combat-score.js?v=20260720-14"></script>
+  <script src="comparador.js?v=20260720-14"></script>
 </main>
 </body>
 </html>

@@ -13,6 +13,8 @@ Tier List:
 
 Comparador:
 - Dois Pals lado a lado
+- Seletores visuais com imagem e pesquisa
+- Tooltip com os atributos-base da Palpedia
 - Scores nos quatro modos
 - Comparação de atributos-base
 - Composição detalhada do score

@@ -2,7 +2,6 @@ V2.1 BASE MANAGEMENT
 
 Novos módulos:
 - tiertrabalho.html / tiertrabalho.js
-- comparador-trabalho.html / comparador-trabalho.js
 - worker-finder.html / worker-finder.js
 - work-score.js
 
@@ -12,13 +11,6 @@ Tier Trabalho:
 - Versatilidade
 - Especialização
 - Pódio e tiers S-D
-
-Comparador Trabalho:
-- Aptidões lado a lado
-- Trabalho geral
-- Versatilidade
-- Especialização
-- Work Speed e Run Speed
 
 Worker Finder:
 - Seleção múltipla de aptidões
