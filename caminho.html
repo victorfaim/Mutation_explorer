@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Caminho de breeding</title>
+  <link rel="stylesheet" href="style.css?v=20260720-3">
+</head>
+<body>
+
+<header><nav>
+<a href="index.html">Início</a>
+<a href="reverso.html">Mutação reversa</a>
+<a href="enciclopedia.html">Enciclopédia</a>
+<a href="impossiveis.html">Não obtíveis</a>
+<a class="active" href="caminho.html">Caminho de breeding</a>
+<a href="auditoria.html">Auditoria</a>
+</nav></header>
+
+<main>
+  <h1>Caminho de breeding</h1>
+  <p class="muted path-intro">
+    O Pal de partida participa obrigatoriamente do primeiro cruzamento. Depois, cada filho
+    continua a linhagem e pode cruzar com qualquer outro Pal até chegar ao Target.
+  </p>
+
+  <section class="panel path-controls">
+    <div class="path-select-grid">
+      <div class="path-selector">
+        <div class="path-selector-title">
+          <div>
+            <span class="muted">INÍCIO DA LINHAGEM</span>
+            <h2>Partida</h2>
+          </div>
+          <span id="start-count" class="muted"></span>
+        </div>
+        <label class="picker-search">
+          <span aria-hidden="true">⌕</span>
+          <input id="start-search" type="search" placeholder="Pesquisar Pal de partida">
+        </label>
+        <div id="start-grid" class="path-pal-grid"></div>
+      </div>
+
+      <div class="path-direction" aria-hidden="true">→</div>
+
+      <div class="path-selector">
+        <div class="path-selector-title">
+          <div>
+            <span class="muted">DESTINO DA LINHAGEM</span>
+            <h2>Target</h2>
+          </div>
+          <span id="target-count" class="muted"></span>
+        </div>
+        <label class="picker-search">
+          <span aria-hidden="true">⌕</span>
+          <input id="target-search" type="search" placeholder="Pesquisar Pal Target">
+        </label>
+        <div id="target-grid" class="path-pal-grid"></div>
+      </div>
+    </div>
+
+    <div class="path-selection-summary">
+      <div id="selected-start" class="path-selected-slot">Escolha o Pal de partida.</div>
+      <div class="path-summary-arrow">→</div>
+      <div id="selected-target" class="path-selected-slot">Escolha o Target.</div>
+      <button id="calculate-path" class="primary" disabled>Calcular menor caminho</button>
+    </div>
+
+    <div id="path-status" class="status" aria-live="polite">Aguardando seleção.</div>
+  </section>
+
+  <section id="path-result" class="panel" hidden>
+    <div class="stats">
+      <div class="stat"><span>Partida</span><b id="summary-start">—</b></div>
+      <div class="stat"><span>Target</span><b id="summary-target">—</b></div>
+      <div class="stat"><span>Etapas</span><b id="summary-steps">—</b></div>
+      <div class="stat"><span>Parceiros externos</span><b id="summary-partners">—</b></div>
+    </div>
+    <div id="path-steps" class="breeding-steps"></div>
+  </section>
+
+  <section class="panel path-note">
+    <h2>Como interpretar</h2>
+    <p>
+      Em cada etapa, o filho anterior é usado como um dos pais do próximo cruzamento.
+      Assim, uma passiva originada no Pal de partida pode continuar sendo herdada ao longo
+      da linhagem. A ferramenta procura o caminho com o menor número de cruzamentos.
+    </p>
+  </section>
+
+  <script src="data.js?v=20260720-3"></script>
+  <script src="core.js?v=20260720-3"></script>
+  <script src="caminho.js?v=20260720-3"></script>
+</main>
+</body>
+</html>
