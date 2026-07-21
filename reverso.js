@@ -80,7 +80,7 @@ function selectPal(id,autoRun=true){
     return;
   }
   document.getElementById("status").textContent=
-    `${p.name} pode ser obtido por mutação. ${meta.pairs.toLocaleString("pt-BR")} ocorrências foram encontradas na auditoria.`;
+    `${p.name} pode ser obtido por mutação. ${meta.routePairs.toLocaleString("pt-BR")} casais distintos foram encontrados na auditoria.`;
   if(autoRun)run();
 }
 

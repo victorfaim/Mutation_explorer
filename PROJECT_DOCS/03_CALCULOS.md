@@ -179,3 +179,22 @@ Em modos especializados de drop, a elegibilidade é estrita. O Pal somente entra
 ### Sinergia de pesca e dois elementos
 
 O modo Pesca reúne todas as Partner Skills com tag `fishing`, diferenciando rendimento, captura/progresso e Pals talentosos. O Farm avançado aceita dois elementos e usa a união estrita dos especialistas dos dois alvos.
+
+# Mutação
+
+A seleção do resultado mutante usa a fórmula confirmada no código nativo do build Steam
+24181527. Para dois pais, considere `lowRank` como o menor `combiRank` e `rankDiff` como a
+diferença absoluta entre os ranks:
+
+- `count = max(1, round(lowRank * 0.1))`;
+- `start = round(lowRank * 0.5) + round(rankDiff * 0.4) + 1`;
+- o jogo sorteia uniformemente um índice inteiro de `0` a `count - 1`;
+- o rank consultado é `start + índice`, convertido ao Pal elegível de rank mais próximo.
+
+Quando vários índices convergem para o mesmo Pal, seus pesos são somados. A chance exibida
+na Mutação Reversa é condicional à ocorrência da mutação e corresponde a
+`índices do Pal / count`. A chance absoluta de o ovo sofrer mutação não faz parte do escopo
+atual da ferramenta.
+
+Em `audit-data.js`, `pairs` é mantido como contagem histórica de índices ponderados para
+compatibilidade, enquanto `routePairs` representa casais distintos capazes de gerar o Pal.

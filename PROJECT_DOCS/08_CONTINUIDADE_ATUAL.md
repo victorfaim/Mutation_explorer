@@ -116,6 +116,14 @@ GitHub Pages. Não trocar a capitalização nem converter referências para hotl
 `breeding-official-data.js` a partir de `DT_PalMonsterParameter_Common.json` e
 `DT_PalCombiUnique.json`.
 
+`tools/generate-mutation-audit.js` gera `audit-data.js` exclusivamente a partir de
+`data.js` e `breeding-official-data.js`, sem exigir dumps externos. A fórmula de mutação
+foi confirmada no código nativo do build Steam 24181527: quantidade
+`max(1, round(lowRank * 0.1))` e início
+`round(lowRank * 0.5) + round(rankDiff * 0.4) + 1`. Cada índice do intervalo tem peso
+uniforme e é convertido pelo mapa de rank mais próximo. O campo histórico `pairs` guarda
+ocorrências ponderadas; `routePairs` guarda a quantidade de casais distintos.
+
 As fontes brutas não estão versionadas. Os scripts atualmente apontam para um caminho
 absoluto histórico sob `/workspace/scratch/.../upload`, portanto não são reproduzíveis em
 uma máquina nova sem fornecer as DataTables e ajustar o caminho de entrada. Até isso ser

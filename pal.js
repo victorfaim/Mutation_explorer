@@ -87,7 +87,7 @@ function breedingPanel(p,compact,mutation){
     <div class="paldex-breeding-summary">
       <div><span>CombiRank</span><b>${compact.combiRank??"—"}</b></div>
       <div><span>CombiPriority</span><b>${compact.combiPriority??"—"}</b></div>
-      <div><span>Pares na auditoria</span><b>${(mutation.pairs||0).toLocaleString("pt-BR")}</b></div>
+      <div><span>Pares na auditoria</span><b>${(mutation.routePairs||0).toLocaleString("pt-BR")}</b></div>
       <div><span>Status</span>${stateBadge(mutation)}</div>
     </div>
     <div class="paldex-breeding-note">${esc(mutation.reason||"")}</div>
@@ -148,7 +148,7 @@ if(!pal){
       <section class="paldex-main">
         <nav class="paldex-tabs" aria-label="Seções da ficha">
           <button type="button" class="is-active" data-tab-button="overview">Visão geral</button>
-          <button type="button" data-tab-button="breeding">Breeding <span>${(mutation.pairs||0).toLocaleString("pt-BR")}</span></button>
+          <button type="button" data-tab-button="breeding">Breeding <span>${(mutation.routePairs||0).toLocaleString("pt-BR")}</span></button>
           <button type="button" data-tab-button="skills">Skills <span>${(pal.actives||[]).length}</span></button>
           <button type="button" data-tab-button="related">Relacionados</button>
         </nav>
