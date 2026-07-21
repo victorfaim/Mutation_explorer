@@ -1,11 +1,20 @@
 # MAPA LAB
 
-`mapa-lab.html` é um laboratório local, deliberadamente ausente da navegação pública. Ele
-usa Leaflet 1.9.4 armazenado em `vendor/leaflet/`, `L.CRS.Simple` e uma única imagem local.
+`mapa-lab.html` é uma validação experimental não listada: possui `noindex` e continua
+ausente da navegação pública. Ela usa Leaflet 1.9.4 armazenado em `vendor/leaflet/`,
+`L.CRS.Simple` e uma única imagem versionada e otimizada.
 
 ## Entradas locais
 
-O botão de carregamento padrão procura:
+O carregamento automático procura primeiro os derivados versionáveis:
+
+```text
+assets/map/mainworld5.webp
+mapa-lab-data/mainworld5-markers.json
+mapa-lab-data/mainworld5-calibration.json
+```
+
+Se eles não existirem, o botão também aceita as entradas locais de pesquisa:
 
 ```text
 LOCAL_RESEARCH/raw/mapa-lab/map.png
@@ -52,10 +61,17 @@ Com `PL_MainWorld5.json` no diretório local bruto, execute:
 python tools/generate-map-lab-markers.py
 ```
 
+Para atualizar os derivados usados na validação não listada:
+
+```powershell
+python tools/generate-map-lab-markers.py --public
+```
+
 O gerador associa os 152 `FastTravelPointID` aos componentes `Root`, preserva X/Y/Z,
 calcula coordenadas exibidas, pixels e posição normalizada e grava `markers.json` e
 `calibration.json` em `LOCAL_RESEARCH/raw/mapa-lab/`. Esses dois resultados permanecem
-locais junto do dump e da imagem do jogo. A terceira referência apresentou erro de
+locais junto do dump e da imagem do jogo. Com `--public`, somente os JSONs derivados são
+gravados em `mapa-lab-data/`; o dump bruto permanece ignorado. A terceira referência apresentou erro de
 validação de 4,42 pixels na imagem 8192×8192; o limite local adotado é 5 pixels.
 
 ## Validação

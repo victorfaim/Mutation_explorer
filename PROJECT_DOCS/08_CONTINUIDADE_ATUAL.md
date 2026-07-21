@@ -83,13 +83,14 @@ atualizar todos os consumidores.
 - `comparador.html`: comparador de combate.
 - `comparador-trabalho.html`: comparador de trabalho ainda funcional.
 
-### Laboratório local não publicado na navegação
+### Validação de mapa não listada
 
-- `mapa-lab.html`: validação de coordenadas estáticas sobre imagem local com Leaflet e
+- `mapa-lab.html`: validação de coordenadas estáticas sobre imagem otimizada com Leaflet e
   `CRS.Simple`;
-- não possui link na navegação pública;
-- imagens, dumps, marcadores reais e calibração permanecem em
-  `LOCAL_RESEARCH/raw/mapa-lab/`, fora do Git;
+- não possui link na navegação pública e permanece com `noindex`;
+- o dump e a imagem bruta permanecem em `LOCAL_RESEARCH/raw/mapa-lab/`, fora do Git;
+- a imagem otimizada e os JSONs derivados de marcadores/calibração são versionados para
+  permitir validação por terceiros no GitHub Pages;
 - o gerador local extrai 152 pontos de viagem rápida de `PL_MainWorld5.json`, preservando
   coordenadas nativas, exibidas, em pixels e normalizadas;
 - a calibração vigente usa similaridade com duas referências de ajuste e uma validação

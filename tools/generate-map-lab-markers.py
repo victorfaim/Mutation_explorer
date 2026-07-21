@@ -4,14 +4,13 @@
 import json
 import math
 import re
+import argparse
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "LOCAL_RESEARCH" / "raw" / "mapa-lab"
 SOURCE = RAW / "PL_MainWorld5.json"
-MARKERS_OUTPUT = RAW / "markers.json"
-CALIBRATION_OUTPUT = RAW / "calibration.json"
 IMAGE_SIZE = 8192
 
 REFERENCES = [
@@ -60,6 +59,13 @@ def fit_similarity(points):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--public",
+        action="store_true",
+        help="gera os JSONs derivados versionáveis usados pela validação não listada",
+    )
+    args = parser.parse_args()
     if not SOURCE.exists():
         raise SystemExit(f"Fonte não encontrada: {SOURCE}")
 
@@ -145,21 +151,28 @@ def main():
         "schemaVersion": 1,
         "map": {
             "id": "PL_MainWorld5",
-            "image": "LOCAL_RESEARCH/raw/mapa-lab/map.png",
+            "image": "assets/map/mainworld5.webp" if args.public else "LOCAL_RESEARCH/raw/mapa-lab/map.png",
             "width": IMAGE_SIZE,
             "height": IMAGE_SIZE,
             "pixelOrigin": "top-left",
         },
         "markers": markers,
     }
-    MARKERS_OUTPUT.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    CALIBRATION_OUTPUT.write_text(json.dumps(calibration, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    output_dir = ROOT / "mapa-lab-data" if args.public else RAW
+    output_dir.mkdir(parents=True, exist_ok=True)
+    markers_output = output_dir / ("mainworld5-markers.json" if args.public else "markers.json")
+    calibration_output = output_dir / ("mainworld5-calibration.json" if args.public else "calibration.json")
+    indent = None if args.public else 2
+    separators = (",", ":") if args.public else None
+    markers_output.write_text(json.dumps(data, ensure_ascii=False, indent=indent, separators=separators) + "\n", encoding="utf-8")
+    calibration_output.write_text(json.dumps(calibration, ensure_ascii=False, indent=indent, separators=separators) + "\n", encoding="utf-8")
 
     validation = reference_points[2]
     predicted_x = a * validation["native"]["x"] + b * validation["native"]["y"] + c
     predicted_y = a * validation["native"]["y"] - b * validation["native"]["x"] + f
     error = math.hypot(predicted_x - validation["image"]["pixelX"], predicted_y - validation["image"]["pixelY"])
-    print(f"{len(markers)} marcadores gerados; erro de validação: {error:.3f} px")
+    visibility = "públicos derivados" if args.public else "locais"
+    print(f"{len(markers)} marcadores {visibility} gerados; erro de validação: {error:.3f} px")
 
 
 if __name__ == "__main__":

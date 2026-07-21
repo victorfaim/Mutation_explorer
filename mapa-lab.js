@@ -110,16 +110,23 @@ function inspectClick(latlng){
 }
 
 async function loadDefaults(){
-  const base="LOCAL_RESEARCH/raw/mapa-lab/";
-  const [dataResponse,calibrationResponse]=await Promise.all([fetch(base+"markers.json"),fetch(base+"calibration.json")]);
-  if(!dataResponse.ok)throw new Error("markers.json não encontrado na pasta local padrão.");
+  const candidates=[
+    {markers:"mapa-lab-data/mainworld5-markers.json",calibration:"mapa-lab-data/mainworld5-calibration.json"},
+    {markers:"LOCAL_RESEARCH/raw/mapa-lab/markers.json",calibration:"LOCAL_RESEARCH/raw/mapa-lab/calibration.json"}
+  ];
+  let dataResponse=null,calibrationResponse=null;
+  for(const candidate of candidates){
+    const responses=await Promise.all([fetch(candidate.markers),fetch(candidate.calibration)]);
+    if(responses[0].ok){[dataResponse,calibrationResponse]=responses;break;}
+  }
+  if(!dataResponse)throw new Error("Dados do mapa não encontrados.");
   state.data=await dataResponse.json();
   state.calibration=calibrationResponse.ok?await calibrationResponse.json():null;
-  const imagePath=state.data.map?.image||base+"map.png";
+  const imagePath=state.data.map?.image||"LOCAL_RESEARCH/raw/mapa-lab/map.png";
   const image=new Image();
   await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=()=>reject(new Error(`Imagem não encontrada: ${imagePath}`));image.src=imagePath;});
   state.imageUrl=imagePath;setImage(imagePath,image.naturalWidth,image.naturalHeight);
-  fitCalibration();status(`${state.data.markers?.length||0} marcadores carregados da pasta local.`);
+  fitCalibration();status(`${state.data.markers?.length||0} marcadores carregados para validação.`);
 }
 
 $("map-image-file").addEventListener("change",async event=>{try{if(event.target.files[0])await loadImageFile(event.target.files[0]);status("Imagem local carregada.");}catch(error){status(error.message,true);}});
@@ -130,3 +137,4 @@ $("map-fit-calibration").addEventListener("click",()=>{try{fitCalibration();stat
 $("map-show-markers").addEventListener("change",renderLayers);
 $("map-show-references").addEventListener("change",renderLayers);
 ensureMap();
+loadDefaults().catch(error=>status(error.message,true));
