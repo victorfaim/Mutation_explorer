@@ -20,7 +20,9 @@
 
     const query = new URLSearchParams(location.search).get("id") || "";
     const decodedQuery = decodeURIComponent(query);
+    const canonicalQuery=window.ITEM_ID_ALIASES?.[decodedQuery]||window.ITEM_ID_ALIASES?.[query]||decodedQuery;
     const item =
+      itemDatabase[canonicalQuery] ||
       itemDatabase[decodedQuery] ||
       itemDatabase[query] ||
       Object.values(itemDatabase).find(
@@ -104,7 +106,7 @@
           <h1>${esc(item.name)}</h1>
           <p class="muted">
             ${sources.length.toLocaleString("pt-BR")}
-            Pal${sources.length === 1 ? "" : "s"} dropam este item.
+            fonte${sources.length === 1 ? " condicional" : "s condicionais"} registrada${sources.length === 1 ? "" : "s"}.
           </p>
 
           ${best

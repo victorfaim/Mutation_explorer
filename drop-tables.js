@@ -1,18 +1,40 @@
 const DROP_TABLES=window.PAL_DROP_TABLES||{pals:{},items:{},sources:{}};
-function dropItemMeta(itemId){return DROP_TABLES.items[itemId]||{id:itemId,name:itemId,icon:"",descr:""};}
+const DROP_ITEM_CANONICAL={};
+Object.entries(DROP_TABLES.items).forEach(([itemId,meta])=>{
+  const identity=`${String(meta.name||itemId).trim().toLowerCase()}|${String(meta.icon||"").trim().toLowerCase()}`;
+  const current=DROP_ITEM_CANONICAL[identity];
+  if(!current||(DROP_TABLES.sources[itemId]||[]).length>(DROP_TABLES.sources[current]||[]).length)DROP_ITEM_CANONICAL[identity]=itemId;
+});
+const DROP_ITEM_ALIASES={};
+Object.entries(DROP_TABLES.items).forEach(([itemId,meta])=>{
+  const identity=`${String(meta.name||itemId).trim().toLowerCase()}|${String(meta.icon||"").trim().toLowerCase()}`;
+  DROP_ITEM_ALIASES[itemId]=DROP_ITEM_CANONICAL[identity]||itemId;
+});
+function dropItemMeta(itemId){const meta=DROP_TABLES.items[itemId]||{id:itemId,name:itemId,icon:"",descr:""};return {...meta,canonicalId:DROP_ITEM_ALIASES[itemId]||itemId};}
 function dropConditionLabel(source){const variant=source.variant==="boss"?"Alpha/Boss":"Comum";return source.level?`${variant} · Nv. ${source.level}`:variant;}
 function buildAccurateItems(){
   const result={};
   Object.entries(DROP_TABLES.items).forEach(([itemId,meta])=>{
-    result[itemId]={...meta,rawId:itemId,droppedBy:(DROP_TABLES.sources[itemId]||[]).map(x=>({...x,min:x.min,max:x.max,rate:x.rate}))};
+    const canonicalId=DROP_ITEM_ALIASES[itemId]||itemId;
+    const item=result[canonicalId]??={...DROP_TABLES.items[canonicalId],id:canonicalId,rawId:canonicalId,rawIds:[],droppedBy:[]};
+    item.rawIds.push(itemId);
+    item.droppedBy.push(...(DROP_TABLES.sources[itemId]||[]).map(x=>({...x,itemId,min:x.min,max:x.max,rate:x.rate})));
+  });
+  Object.values(result).forEach(item=>{
+    const seen=new Set();
+    item.droppedBy=item.droppedBy.filter(row=>{
+      const key=[row.palId,row.variant,row.level,row.rate,row.min,row.max].join("|");
+      if(seen.has(key))return false;seen.add(key);return true;
+    }).sort((a,b)=>(Number(b.rate)||0)-(Number(a.rate)||0)||(Number(b.max)||0)-(Number(a.max)||0)||a.palName.localeCompare(b.palName));
   });
   return result;
 }
 window.ITEMS_DATA_ACCURATE=buildAccurateItems();
+window.ITEM_ID_ALIASES=DROP_ITEM_ALIASES;
 
 function tableDropRows(table){
   if(!table?.drops?.length)return '<div class="paldex-empty">Nenhum drop com taxa positiva nesta condição.</div>';
-  return `<div class="paldex-drop-grid">${table.drops.map(d=>{const item=dropItemMeta(d.itemId);return `<a class="paldex-drop-card" href="item.html?id=${encodeURIComponent(d.itemId)}"><div class="paldex-drop-placeholder">${item.icon?assetImg(ASSETS.itemsDirectory,item.icon,item.name,"paldex-drop-image"):"◆"}</div><div><strong>${esc(item.name)}</strong><span>x${d.min}${d.max!==d.min?`–${d.max}`:""} · ${d.rate}%</span></div></a>`;}).join("")}</div>`;
+  return `<div class="paldex-drop-grid">${table.drops.map(d=>{const item=dropItemMeta(d.itemId);return `<a class="paldex-drop-card" href="item.html?id=${encodeURIComponent(item.canonicalId)}"><div class="paldex-drop-placeholder">${item.icon?assetImg(ASSETS.itemsDirectory,item.icon,item.name,"paldex-drop-image"):"◆"}</div><div><strong>${esc(item.name)}</strong><span>x${d.min}${d.max!==d.min?`–${d.max}`:""} · ${d.rate}%</span></div></a>`;}).join("")}</div>`;
 }
 function palDropTablesPanel(pal){
   const data=DROP_TABLES.pals[pal.id];
