@@ -191,6 +191,7 @@ if(!pal){
           </section>
 
           <section data-tab-panel="skills" hidden>
+            ${skillRecommendationsPanel(pal)}
             ${activeRows(pal.actives)}
           </section>
 
@@ -204,5 +205,6 @@ if(!pal){
   document.getElementById("pal-detail-loading").hidden=true;
   document.getElementById("pal-detail").hidden=false;
   initTabs();
+  initSkillRecommendations(pal,document.getElementById("pal-detail"));
   activateAssetFallbacks(document.getElementById("pal-detail"));
 }
