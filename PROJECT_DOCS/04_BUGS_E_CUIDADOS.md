@@ -64,14 +64,6 @@ Sempre que uma página nova for adicionada:
 2. substituir o bloco `<header><nav>...</nav></header>` em todos os HTMLs;
 3. aplicar cache-busting novo.
 
-## Cache do GitHub Pages
-
-Depois de publicar uma nova versão:
-
-- aguardar o deploy;
-- usar Ctrl + F5;
-- conferir se os scripts têm um novo parâmetro `?v=...`.
-
 ## Maiúsculas e minúsculas
 
 O GitHub Pages diferencia maiúsculas de minúsculas.

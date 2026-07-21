@@ -180,6 +180,11 @@ Em modos especializados de drop, a elegibilidade é estrita. O Pal somente entra
 
 O modo Pesca reúne todas as Partner Skills com tag `fishing`, diferenciando rendimento, captura/progresso e Pals talentosos. O Farm avançado aceita dois elementos e usa a união estrita dos especialistas dos dois alvos.
 
+## Mutação
+
+A fórmula confirmada, sua origem nativa, arredondamentos, limites, papel de
+`CombiPriority` e casos de regressão estão em `09_FORMULA_MUTACAO_NATIVA.md`.
+
 # Mutação
 
 A seleção do resultado mutante usa a fórmula confirmada no código nativo do build Steam

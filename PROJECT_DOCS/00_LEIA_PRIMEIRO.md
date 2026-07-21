@@ -1,7 +1,6 @@
 # LEIA PRIMEIRO
 
-Este diretório existe para permitir que o projeto continue em outro chat sem depender do
-histórico completo da conversa anterior.
+Este diretório reúne a documentação técnica vigente e os registros históricos do projeto.
 
 ## Ordem recomendada
 
@@ -12,7 +11,7 @@ histórico completo da conversa anterior.
 5. `03_CALCULOS.md`
 6. `04_BUGS_E_CUIDADOS.md`
 7. `05_ROADMAP.md`
-8. `06_PROMPT_PROXIMO_CHAT.md`
+8. `09_FORMULA_MUTACAO_NATIVA.md`
 
 O arquivo `07_INVENTARIO_ARQUIVOS.json` é um snapshot histórico e não representa o `HEAD`
 atual. Em caso de divergência causada pela evolução do código, a continuidade atual
@@ -28,7 +27,7 @@ tabelas de drop integrados posteriormente.
 O repositório e o estado atual dos arquivos são a fonte de verdade. Não presuma que um ZIP
 ou inventário histórico esteja mais atualizado que o `HEAD` em análise.
 
-Antes de modificar qualquer coisa:
+Princípios técnicos:
 
 - inspecionar os arquivos atuais;
 - preservar as funcionalidades já existentes;
@@ -39,15 +38,5 @@ Antes de modificar qualquer coisa:
 
 ## Assets
 
-Este pacote pode conter somente a estrutura vazia das pastas de assets, dependendo da
-versão usada como base.
-
-Se os PNGs locais não estiverem dentro do ZIP, copie novamente suas pastas:
-
-assets/pals/
-assets/items/
-assets/elements/
-assets/work/
-assets/icons_other/
-
-antes de publicar.
+Os assets usados em runtime ficam em `assets/pals/`, `assets/items/`, `assets/elements/`,
+`assets/work/` e `assets/icons_other/`. A publicação não depende de hotlinks.

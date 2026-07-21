@@ -15,9 +15,6 @@ causada pela evolução posterior do código.
 - Backend ou API obrigatória: nenhum
 - Dependências externas em runtime: nenhuma deve ser necessária
 
-As alterações desta documentação devem permanecer sem commit e sem push até revisão do
-responsável pelo projeto.
-
 ## Linha de evolução confirmada pelo Git
 
 O histórico contém 91 commits alcançáveis nas referências atuais, concentrados em 20 e
@@ -116,6 +113,11 @@ GitHub Pages. Não trocar a capitalização nem converter referências para hotl
 `breeding-official-data.js` a partir de `DT_PalMonsterParameter_Common.json` e
 `DT_PalCombiUnique.json`.
 
+`tools/generate-mutation-audit.js` regenera `audit-data.js` a partir das bases versionadas.
+A evidência, fórmula, limites e casos reproduzíveis estão em
+`09_FORMULA_MUTACAO_NATIVA.md`. O campo histórico `pairs` representa índices ponderados;
+`routePairs` representa casais distintos.
+
 `tools/generate-mutation-audit.js` gera `audit-data.js` exclusivamente a partir de
 `data.js` e `breeding-official-data.js`, sem exigir dumps externos. A fórmula de mutação
 foi confirmada no código nativo do build Steam 24181527: quantidade
@@ -202,32 +204,3 @@ As páginas usam scripts clássicos e globais em `window`. A ordem é significat
 - `PROJECT_DOCS/07_INVENTARIO_ARQUIVOS.json` foi gerado antes dos commits mais recentes,
   ainda lista `CONTINUAR_EM_OUTRO_CHAT.txt` e possui hashes antigos. É um snapshot histórico.
 - `testwrite` é vazio, mas versionado desde `dbadfdd`; remoção exige decisão explícita.
-
-## Checklist de continuidade
-
-Antes de editar:
-
-1. ler `AGENTS.md` e este documento;
-2. executar `git status --short --branch`;
-3. identificar consumidores e produtores dos dados afetados;
-4. consultar o histórico dos arquivos envolvidos;
-5. confirmar quais páginas e parâmetros de URL precisam permanecer compatíveis.
-
-Antes de entregar:
-
-1. executar validação de sintaxe disponível para JS/Python;
-2. verificar referências locais dos HTMLs;
-3. servir a raiz por HTTP local e testar páginas afetadas;
-4. revisar erros e avisos do console;
-5. executar `git diff --check`, `git diff --stat` e revisar o diff completo;
-6. confirmar que não houve alteração involuntária nas bases grandes ou assets;
-7. informar limitações de teste;
-8. não fazer commit nem push sem autorização explícita.
-
-## Próximo ponto de partida recomendado
-
-Antes de implementar uma nova funcionalidade, alinhar a documentação antiga com o estado
-V2.4 e decidir se a navegação deve permanecer híbrida ou ser consolidada. Qualquer
-regeneração de dados deve começar tornando os caminhos de entrada dos geradores
-configuráveis e documentando as fontes oficiais, sem alterar as saídas atuais até que o
-novo processo seja validado.
