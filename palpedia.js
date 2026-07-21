@@ -24,7 +24,7 @@ function workPreview(p){
 }
 
 function dropPreview(p){
-  const rows=p.drops||[];
+  const rows=previewDropsForPal(p);
   if(!rows.length)return '<span class="palpedia-empty">Sem drops registrados</span>';
   return rows.slice(0,3).map(d=>
     `<span class="palpedia-drop-chip">
@@ -56,7 +56,7 @@ function card(p){
     </div>
 
     <div class="palpedia-card-section">
-      <strong>Drops</strong>
+      <strong>Drops${previewDropConditionForPal(p)?` · ${esc(previewDropConditionForPal(p))}`:""}</strong>
       <div class="palpedia-drop-preview">${dropPreview(p)}</div>
     </div>
 

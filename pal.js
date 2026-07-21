@@ -51,19 +51,6 @@ function statsRows(stats){
       <b>${Number(stats[k]).toLocaleString("pt-BR")}</b>
     </div>`).join("");
 }
-function dropRows(drops){
-  if(!drops?.length)return '<div class="paldex-empty">Nenhum drop registrado.</div>';
-  return `<div class="paldex-drop-grid">${drops.map(d=>`
-    <article class="paldex-drop-card">
-      <div class="paldex-drop-placeholder">
-        ${d.icon?assetImg(ASSETS.itemsDirectory,d.icon,d.name,"paldex-drop-image"):"◆"}
-      </div>
-      <div>
-        <strong>${esc(d.name)}</strong>
-        <span>x${d.min??"—"}${d.max!==undefined&&d.max!==d.min?`–${d.max}`:""} · ${d.rate!==undefined?`${d.rate}%`:"—"}</span>
-      </div>
-    </article>`).join("")}</div>`;
-}
 function activeRows(actives){
   if(!actives?.length)return '<div class="paldex-empty">Nenhuma habilidade ativa registrada.</div>';
   return `<div class="paldex-skills">${actives.map(a=>`
@@ -178,7 +165,7 @@ if(!pal){
 
             <section class="paldex-content-section">
               <span class="paldex-eyebrow">DROPS</span>
-              ${dropRows(pal.drops)}
+              ${palDropTablesPanel(pal)}
             </section>
           </section>
 
@@ -206,5 +193,6 @@ if(!pal){
   document.getElementById("pal-detail").hidden=false;
   initTabs();
   initSkillRecommendations(pal,document.getElementById("pal-detail"));
+  initPalDropTables(pal,document.getElementById("pal-detail"));
   activateAssetFallbacks(document.getElementById("pal-detail"));
 }

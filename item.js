@@ -13,16 +13,17 @@
   }
 
   try {
-    if (!window.ITEMS_DATA) {
+    const itemDatabase=window.ITEMS_DATA_ACCURATE||window.ITEMS_DATA;
+    if (!itemDatabase) {
       throw new Error("O arquivo items-data.js não foi carregado.");
     }
 
     const query = new URLSearchParams(location.search).get("id") || "";
     const decodedQuery = decodeURIComponent(query);
     const item =
-      window.ITEMS_DATA[decodedQuery] ||
-      window.ITEMS_DATA[query] ||
-      Object.values(window.ITEMS_DATA).find(
+      itemDatabase[decodedQuery] ||
+      itemDatabase[query] ||
+      Object.values(itemDatabase).find(
         x => x.name.toLowerCase() === decodedQuery.toLowerCase()
       );
 
@@ -72,6 +73,7 @@
           <span>Taxa</span>
           <b>${row.rate !== undefined && row.rate !== null ? `${row.rate}%` : "—"}</b>
         </div>
+        ${row.variant?`<div class="item-source-condition"><span>${esc(dropConditionLabel(row))}</span></div>`:""}
       </article>`;
 
     document.title = `${item.name} | Itens`;
@@ -124,7 +126,7 @@
             <span class="hero-kicker">FONTES</span>
             <h2>Pals que dropam este item</h2>
           </div>
-          <p>Ordenado por taxa e quantidade máxima.</p>
+          <p>Separado por variante e nível da tabela de drops.</p>
         </div>
 
         <div class="item-source-list">

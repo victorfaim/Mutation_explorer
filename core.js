@@ -158,7 +158,7 @@ document.addEventListener("DOMContentLoaded",()=>activateAssetFallbacks(document
 // O módulo global observa também o conteúdo criado dinamicamente pelas ferramentas.
 if(!document.querySelector('script[data-pme-i18n]')){
   const i18nScript=document.createElement("script");
-  i18nScript.src="i18n.js?v=20260720-26";
+  i18nScript.src="i18n.js?v=20260721-1";
   i18nScript.dataset.pmeI18n="1";
   document.head.appendChild(i18nScript);
 }
