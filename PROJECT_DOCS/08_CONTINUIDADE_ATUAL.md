@@ -51,6 +51,8 @@ reintroduzir domínio personalizado nem mudar o mecanismo de publicação por su
 - `breeding-official-data.js`: complementa `window.PAL_DATA` com `combiRank`,
   `combiPriority`, `ignoreCombi` e `isBoss`; substitui regras únicas pelas DataTables
   oficiais e adiciona regras dependentes de gênero.
+- `pal-tooltip-data.js`: mapa compacto de sufixos, raridades e elementos da Palpedia usado
+  nos tooltips das ferramentas leves, sem exigir o carregamento de `palpedia-data.js`.
 - `audit-data.js`: `window.PAL_STATUS` e `window.AUDIT_SUMMARY` pré-calculados.
 - `palpedia-data.js`: `window.PALPEDIA_DATA`, com ficha detalhada de cada Pal.
 - `items-data.js`: `window.ITEMS_DATA`, índice reverso principal dos 116 itens.

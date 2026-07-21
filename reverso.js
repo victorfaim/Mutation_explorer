@@ -16,7 +16,7 @@ function pickerCard(p){
       class="picker-card state-${meta.state}${selected?" is-selected":""}"
       data-pal-id="${esc(p.id)}"
       title="${esc(meta.reason)}">
-    <span class="picker-avatar">
+    <span class="picker-avatar" title="${esc(palIconTooltip(p))}">
       ${palIconUrl(p)?`<img loading="lazy" decoding="async" src="${palIconUrl(p)}" alt="" onerror="this.style.display='none'">`:""}
       ${disabled?`<span class="picker-lock" aria-hidden="true">×</span>`:""}
     </span>
@@ -51,7 +51,7 @@ function showSelected(p){
   const obtainable=meta.state==="obtainable";
   document.getElementById("selected-target").innerHTML=`
     <div class="selected-pal-card">
-      <span class="selected-avatar">
+      <span class="selected-avatar" title="${esc(palIconTooltip(p))}">
         ${palIconUrl(p)?`<img src="${palIconUrl(p)}" alt="" onerror="this.style.display='none'">`:""}
       </span>
       <div>

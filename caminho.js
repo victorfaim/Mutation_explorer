@@ -8,7 +8,7 @@ const selectablePals=allPals
 
 function pathPickerCard(p,selectedId){
   return `<button type="button" class="path-pal-card${selectedId===p.id?" is-selected":""}" data-pal-id="${esc(p.id)}">
-    <span class="picker-avatar">
+    <span class="picker-avatar" title="${esc(palIconTooltip(p))}">
       ${palIconUrl(p)?`<img loading="lazy" decoding="async" src="${palIconUrl(p)}" alt="" onerror="this.style.display='none'">`:""}
     </span>
     <strong>${esc(p.name)}</strong>
@@ -29,7 +29,7 @@ function renderGrid(type){
 
 function selectedChip(p){
   if(!p)return "";
-  return `<div class="path-selected-pal">
+  return `<div class="path-selected-pal" title="${esc(palIconTooltip(p))}">
     ${palIconUrl(p)?`<img src="${palIconUrl(p)}" alt="" onerror="this.style.display='none'">`:""}
     <div><span class="muted">${p===startPal?"Partida":"Target"}</span><strong>${esc(p.name)}</strong></div>
   </div>`;
@@ -143,19 +143,19 @@ function stepCard(step,index){
   return `<article class="breeding-step">
     <div class="breeding-step-number">Etapa ${index+1}</div>
     <div class="breeding-equation">
-      <div class="breeding-pal lineage-pal">
+      <div class="breeding-pal lineage-pal" title="${esc(palIconTooltip(lineage))}">
         ${palIconUrl(lineage)?`<img src="${palIconUrl(lineage)}" alt="" loading="lazy" onerror="this.style.display='none'">`:""}
         <strong>${esc(lineage.name)}</strong>
         <span>${step.rule?`Da linhagem · ${genderLabel(step.rule.aGender)}`:"Da linhagem"}</span>
       </div>
       <div class="breeding-operator">+</div>
-      <div class="breeding-pal">
+      <div class="breeding-pal" title="${esc(palIconTooltip(partner))}">
         ${palIconUrl(partner)?`<img src="${palIconUrl(partner)}" alt="" loading="lazy" onerror="this.style.display='none'">`:""}
         <strong>${esc(partner.name)}</strong>
         <span>${step.rule?`Parceiro · ${genderLabel(step.rule.bGender)}`:"Parceiro"}</span>
       </div>
       <div class="breeding-operator breeding-arrow">→</div>
-      <div class="breeding-pal child-pal">
+      <div class="breeding-pal child-pal" title="${esc(palIconTooltip(child))}">
         ${palIconUrl(child)?`<img src="${palIconUrl(child)}" alt="" loading="lazy" onerror="this.style.display='none'">`:""}
         <strong>${esc(child.name)}</strong>
         <span>${index===0?"Primeiro descendente":"Continua a linhagem"}</span>

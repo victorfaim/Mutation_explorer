@@ -5,6 +5,7 @@ const NORMAL_NEAREST=window.NORMAL_NEAREST;
 const MUTATION_NEAREST=window.MUTATION_NEAREST;
 const UNIQUE_PAIRS=window.UNIQUE_PAIRS;
 const UNIQUE_GENDER_RULES=window.UNIQUE_GENDER_RULES||{};
+const PAL_TOOLTIP_DATA=window.PAL_TOOLTIP_DATA||{};
 const allPals=Object.values(PALS);
 const roundGame=n=>Math.floor(Number(n)+.5);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
@@ -99,6 +100,15 @@ function palIconUrl(p){
   return p?.icon?localAssetUrl(ASSETS.palsDirectory,p.icon):"";
 }
 
+function palIconTooltip(p){
+  if(!p)return "";
+  const meta=PAL_TOOLTIP_DATA[p.id]||{};
+  const number=Number(p.index)>=0?`${p.index}${meta.suffix||p.suffix||""}`:"—";
+  const elements=meta.elements||[];
+  const rarity=meta.rarity||"Raridade desconhecida";
+  return `N-#${number}/${rarity} · ${elements.length?elements.join(" + "):"Elemento desconhecido"}`;
+}
+
 function itemIconUrl(item){
   return item?.icon?localAssetUrl(ASSETS.itemsDirectory,item.icon):"";
 }
@@ -142,7 +152,7 @@ function activateAssetFallbacks(root=document){
 
 function palChip(p,extraClass=""){
   if(!p)return "—";
-  return `<span class="pal-chip ${extraClass}">${p.icon?assetImg(ASSETS.palsDirectory,p.icon,"",""):""}<span>${esc(p.name)}</span></span>`;
+  return `<span class="pal-chip ${extraClass}" title="${esc(palIconTooltip(p))}">${p.icon?assetImg(ASSETS.palsDirectory,p.icon,p.name,""):""}<span>${esc(p.name)}</span></span>`;
 }
 
 const assetFallbackObserver=new MutationObserver(()=>activateAssetFallbacks(document));
