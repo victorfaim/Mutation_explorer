@@ -155,3 +155,10 @@ document.addEventListener("DOMContentLoaded",()=>activateAssetFallbacks(document
   ];
   nav.innerHTML=links.map(([href,label,pages])=>`<a${pages.includes(page)?' class="active"':''} href="${href}">${label}</a>`).join("");
 })();
+// O módulo global observa também o conteúdo criado dinamicamente pelas ferramentas.
+if(!document.querySelector('script[data-pme-i18n]')){
+  const i18nScript=document.createElement("script");
+  i18nScript.src="i18n.js?v=20260720-25";
+  i18nScript.dataset.pmeI18n="1";
+  document.head.appendChild(i18nScript);
+}

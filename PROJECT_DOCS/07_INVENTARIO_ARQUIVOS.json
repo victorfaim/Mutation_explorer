@@ -1,0 +1,347 @@
+{
+  "project": "Pal Mutation Explorer",
+  "version": "V2.4 Resultados Expandidos",
+  "generated_at": "2026-07-20T15:19:56",
+  "files": [
+    {
+      "path": "CONTINUAR_EM_OUTRO_CHAT.txt",
+      "size_bytes": 206,
+      "sha256": "bf98087022c32cddb1341ce2b4a25ba270e6e217adf88d5db8d519fcc037b3ed"
+    },
+    {
+      "path": "PROJECT_DOCS/00_LEIA_PRIMEIRO.md",
+      "size_bytes": 1066,
+      "sha256": "6b6edd8d674a551c7badae4a001251796dabba1cd114922a5b88409bd7e44922"
+    },
+    {
+      "path": "PROJECT_DOCS/01_VISAO_GERAL.md",
+      "size_bytes": 2113,
+      "sha256": "24ad51b51c97655d0260921ad2a375e1f360f85247711071b30bc6588349c36f"
+    },
+    {
+      "path": "PROJECT_DOCS/02_ARQUITETURA.md",
+      "size_bytes": 2586,
+      "sha256": "db13cacec1a329398ee579b0632f22010cb531d01f624439f80e522d9c22fcbb"
+    },
+    {
+      "path": "PROJECT_DOCS/03_CALCULOS.md",
+      "size_bytes": 3317,
+      "sha256": "a3d27989eb6a29e42520f6c3f1cf6ef4a29dd0eff5a6a25706e32ddb671a4870"
+    },
+    {
+      "path": "PROJECT_DOCS/04_BUGS_E_CUIDADOS.md",
+      "size_bytes": 2070,
+      "sha256": "1204bec20f6c649145dc032eb10bf310ebef9fe2f594ba45aa3570111997d5d7"
+    },
+    {
+      "path": "PROJECT_DOCS/05_ROADMAP.md",
+      "size_bytes": 3165,
+      "sha256": "6eb098f91dcb5a7086f2ca42460765b1f97ecb93997538419696c0bfba659938"
+    },
+    {
+      "path": "PROJECT_DOCS/06_PROMPT_PROXIMO_CHAT.md",
+      "size_bytes": 1785,
+      "sha256": "7dd5fe2ee8f48df5debdb6eb0052a9265b4fa944a2d0e3f4299ab16fed91ba54"
+    },
+    {
+      "path": "README.txt",
+      "size_bytes": 1285,
+      "sha256": "1322d21b8e2528cccccc22ea4a6cb5c29fa7c01d36991c7731c3c7fc3607038b"
+    },
+    {
+      "path": "README_ASSETS_LOCAIS.txt",
+      "size_bytes": 988,
+      "sha256": "e1780c0baa453b6b1c5d6cbb991e2d34714b0dd68837aa61ec8426b6f76d5fb4"
+    },
+    {
+      "path": "README_CAMINHO_BREEDING.txt",
+      "size_bytes": 515,
+      "sha256": "6edb94ff5f7501190f21e6d4ea8463263a91dd33d29ea6bea402e572c0257e28"
+    },
+    {
+      "path": "README_FIX_DROPS_TRABALHO.txt",
+      "size_bytes": 405,
+      "sha256": "51fff2599037bc697ea0b3d9008ff3ce4e2074b7396003a4224d13bbfef52f36"
+    },
+    {
+      "path": "README_FIX_FONTES_ITENS.txt",
+      "size_bytes": 374,
+      "sha256": "f2a3b3ac1c6060739d77c9e63436844b45fbed34d846528f6635629deb6e98ba"
+    },
+    {
+      "path": "README_FIX_ITEM_DETAIL.txt",
+      "size_bytes": 243,
+      "sha256": "ce9f346bc6733e89fe3ecc3341a1e0e52c183d016f68299ad2175b085c795d9e"
+    },
+    {
+      "path": "README_GITHUB_PAGES.txt",
+      "size_bytes": 507,
+      "sha256": "19d319df156ced0e76b9ee3ab9294a3c07fea70e08296cf6166a925c16bbef88"
+    },
+    {
+      "path": "README_MENU_CORRIGIDO.txt",
+      "size_bytes": 387,
+      "sha256": "547ed3a7da7e51355a256c7a5cb61a1ef9e89d9828d7caca2c8291ee3089bb0a"
+    },
+    {
+      "path": "README_NOVO_LAYOUT_PALPEDIA.txt",
+      "size_bytes": 489,
+      "sha256": "cc4de34cbaf7552a0ea086461812108f7d76216c37d9fca38ec03723750803e8"
+    },
+    {
+      "path": "README_PALPEDIA.txt",
+      "size_bytes": 252,
+      "sha256": "a878d3fe56970ea7f1f035de8a894f099fe50fcbc81fd9029d6244cbcf9852dd"
+    },
+    {
+      "path": "README_PARTNER_SKILLS.txt",
+      "size_bytes": 681,
+      "sha256": "85bb25d2285f11d61592792e044924478f0e10d303f79f8dadb48564c2e36273"
+    },
+    {
+      "path": "README_TEAM_BUILDER.txt",
+      "size_bytes": 1470,
+      "sha256": "1d854b0f9df05b56b8b8ed386de749822890c39f0965f2c38897995fd0a82681"
+    },
+    {
+      "path": "README_TIER_COMPARADOR.txt",
+      "size_bytes": 559,
+      "sha256": "b32d2e1ae266d61d535706bddabc7728a10e340f7a23ee810ee236ffbd9fd370"
+    },
+    {
+      "path": "README_V2_1_BASE_MANAGEMENT.txt",
+      "size_bytes": 456,
+      "sha256": "e880d3fe484f92763c7f72fd9cc2aa3e8382175e46d386b42d4603c398176eac"
+    },
+    {
+      "path": "asset-config.js",
+      "size_bytes": 1154,
+      "sha256": "81cfa16f0a550b7f640252b65d5a6225804bced63de08ca50043c9d0470ef3c7"
+    },
+    {
+      "path": "assets/elements/.gitkeep",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "assets/icons_other/.gitkeep",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "assets/items/.gitkeep",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "assets/pals/.gitkeep",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "assets/work/.gitkeep",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "audit-data.js",
+      "size_bytes": 31150,
+      "sha256": "a07b240fee6f844e05f130376a9c34319616cb99c6e270b7696c9accf77ea8b3"
+    },
+    {
+      "path": "auditoria.html",
+      "size_bytes": 1459,
+      "sha256": "50e80f227326f7a72914683ee39ecacfb4da78e86b6020e8dc85fb9867aa3cd9"
+    },
+    {
+      "path": "auditoria.js",
+      "size_bytes": 966,
+      "sha256": "e5082dd061e16a28fefe1a4bf14082b0b4f3facc2258abbf61e6ba6d29ab7acf"
+    },
+    {
+      "path": "caminho.html",
+      "size_bytes": 3893,
+      "sha256": "98dfe7d75f44d594cd53db0f75d4f35c34aa67126106bc87844da710c6ef95fc"
+    },
+    {
+      "path": "caminho.js",
+      "size_bytes": 8112,
+      "sha256": "5c7bbeb1044aed63c29c75b646237ff7df53917117a3c79cb9a53734364c2c15"
+    },
+    {
+      "path": "combat-score.js",
+      "size_bytes": 3587,
+      "sha256": "fc454c112e2b06bf13faa227386ff85d443a3ce166b47dbf9c002d66e2ef5a5e"
+    },
+    {
+      "path": "comparador.html",
+      "size_bytes": 3871,
+      "sha256": "4820d3aaa295c654b0b10722a839e0c4462e6f0991b09a637b299653bb840c3a"
+    },
+    {
+      "path": "comparador.js",
+      "size_bytes": 6174,
+      "sha256": "31f428f5e35e2120aa69a426a6f8a7672bf684d4708b9bbb1347566bf87a4d7d"
+    },
+    {
+      "path": "core.js",
+      "size_bytes": 4498,
+      "sha256": "349bac05bd5bf030a42a8968f5e5d43b7f65c1ff770ddfd1a387ec0b1941e556"
+    },
+    {
+      "path": "data.js",
+      "size_bytes": 210697,
+      "sha256": "5a415e1c458b2491d9a0102088054d0a89a9c5649b6d9155db11685eb1151545"
+    },
+    {
+      "path": "enciclopedia.html",
+      "size_bytes": 1591,
+      "sha256": "43a3a81f926c7ca2a33024bc22c734af4e30cd3935f5080662ffe737744e453b"
+    },
+    {
+      "path": "enciclopedia.js",
+      "size_bytes": 1067,
+      "sha256": "58e76c1cd067825bdbad2de5fbd246cbb1238d90b78c9c9273b894daf14fed5e"
+    },
+    {
+      "path": "home.js",
+      "size_bytes": 570,
+      "sha256": "39f670b2f15c2c7b726e139ac8f702ff0a98b15523fcad2e3945f38edbd6a525"
+    },
+    {
+      "path": "impossiveis.html",
+      "size_bytes": 1539,
+      "sha256": "f7b52a412940da88af08e06ebd1b26b3b32d51314bd6200f38279376ec6c4d93"
+    },
+    {
+      "path": "impossiveis.js",
+      "size_bytes": 912,
+      "sha256": "42257af8bcfb74ca0e4d3078462d9f9480118f7cf0799be0d22cdc23392067d1"
+    },
+    {
+      "path": "index.html",
+      "size_bytes": 9130,
+      "sha256": "b22a35cb313b03cf1dd205c56870673ad87c583f06f1498451c32f881b395402"
+    },
+    {
+      "path": "item.html",
+      "size_bytes": 1207,
+      "sha256": "6f1ea1633a63a3f6b5729881825659110517c1fbbb8ce73897dbd94b0522dc4d"
+    },
+    {
+      "path": "item.js",
+      "size_bytes": 4417,
+      "sha256": "9dbac6b23ecf73c1ee9c13f6d7a7dde292ea8c542d4d8c90512362cc20a3cd23"
+    },
+    {
+      "path": "items-data.js",
+      "size_bytes": 234268,
+      "sha256": "7de046ae53816029b08ac29a961997dbacf9dd52a70d6199832e6b821285fccb"
+    },
+    {
+      "path": "itens.html",
+      "size_bytes": 2078,
+      "sha256": "8b3944faa3f0c98d65a1f1dd35f5ef061867b1d42fdd17c6eb7779b2a9d7887d"
+    },
+    {
+      "path": "itens.js",
+      "size_bytes": 2109,
+      "sha256": "29bd96ffed5497863b84e130b28ee9cf1f7c22d959b7ca4f0a4c9477fcdd3030"
+    },
+    {
+      "path": "pal.html",
+      "size_bytes": 1331,
+      "sha256": "7d3ca9b4baea27cd5b1093ddc86c77f4fe8c167456291c6676b8e3ab22e980d5"
+    },
+    {
+      "path": "pal.js",
+      "size_bytes": 9127,
+      "sha256": "15d6a171af7d674fa5eb75ddddff134cbdcd452fff108a175aa543fa101d715a"
+    },
+    {
+      "path": "palpedia-data.js",
+      "size_bytes": 1016919,
+      "sha256": "65b955314174af2f9b1962a8bdd21ee35215e1d7b9bf5ea6d9473fbb080f0e6b"
+    },
+    {
+      "path": "palpedia.html",
+      "size_bytes": 2460,
+      "sha256": "88dae1df46db512b7b2c472ba3c7d22f764701ea414ae25b24fe6bb6596adbee"
+    },
+    {
+      "path": "palpedia.js",
+      "size_bytes": 4617,
+      "sha256": "232e9eb3843b68d8c4cdbae4fb76a747ade9bcd9d5bef716fff3498739cc5526"
+    },
+    {
+      "path": "partner-skills.html",
+      "size_bytes": 5573,
+      "sha256": "4c59363e4473f081dedb99366cbbbc39c0d7a89384ccc7d83d5a55911f3d045a"
+    },
+    {
+      "path": "partner-skills.js",
+      "size_bytes": 6902,
+      "sha256": "03d99e0b7ab29151412a10d7d2a45674beb90a867149d6ea219d51dbd31d176c"
+    },
+    {
+      "path": "reverso.html",
+      "size_bytes": 3420,
+      "sha256": "113f87cf32cf57481f6f6d21d1fac8fe50c6a7ccc1851d8ece478b5d0389d55f"
+    },
+    {
+      "path": "reverso.js",
+      "size_bytes": 6851,
+      "sha256": "15073dc39568dc5ec911a1ca2fe4786905437218c495aaa579f0439de2cdf07b"
+    },
+    {
+      "path": "style.css",
+      "size_bytes": 53171,
+      "sha256": "eec00f77285277487e9afdeb9f59474684dd9e735f7ed35f864bf7c278942593"
+    },
+    {
+      "path": "team-builder.html",
+      "size_bytes": 6705,
+      "sha256": "bd3b1eb4c988103e96ba5ee5ee2c978b308227deb805c93480bda4c444eed6e0"
+    },
+    {
+      "path": "team-builder.js",
+      "size_bytes": 13211,
+      "sha256": "1b37e42b4a1a8650a3bd7b99022c314e322f1a70e4eb43a7e5cbff0ffab83642"
+    },
+    {
+      "path": "tierlist.html",
+      "size_bytes": 3247,
+      "sha256": "5eaae7f06f730a5ab51e70404d9b34f5a7e2cc931fcf365e0cc1e41d4b669add"
+    },
+    {
+      "path": "tierlist.js",
+      "size_bytes": 4508,
+      "sha256": "2bbc3a1b13ff9e924320d81aed72bc1aaaf85ded6e75affe364e5ac4b2a6eb66"
+    },
+    {
+      "path": "tiertrabalho.html",
+      "size_bytes": 2563,
+      "sha256": "4dd263904f2ecb890a279eae71856b6e82f2655300ffbcfd615fa9f234d8cee0"
+    },
+    {
+      "path": "tiertrabalho.js",
+      "size_bytes": 4912,
+      "sha256": "66c1a852e32378c5725ac856b3ff84b339fbeaeb597625a3a3576ff54884bac9"
+    },
+    {
+      "path": "work-score.js",
+      "size_bytes": 5930,
+      "sha256": "bbb15adf1ca4e003116174833dc74918359bc3e7c43565f5052d98385f3ff22c"
+    },
+    {
+      "path": "worker-finder.html",
+      "size_bytes": 2260,
+      "sha256": "7caf03d2e8c2c6a72148d8bd2ca11d1af8940778b49e0138108e888d520c5e2f"
+    },
+    {
+      "path": "worker-finder.js",
+      "size_bytes": 3520,
+      "sha256": "8713ceddb12d94a7872ec13439d6b401568a94aff9675a3473521c7254d4a96f"
+    }
+  ]
+}
