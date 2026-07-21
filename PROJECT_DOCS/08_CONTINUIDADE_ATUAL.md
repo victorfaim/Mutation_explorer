@@ -83,6 +83,15 @@ atualizar todos os consumidores.
 - `comparador.html`: comparador de combate.
 - `comparador-trabalho.html`: comparador de trabalho ainda funcional.
 
+### Laboratório local não publicado na navegação
+
+- `mapa-lab.html`: validação de coordenadas estáticas sobre imagem local com Leaflet e
+  `CRS.Simple`;
+- não possui link na navegação pública;
+- imagens, dumps, marcadores reais e calibração permanecem em
+  `LOCAL_RESEARCH/raw/mapa-lab/`, fora do Git;
+- formato e operação estão documentados em `PROJECT_DOCS/10_MAPA_LAB.md`.
+
 ### URLs legadas preservadas
 
 - `auditoria.html` → `palpedia.html`

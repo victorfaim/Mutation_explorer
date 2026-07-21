@@ -12,6 +12,7 @@ Este diretório reúne a documentação técnica vigente e os registros históri
 6. `04_BUGS_E_CUIDADOS.md`
 7. `05_ROADMAP.md`
 8. `09_FORMULA_MUTACAO_NATIVA.md`
+9. `10_MAPA_LAB.md`
 
 O arquivo `07_INVENTARIO_ARQUIVOS.json` é um snapshot histórico e não representa o `HEAD`
 atual. Em caso de divergência causada pela evolução do código, a continuidade atual

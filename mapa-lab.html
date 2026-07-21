@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Mapa Lab | Pal Mutation Explorer</title>
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css?v=1.9.4">
+  <link rel="stylesheet" href="mapa-lab.css?v=20260721-1">
+</head>
+<body>
+  <main class="map-lab-shell">
+    <header class="map-lab-head">
+      <div><span class="eyebrow">LABORATÓRIO LOCAL</span><h1>Validação de coordenadas estáticas</h1></div>
+      <p>Esta página é isolada e não faz parte da navegação pública.</p>
+    </header>
+
+    <section class="map-lab-controls" aria-label="Entradas do laboratório">
+      <label>Imagem local<input id="map-image-file" type="file" accept="image/png,image/jpeg,image/webp"></label>
+      <label>Marcadores JSON<input id="map-markers-file" type="file" accept="application/json,.json"></label>
+      <label>Calibração JSON<input id="map-calibration-file" type="file" accept="application/json,.json"></label>
+      <button id="map-load-defaults" type="button">Carregar pasta local padrão</button>
+      <button id="map-fit-calibration" type="button">Recalcular calibração</button>
+    </section>
+
+    <div id="map-lab-status" class="map-lab-status" role="status">Selecione uma imagem e os JSONs, ou carregue a pasta local padrão.</div>
+
+    <section class="map-lab-workspace">
+      <div id="map-lab-map" aria-label="Mapa de calibração"></div>
+      <aside class="map-lab-inspector">
+        <h2>Coordenadas</h2>
+        <dl id="map-coordinate-output"><dt>Estado</dt><dd>Aguardando clique no mapa.</dd></dl>
+        <h2>Calibração</h2>
+        <dl id="map-calibration-output"><dt>Estado</dt><dd>Não calculada.</dd></dl>
+        <label class="map-lab-toggle"><input id="map-show-references" type="checkbox" checked> Exibir referências</label>
+        <label class="map-lab-toggle"><input id="map-show-markers" type="checkbox" checked> Exibir marcadores</label>
+      </aside>
+    </section>
+  </main>
+  <script src="vendor/leaflet/leaflet.js?v=1.9.4"></script>
+  <script src="mapa-lab-transform.js?v=20260721-1"></script>
+  <script src="mapa-lab.js?v=20260721-1"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "map": {"id": "example", "image": "../LOCAL_RESEARCH/raw/mapa-lab/map.png", "width": 2048, "height": 2048, "pixelOrigin": "top-left"},
+  "referencePoints": [
+    {"id": "ref-a", "label": "Referência A", "native": {"x": 0, "y": 0, "z": 0}, "game": {"x": 0, "y": 0}, "image": {"pixelX": 128, "pixelY": 192, "u": 0.0625, "v": 0.09375}, "use": "fit"},
+    {"id": "ref-b", "label": "Referência B", "native": {"x": 1000, "y": 0, "z": 10}, "game": {"x": 100, "y": 0}, "image": {"pixelX": 1728, "pixelY": 192, "u": 0.84375, "v": 0.09375}, "use": "fit"},
+    {"id": "ref-c", "label": "Referência C", "native": {"x": 0, "y": 1000, "z": 20}, "game": {"x": 0, "y": 100}, "image": {"pixelX": 128, "pixelY": 1792, "u": 0.0625, "v": 0.875}, "use": "fit"}
+  ],
+  "markers": [
+    {"id": "marker-example", "type": "static-location", "label": "Marcador fictício", "native": {"x": 500, "y": 500, "z": 15}, "game": {"x": 50, "y": 50}, "image": {"pixelX": 928, "pixelY": 992, "u": 0.453125, "v": 0.484375}, "source": {"asset": "exemplo", "row": "exemplo"}}
+  ]
+}
