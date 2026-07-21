@@ -79,10 +79,12 @@ function buildAdjacencyFor(currentId){
 
   for(const partnerId of PARENT_IDS){
     const partner=PALS[partnerId];
-    const child=normalChild(current,partner);
-    if(!child||child.id===currentId||seenChildren.has(child.id))continue;
-    seenChildren.add(child.id);
-    edges.push({childId:child.id,partnerId:partner.id});
+    for(const outcome of normalChildren(current,partner)){
+      const child=outcome.pal;
+      if(!child||child.id===currentId||seenChildren.has(child.id))continue;
+      seenChildren.add(child.id);
+      edges.push({childId:child.id,partnerId:partner.id,rule:outcome.rule});
+    }
   }
 
   return edges;
@@ -106,9 +108,10 @@ function findShortestPath(startId,targetId){
     for(const edge of getEdges(currentId)){
       if(visited.has(edge.childId))continue;
       visited.add(edge.childId);
-      previous.set(edge.childId,{
-        previousId:currentId,
-        partnerId:edge.partnerId
+        previous.set(edge.childId,{
+          previousId:currentId,
+          partnerId:edge.partnerId,
+          rule:edge.rule
       });
 
       if(edge.childId===targetId){
@@ -119,6 +122,7 @@ function findShortestPath(startId,targetId){
           steps.push({
             parentLineageId:info.previousId,
             partnerId:info.partnerId,
+            rule:info.rule,
             childId:cursor
           });
           cursor=info.previousId;
@@ -142,13 +146,13 @@ function stepCard(step,index){
       <div class="breeding-pal lineage-pal">
         ${palIconUrl(lineage)?`<img src="${palIconUrl(lineage)}" alt="" loading="lazy" onerror="this.style.display='none'">`:""}
         <strong>${esc(lineage.name)}</strong>
-        <span>Da linhagem</span>
+        <span>${step.rule?`Da linhagem · ${genderLabel(step.rule.aGender)}`:"Da linhagem"}</span>
       </div>
       <div class="breeding-operator">+</div>
       <div class="breeding-pal">
         ${palIconUrl(partner)?`<img src="${palIconUrl(partner)}" alt="" loading="lazy" onerror="this.style.display='none'">`:""}
         <strong>${esc(partner.name)}</strong>
-        <span>Parceiro</span>
+        <span>${step.rule?`Parceiro · ${genderLabel(step.rule.bGender)}`:"Parceiro"}</span>
       </div>
       <div class="breeding-operator breeding-arrow">→</div>
       <div class="breeding-pal child-pal">

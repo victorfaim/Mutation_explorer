@@ -115,7 +115,7 @@ function run(){
         const chance=hits/out.count*100;
         if(chance<min||out.counts.size>maxPool)continue;
 
-        const child=normalChild(a,b);
+        const children=normalChildren(a,b);
         const pool=[...out.counts.entries()]
           .sort((x,y)=>y[1]-x[1])
           .map(([id,n])=>`${PALS[id].name} (${fmt(n/out.count*100)})`)
@@ -124,7 +124,7 @@ function run(){
         found.push({
           a:a.name,aId:a.id,
           b:b.name,bId:b.id,
-          normal:child.name,normalId:child.id,
+          normalChildren:children.map(({pal,rule})=>({id:pal.id,rule})),
           chance,poolSize:out.counts.size,pool
         });
       }
@@ -157,7 +157,7 @@ function renderMore(){
     next.map(r=>`<tr>
       <td>${palChip(PALS[r.aId])}</td>
       <td>${palChip(PALS[r.bId])}</td>
-      <td>${palChip(PALS[r.normalId])}</td>
+      <td>${r.normalChildren.map(row=>`${palChip(PALS[row.id])}${row.rule?`<br><small class="muted">${esc(breedingRuleLabel(row.rule))}</small>`:""}`).join('<br>')}</td>
       <td>${fmt(r.chance)}</td>
       <td><b>${r.poolSize}</b><br><span class="muted">${esc(r.pool)}</span></td>
     </tr>`).join(""));

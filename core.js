@@ -4,6 +4,7 @@ const PARENT_IDS=window.PARENT_IDS;
 const NORMAL_NEAREST=window.NORMAL_NEAREST;
 const MUTATION_NEAREST=window.MUTATION_NEAREST;
 const UNIQUE_PAIRS=window.UNIQUE_PAIRS;
+const UNIQUE_GENDER_RULES=window.UNIQUE_GENDER_RULES||{};
 const allPals=Object.values(PALS);
 const roundGame=n=>Math.floor(Number(n)+.5);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
@@ -20,11 +21,23 @@ function mutationRanks(a,b){
   const start=roundGame(low*.5)+roundGame(diff*.4)+1;
   return {count,start};
 }
-function normalChild(a,b){
+function normalChildren(a,b){
+  const genderRules=UNIQUE_GENDER_RULES[a.id+"|"+b.id];
+  if(genderRules?.length)return genderRules.map(rule=>({pal:PALS[rule.child],rule})).filter(row=>row.pal);
   const special=UNIQUE_PAIRS[a.id+"|"+b.id];
-  if(special)return PALS[special];
-  if(a.id===b.id)return a;
-  return PALS[NORMAL_NEAREST[(a.combiRank+b.combiRank+1)>>1]];
+  if(special)return [{pal:PALS[special],rule:null}];
+  if(a.id===b.id)return [{pal:a,rule:null}];
+  return [{pal:PALS[NORMAL_NEAREST[(a.combiRank+b.combiRank+1)>>1]],rule:null}];
+}
+function normalChild(a,b){
+  return normalChildren(a,b)[0]?.pal||null;
+}
+function genderLabel(value){
+  return value==="Male"?"Macho":value==="Female"?"Fêmea":"Qualquer";
+}
+function breedingRuleLabel(rule){
+  if(!rule)return "";
+  return `${genderLabel(rule.aGender)} + ${genderLabel(rule.bGender)}`;
 }
 function outcomes(a,b){
   const {count,start}=mutationRanks(a,b);
