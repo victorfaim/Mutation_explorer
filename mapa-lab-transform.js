@@ -39,6 +39,24 @@
     return {pixelX:[a,b,c],pixelY:[d,e,f]};
   }
 
+  function fitSimilarity(points){
+    if(!Array.isArray(points)||points.length<2)throw new Error("A calibração por similaridade exige ao menos dois pontos.");
+    const rows=[],values=[];
+    for(const point of points){
+      const {x,y}=point.native,{pixelX,pixelY}=point.image;
+      if(![x,y,pixelX,pixelY].every(Number.isFinite))throw new Error(`Referência inválida: ${point.id||"sem id"}`);
+      rows.push([x,y,1,0],[y,-x,0,1]);
+      values.push(pixelX,pixelY);
+    }
+    const normal=Array.from({length:4},()=>Array(4).fill(0)),rhs=Array(4).fill(0);
+    rows.forEach((row,i)=>row.forEach((value,r)=>{
+      rhs[r]+=value*values[i];
+      row.forEach((other,c)=>normal[r][c]+=value*other);
+    }));
+    const [a,b,c,f]=solveLinear(normal,rhs);
+    return {pixelX:[a,b,c],pixelY:[-b,a,f]};
+  }
+
   function nativeToPixel(native,coefficients){
     const [a,b,c]=coefficients.pixelX,[d,e,f]=coefficients.pixelY;
     return {pixelX:a*native.x+b*native.y+c,pixelY:d*native.x+e*native.y+f};
@@ -69,5 +87,5 @@
     return {count:rows.length,rmsePixels:rows.length?Math.sqrt(squareSum/rows.length):null,maxErrorPixels:rows.length?Math.max(...rows.map(row=>row.errorPixels)):null,points:rows};
   }
 
-  return {fitAffine,nativeToPixel,pixelToNative,normalize,toLeaflet,fromLeaflet,validate};
+  return {fitAffine,fitSimilarity,nativeToPixel,pixelToNative,normalize,toLeaflet,fromLeaflet,validate};
 });

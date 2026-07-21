@@ -22,4 +22,12 @@ const report=T.validate([points[4]],fitted);
 assert.ok(report.rmsePixels<1e-9&&report.maxErrorPixels<1e-9);
 assert.throws(()=>T.fitAffine(points.slice(0,2)),/ao menos três pontos/);
 
+const similarity={pixelX:[0,.00565,4095],pixelY:[-.00565,0,1975]};
+const similarityPoints=natives.slice(0,3).map((native,index)=>({id:`s${index}`,native,image:T.nativeToPixel(native,similarity)}));
+const similarityFit=T.fitSimilarity(similarityPoints);
+for(const axis of ["pixelX","pixelY"]){
+  similarityFit[axis].forEach((value,index)=>assert.ok(Math.abs(value-similarity[axis][index])<1e-9));
+}
+assert.throws(()=>T.fitSimilarity(similarityPoints.slice(0,1)),/ao menos dois pontos/);
+
 console.log("map-calibration: transformação, inversa, normalização e validação aprovadas");

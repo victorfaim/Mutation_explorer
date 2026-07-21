@@ -90,6 +90,10 @@ atualizar todos os consumidores.
 - não possui link na navegação pública;
 - imagens, dumps, marcadores reais e calibração permanecem em
   `LOCAL_RESEARCH/raw/mapa-lab/`, fora do Git;
+- o gerador local extrai 152 pontos de viagem rápida de `PL_MainWorld5.json`, preservando
+  coordenadas nativas, exibidas, em pixels e normalizadas;
+- a calibração vigente usa similaridade com duas referências de ajuste e uma validação
+  independente, cujo erro observado é 4,42 pixels em 8192×8192;
 - formato e operação estão documentados em `PROJECT_DOCS/10_MAPA_LAB.md`.
 
 ### URLs legadas preservadas

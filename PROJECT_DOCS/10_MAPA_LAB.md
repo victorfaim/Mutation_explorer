@@ -30,7 +30,10 @@ pixel, posição normalizada, Leaflet e a estimativa X/Y nativa pela transforma�
 
 ## Calibração
 
-A transformação afim usa ao menos três referências não colineares:
+O conjunto real de `PL_MainWorld5` usa uma transformação de similaridade, com escala
+uniforme, rotação e deslocamento. Duas referências fazem o ajuste e uma terceira fica
+reservada para validação independente. O laboratório também aceita o modelo afim genérico,
+que usa ao menos três referências não colineares:
 
 ```text
 pixelX = aX + bY + c
@@ -40,6 +43,20 @@ pixelY = dX + eY + f
 Referências com `use: "validation"` não entram no ajuste. Elas geram RMSE e erro máximo
 independentes. `validation.maxErrorPixels` em `calibration.json` pode definir o limite de
 aprovação.
+
+## Geração dos pontos de viagem rápida
+
+Com `PL_MainWorld5.json` no diretório local bruto, execute:
+
+```powershell
+python tools/generate-map-lab-markers.py
+```
+
+O gerador associa os 152 `FastTravelPointID` aos componentes `Root`, preserva X/Y/Z,
+calcula coordenadas exibidas, pixels e posição normalizada e grava `markers.json` e
+`calibration.json` em `LOCAL_RESEARCH/raw/mapa-lab/`. Esses dois resultados permanecem
+locais junto do dump e da imagem do jogo. A terceira referência apresentou erro de
+validação de 4,42 pixels na imagem 8192×8192; o limite local adotado é 5 pixels.
 
 ## Validação
 

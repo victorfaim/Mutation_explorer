@@ -42,8 +42,9 @@ function loadImageFile(file){
 function calibrationPoints(){return state.calibration?.referencePoints||state.data?.referencePoints||[];}
 function fitCalibration(){
   const points=calibrationPoints(),fit=points.filter(point=>point.use!=="validation");
-  if(fit.length<3)throw new Error("Forneça ao menos três referências de ajuste não colineares.");
-  state.coefficients=T.fitAffine(fit);
+  const model=state.calibration?.model||"affine";
+  if(model==="similarity")state.coefficients=T.fitSimilarity(fit);
+  else state.coefficients=T.fitAffine(fit);
   const fitReport=T.validate(fit,state.coefficients);
   const validation=points.filter(point=>point.use==="validation");
   const validationReport=T.validate(validation,state.coefficients);
@@ -51,6 +52,7 @@ function fitCalibration(){
   const threshold=Number.isFinite(configured.maxErrorPixels)?configured.maxErrorPixels:null;
   const valid=!validation.length||threshold===null||validationReport.maxErrorPixels<=threshold;
   $("map-calibration-output").innerHTML=rows({
+    "Modelo":model==="similarity"?"similaridade":"afim",
     "Pontos de ajuste":fitReport.count,
     "RMSE ajuste":`${number(fitReport.rmsePixels)} px`,
     "Pontos de validação":validationReport.count,
