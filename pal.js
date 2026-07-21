@@ -173,7 +173,7 @@ if(!pal){
             <section class="paldex-content-card">
               <span class="paldex-eyebrow">PARTNER SKILL</span>
               <h2>${esc(partner.name||"Não registrada")}</h2>
-              <p>${esc(partner.desc||"Sem descrição registrada.")}</p>
+              <p class="partner-description">${esc(partner.desc||"Sem descrição registrada.")}</p>
             </section>
 
             <section class="paldex-content-section">
