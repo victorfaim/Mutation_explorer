@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex,nofollow">
   <title>Mapa Lab | Pal Mutation Explorer</title>
   <link rel="stylesheet" href="vendor/leaflet/leaflet.css?v=1.9.4">
-  <link rel="stylesheet" href="mapa-lab.css?v=20260721-1">
+  <link rel="stylesheet" href="mapa-lab.css?v=20260721-2">
 </head>
 <body>
   <main class="map-lab-shell">
@@ -16,6 +16,7 @@
     </header>
 
     <section class="map-lab-controls" aria-label="Entradas do laboratório">
+      <label>Mapa<select id="map-dataset"><option value="mainworld5">Palpagos</option><option value="worldtree">World Tree</option></select></label>
       <label>Imagem local<input id="map-image-file" type="file" accept="image/png,image/jpeg,image/webp"></label>
       <label>Marcadores JSON<input id="map-markers-file" type="file" accept="application/json,.json"></label>
       <label>Calibração JSON<input id="map-calibration-file" type="file" accept="application/json,.json"></label>
@@ -39,6 +40,6 @@
   </main>
   <script src="vendor/leaflet/leaflet.js?v=1.9.4"></script>
   <script src="mapa-lab-transform.js?v=20260721-2"></script>
-  <script src="mapa-lab.js?v=20260721-3"></script>
+  <script src="mapa-lab.js?v=20260721-4"></script>
 </body>
 </html>

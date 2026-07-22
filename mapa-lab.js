@@ -109,11 +109,18 @@ function inspectClick(latlng){
   });
 }
 
-async function loadDefaults(){
-  const candidates=[
-    {markers:"mapa-lab-data/mainworld5-markers.json",calibration:"mapa-lab-data/mainworld5-calibration.json"},
-    {markers:"LOCAL_RESEARCH/raw/mapa-lab/markers.json",calibration:"LOCAL_RESEARCH/raw/mapa-lab/calibration.json"}
-  ];
+async function loadDefaults(datasetKey=$("map-dataset").value){
+  const datasets={
+    mainworld5:[
+      {markers:"mapa-lab-data/mainworld5-markers.json",calibration:"mapa-lab-data/mainworld5-calibration.json"},
+      {markers:"LOCAL_RESEARCH/raw/mapa-lab/markers.json",calibration:"LOCAL_RESEARCH/raw/mapa-lab/calibration.json"}
+    ],
+    worldtree:[
+      {markers:"mapa-lab-data/worldtree-markers.json",calibration:"mapa-lab-data/worldtree-calibration.json"},
+      {markers:"LOCAL_RESEARCH/raw/mapa-lab/worldtree-markers.json",calibration:"LOCAL_RESEARCH/raw/mapa-lab/worldtree-calibration.json"}
+    ]
+  };
+  const candidates=datasets[datasetKey]||datasets.mainworld5;
   let dataResponse=null,calibrationResponse=null;
   for(const candidate of candidates){
     const responses=await Promise.all([fetch(candidate.markers),fetch(candidate.calibration)]);
@@ -126,7 +133,7 @@ async function loadDefaults(){
   const image=new Image();
   await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=()=>reject(new Error(`Imagem não encontrada: ${imagePath}`));image.src=imagePath;});
   state.imageUrl=imagePath;setImage(imagePath,image.naturalWidth,image.naturalHeight);
-  fitCalibration();status(`${state.data.markers?.length||0} marcadores carregados para validação.`);
+  fitCalibration();status(`${state.data.markers?.length||0} marcadores carregados em ${state.data.map?.id||datasetKey}.`);
 }
 
 $("map-image-file").addEventListener("change",async event=>{try{if(event.target.files[0])await loadImageFile(event.target.files[0]);status("Imagem local carregada.");}catch(error){status(error.message,true);}});
@@ -136,5 +143,6 @@ $("map-load-defaults").addEventListener("click",()=>loadDefaults().catch(error=>
 $("map-fit-calibration").addEventListener("click",()=>{try{fitCalibration();status("Calibração recalculada.");}catch(error){status(error.message,true);}});
 $("map-show-markers").addEventListener("change",renderLayers);
 $("map-show-references").addEventListener("change",renderLayers);
+$("map-dataset").addEventListener("change",event=>loadDefaults(event.target.value).catch(error=>status(error.message,true)));
 ensureMap();
 loadDefaults().catch(error=>status(error.message,true));

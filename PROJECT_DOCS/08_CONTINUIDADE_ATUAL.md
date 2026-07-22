@@ -91,6 +91,8 @@ atualizar todos os consumidores.
 - o dump e a imagem bruta permanecem em `LOCAL_RESEARCH/raw/mapa-lab/`, fora do Git;
 - a imagem otimizada e os JSONs derivados de marcadores/calibração são versionados para
   permitir validação por terceiros no GitHub Pages;
+- o seletor alterna entre Palpagos, com 152 pontos extraídos, e World Tree, com os 15
+  `WorldTree_*` internos calibrados sobre captura integral;
 - o gerador local extrai 152 pontos de viagem rápida de `PL_MainWorld5.json`, preservando
   coordenadas nativas, exibidas, em pixels e normalizadas;
 - a calibração vigente usa similaridade com duas referências de ajuste e uma validação

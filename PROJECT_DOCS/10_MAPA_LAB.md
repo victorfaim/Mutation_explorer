@@ -10,8 +10,11 @@ O carregamento automático procura primeiro os derivados versionáveis:
 
 ```text
 assets/map/mainworld5.webp
+assets/map/worldtree.webp
 mapa-lab-data/mainworld5-markers.json
 mapa-lab-data/mainworld5-calibration.json
+mapa-lab-data/worldtree-markers.json
+mapa-lab-data/worldtree-calibration.json
 ```
 
 Se eles não existirem, o botão também aceita as entradas locais de pesquisa:
@@ -82,3 +85,9 @@ node tests/map-calibration.test.js
 
 O laboratório aceita somente pontos e marcadores estáticos nesta fase. Eventos, spawns
 aleatórios e objetos dinâmicos ficam fora do conjunto de dados.
+
+A World Tree usa uma captura integral 1338×783, limpa apenas nas bordas e no HUD externo,
+e 15 pontos `WorldTree_*`. Três referências
+ajustam uma transformação afim nativa e `WorldTree_A` permanece independente, com erro
+observado de aproximadamente 5,07 pixels. O seletor da página alterna entre Palpagos e
+World Tree.

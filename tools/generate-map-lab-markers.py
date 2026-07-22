@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "LOCAL_RESEARCH" / "raw" / "mapa-lab"
 SOURCE = RAW / "PL_MainWorld5.json"
 IMAGE_SIZE = 8192
+WORLD_TREE_SIZE = (1338, 783)
 
 REFERENCES = [
     {
@@ -37,6 +38,13 @@ REFERENCES = [
     },
 ]
 
+WORLD_TREE_REFERENCES = [
+    {"id": "WorldTree_MiddleBoss_3", "label": "Superior esquerda", "game": {"x": -1995, "y": 1624}, "image": {"pixelX": 338.329, "pixelY": 81.386}, "use": "fit"},
+    {"id": "WorldTree_MiddleBoss_1", "label": "Topo vermelho", "game": {"x": -1673, "y": 1638}, "image": {"pixelX": 792.607, "pixelY": 59.987}, "use": "fit"},
+    {"id": "WorldTree_MiddleBoss_2", "label": "Ponta sul", "game": {"x": -1934, "y": 1156}, "image": {"pixelX": 425.142, "pixelY": 745.916}, "use": "fit"},
+    {"id": "WorldTree_A", "label": "Extremo direito", "game": {"x": -1457, "y": 1385}, "image": {"pixelX": 1099.422, "pixelY": 414.245}, "use": "validation"},
+]
+
 
 def actor_key(object_name):
     match = re.search(r"PersistentLevel\.([^']+)", object_name or "")
@@ -56,6 +64,31 @@ def fit_similarity(points):
     c = u1 - a * x1 - b * y1
     f = v1 - a * y1 + b * x1
     return a, b, c, f
+
+
+def solve_three(matrix, values):
+    rows = [list(row) + [value] for row, value in zip(matrix, values)]
+    for column in range(3):
+        pivot = max(range(column, 3), key=lambda row: abs(rows[row][column]))
+        rows[column], rows[pivot] = rows[pivot], rows[column]
+        divisor = rows[column][column]
+        if abs(divisor) < 1e-12:
+            raise ValueError("Referências degeneradas para transformação afim")
+        rows[column] = [value / divisor for value in rows[column]]
+        for row in range(3):
+            if row == column:
+                continue
+            factor = rows[row][column]
+            rows[row] = [value - factor * pivot_value for value, pivot_value in zip(rows[row], rows[column])]
+    return [row[3] for row in rows]
+
+
+def fit_affine_three(points):
+    matrix = [[point["native"]["x"], point["native"]["y"], 1] for point in points[:3]]
+    return (
+        solve_three(matrix, [point["image"]["pixelX"] for point in points[:3]]),
+        solve_three(matrix, [point["image"]["pixelY"] for point in points[:3]]),
+    )
 
 
 def main():
@@ -141,6 +174,24 @@ def main():
             },
         })
 
+    world_tree_width, world_tree_height = WORLD_TREE_SIZE
+    world_tree_references = []
+    for reference in WORLD_TREE_REFERENCES:
+        point = dict(reference)
+        point["native"] = locations[point["id"]]
+        point["image"] = {**point["image"], "u": point["image"]["pixelX"] / world_tree_width, "v": point["image"]["pixelY"] / world_tree_height}
+        world_tree_references.append(point)
+    world_tree_x, world_tree_y = fit_affine_three(world_tree_references)
+    world_tree_labels = {point["id"]: point["label"] for point in world_tree_references}
+    world_tree_markers = []
+    for marker in markers:
+        if not marker["id"].startswith("WorldTree_"):
+            continue
+        native = marker["native"]
+        pixel_x = world_tree_x[0] * native["x"] + world_tree_x[1] * native["y"] + world_tree_x[2]
+        pixel_y = world_tree_y[0] * native["x"] + world_tree_y[1] * native["y"] + world_tree_y[2]
+        world_tree_markers.append({**marker, "label": world_tree_labels.get(marker["id"], marker["label"]), "image": {"pixelX": pixel_x, "pixelY": pixel_y, "u": pixel_x / world_tree_width, "v": pixel_y / world_tree_height}})
+
     calibration = {
         "schemaVersion": 1,
         "model": "similarity",
@@ -158,6 +209,12 @@ def main():
         },
         "markers": markers,
     }
+    world_tree_calibration = {"schemaVersion": 1, "model": "affine", "referencePoints": world_tree_references, "validation": {"maxErrorPixels": 6}}
+    world_tree_data = {
+        "schemaVersion": 1,
+        "map": {"id": "WorldTree", "image": "assets/map/worldtree.webp" if args.public else "LOCAL_RESEARCH/raw/mapa-lab/worldtree.png", "width": world_tree_width, "height": world_tree_height, "pixelOrigin": "top-left"},
+        "markers": world_tree_markers,
+    }
     output_dir = ROOT / "mapa-lab-data" if args.public else RAW
     output_dir.mkdir(parents=True, exist_ok=True)
     markers_output = output_dir / ("mainworld5-markers.json" if args.public else "markers.json")
@@ -166,13 +223,20 @@ def main():
     separators = (",", ":") if args.public else None
     markers_output.write_text(json.dumps(data, ensure_ascii=False, indent=indent, separators=separators) + "\n", encoding="utf-8")
     calibration_output.write_text(json.dumps(calibration, ensure_ascii=False, indent=indent, separators=separators) + "\n", encoding="utf-8")
+    (output_dir / "worldtree-markers.json").write_text(json.dumps(world_tree_data, ensure_ascii=False, indent=indent, separators=separators) + "\n", encoding="utf-8")
+    (output_dir / "worldtree-calibration.json").write_text(json.dumps(world_tree_calibration, ensure_ascii=False, indent=indent, separators=separators) + "\n", encoding="utf-8")
 
     validation = reference_points[2]
     predicted_x = a * validation["native"]["x"] + b * validation["native"]["y"] + c
     predicted_y = a * validation["native"]["y"] - b * validation["native"]["x"] + f
     error = math.hypot(predicted_x - validation["image"]["pixelX"], predicted_y - validation["image"]["pixelY"])
+    world_tree_validation = world_tree_references[3]
+    native_vector = [world_tree_validation["native"]["x"], world_tree_validation["native"]["y"], 1]
+    predicted_world_tree_x = sum(value * coefficient for value, coefficient in zip(native_vector, world_tree_x))
+    predicted_world_tree_y = sum(value * coefficient for value, coefficient in zip(native_vector, world_tree_y))
+    world_tree_error = math.hypot(predicted_world_tree_x - world_tree_validation["image"]["pixelX"], predicted_world_tree_y - world_tree_validation["image"]["pixelY"])
     visibility = "públicos derivados" if args.public else "locais"
-    print(f"{len(markers)} marcadores {visibility} gerados; erro de validação: {error:.3f} px")
+    print(f"{len(markers)} marcadores {visibility} gerados; erro MainWorld5: {error:.3f} px; World Tree ({len(world_tree_markers)}): {world_tree_error:.3f} px")
 
 
 if __name__ == "__main__":
