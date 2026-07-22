@@ -110,6 +110,9 @@ atualizar todos os consumidores.
 - a World Tree possui ainda um filtro próprio para as três fontes fixas de Água Benta,
   confirmadas no jogo; cada marcador preserva X/Y/Z, exibe a recompensa de dez unidades e
   informa a recarga individual de 600 segundos;
+- um filtro opcional de relíquias e estátuas reúne 407 coletáveis fixos extraídos do
+  `MainGrid`: 360 em Palpagos e 47 na World Tree, sendo 155 efígies de Lifmunk e 252
+  estátuas de onze tipos; Mimog e Vitalidade ficam fora por não possuírem ponto fixo;
 - o gerador local extrai 152 pontos de viagem rápida de `PL_MainWorld5.json`, preservando
   coordenadas nativas, exibidas, em pixels e normalizadas;
 - a calibração vigente usa similaridade com duas referências de ajuste e uma validação

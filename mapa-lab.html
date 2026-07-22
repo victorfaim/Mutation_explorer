@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex,nofollow">
   <title>Mapa Lab | Pal Mutation Explorer</title>
   <link rel="stylesheet" href="vendor/leaflet/leaflet.css?v=1.9.4">
-  <link rel="stylesheet" href="mapa-lab.css?v=20260722-1">
+  <link rel="stylesheet" href="mapa-lab.css?v=20260722-4">
 </head>
 <body>
   <main class="map-lab-shell">
@@ -25,11 +25,17 @@
     </section>
 
     <section class="map-lab-filters" aria-label="Filtros do mapa">
-      <label><input id="map-show-fast-travel" type="checkbox" checked> Viagem rápida</label>
-      <label><input id="map-show-alpha-bosses" type="checkbox" checked> Alpha Bosses</label>
-      <label><input id="map-show-story-towers" type="checkbox" checked> Torres de história</label>
-      <label><input id="map-show-holy-water" type="checkbox" checked> Água Benta</label>
+      <label><input id="map-show-fast-travel" type="checkbox"> Viagem rápida</label>
+      <label><input id="map-show-alpha-bosses" type="checkbox"> Alpha Bosses</label>
+      <label><input id="map-show-story-towers" type="checkbox"> Torres de história</label>
+      <label><input id="map-show-holy-water" type="checkbox"> Água Benta</label>
+      <label><input id="map-show-relics" type="checkbox"> Relíquias e estátuas</label>
       <label class="map-lab-search">Buscar Alpha<input id="map-alpha-search" type="search" list="map-alpha-options" placeholder="Nome do Pal" autocomplete="off"><datalist id="map-alpha-options"></datalist></label>
+      <details class="map-lab-relic-types">
+        <summary id="map-relic-type-summary">Tipos de estátua</summary>
+        <div class="map-lab-relic-type-actions"><button id="map-relic-select-all" type="button">Todas</button><button id="map-relic-select-none" type="button">Nenhuma</button></div>
+        <div id="map-relic-type-options" class="map-lab-relic-type-options"></div>
+      </details>
     </section>
 
     <div id="map-lab-status" class="map-lab-status" role="status">Carregando mapa de validação...</div>
@@ -47,6 +53,6 @@
   </main>
   <script src="vendor/leaflet/leaflet.js?v=1.9.4"></script>
   <script src="mapa-lab-transform.js?v=20260721-3"></script>
-  <script src="mapa-lab.js?v=20260722-1"></script>
+  <script src="mapa-lab.js?v=20260722-4"></script>
 </body>
 </html>

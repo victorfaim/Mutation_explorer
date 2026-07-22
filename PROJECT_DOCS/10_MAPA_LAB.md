@@ -98,6 +98,33 @@ execução pela transformação independente da World Tree.
 O laboratório aceita somente pontos e marcadores estáticos nesta fase. Eventos, spawns
 aleatórios e objetos dinâmicos ficam fora do conjunto de dados.
 
+## Relíquias e estátuas de Pal
+
+`mapa-lab-data/relic-markers.json` registra 407 coletáveis fixos extraídos de
+`MainGrid_L15_X0_Y0_DL961A8730`: 360 em Palpagos e 47 na World Tree. O conjunto contém
+155 efígies de Lifmunk ligadas ao poder de captura e 252 estátuas distribuídas entre onze
+tipos de Pal. O gerador `tools/generate-map-relics.js` lê cada `DefaultSceneRoot`, preserva
+X/Y/Z e calcula as coordenadas exibidas no jogo; pixels e posição normalizada continuam
+derivados em tempo de execução pela transformação independente de cada mapa.
+
+O filtro **Relíquias e estátuas** começa desativado para evitar poluição visual. A seleção
+múltipla permite combinar quaisquer tipos disponíveis no mapa atual ou marcar/desmarcar
+todos. Os mini-ícones locais foram recortados da própria
+interface do jogo; nenhuma imagem do guia de terceiros é usada. Mimog não integra o mapa:
+seu símbolo semelhante a um baú representa uma recompensa por progresso de captura, sem
+instância fixa no `MainGrid`. A linha de Vitalidade também fica fora porque aparece como
+atributo máximo, sem coletável exigido.
+
+Todas as camadas de marcadores começam desativadas. O estado inicial mostra somente a
+imagem do mapa, e cada conjunto é adicionado pelo usuário conforme a necessidade.
+
+Para regenerar e validar após disponibilizar o export bruto no inbox local:
+
+```powershell
+node tools/generate-map-relics.js
+node tests/map-relics.test.js
+```
+
 ## Alpha Bosses fixos
 
 `mapa-lab-data/alpha-boss-markers.json` contém 90 localizações fixas derivadas de

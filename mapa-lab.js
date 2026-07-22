@@ -1,5 +1,5 @@
 const T=window.MapLabTransform;
-const state={map:null,imageOverlay:null,imageUrl:null,width:0,height:0,data:null,alphaData:null,towerData:null,holyWaterData:null,calibration:null,coefficients:null,markerLayer:null,alphaLayer:null,towerLayer:null,holyWaterLayer:null,referenceLayer:null,datasetKey:"mainworld5",mapConfig:null};
+const state={map:null,imageOverlay:null,imageUrl:null,width:0,height:0,data:null,alphaData:null,towerData:null,holyWaterData:null,relicData:null,relicTypesSelected:null,calibration:null,coefficients:null,markerLayer:null,alphaLayer:null,towerLayer:null,holyWaterLayer:null,relicLayer:null,referenceLayer:null,datasetKey:"mainworld5",mapConfig:null};
 const $=id=>document.getElementById(id);
 
 function esc(value){return String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[char]));}
@@ -14,6 +14,7 @@ function ensureMap(){
   state.alphaLayer=L.layerGroup().addTo(state.map);
   state.towerLayer=L.layerGroup().addTo(state.map);
   state.holyWaterLayer=L.layerGroup().addTo(state.map);
+  state.relicLayer=L.layerGroup().addTo(state.map);
   state.referenceLayer=L.layerGroup().addTo(state.map);
   state.map.on("click",event=>inspectClick(event.latlng));
 }
@@ -169,6 +170,50 @@ function renderHolyWaterLayer(){
   if(!$("map-show-holy-water").checked)state.map.removeLayer(state.holyWaterLayer);else state.holyWaterLayer.addTo(state.map);
 }
 
+function currentRelics(){
+  const selected=state.relicTypesSelected||new Set();
+  return (state.relicData?.markers||[]).filter(marker=>marker.mapId===state.datasetKey&&selected.has(marker.subtype));
+}
+function relicPopup(marker,image){
+  const normalized=T.normalize(image,state.width,state.height);
+  return `<div class="map-lab-relic-popup"><img src="${esc(marker.icon)}" alt=""><div>`+
+    `<strong>${esc(marker.label)}</strong><p>Bônus: ${esc(marker.bonus)}</p>`+
+    `<p>jogo: ${number(marker.game.displayedX,0)}, ${number(marker.game.displayedY,0)}</p>`+
+    `<p>world: ${number(marker.world.x)}, ${number(marker.world.y)}, ${number(marker.world.z)}</p>`+
+    `<p>normalizada: ${number(normalized.u,6)}, ${number(normalized.v,6)}</p></div></div>`;
+}
+function relicTypesForCurrentMap(){
+  const byType=new Map();
+  for(const marker of state.relicData?.markers||[])if(marker.mapId===state.datasetKey&&!byType.has(marker.subtype))byType.set(marker.subtype,marker);
+  return [...byType.values()].sort((a,b)=>a.pal.localeCompare(b.pal));
+}
+function updateRelicTypeSummary(){
+  const available=relicTypesForCurrentMap();
+  const selected=available.filter(marker=>state.relicTypesSelected?.has(marker.subtype)).length;
+  $("map-relic-type-summary").textContent=`Tipos de estátua (${selected}/${available.length})`;
+}
+function renderRelicTypeFilters(){
+  const available=relicTypesForCurrentMap();
+  if(!state.relicTypesSelected)state.relicTypesSelected=new Set((state.relicData?.markers||[]).map(marker=>marker.subtype));
+  $("map-relic-type-options").innerHTML=available.map(marker=>`<label><input type="checkbox" value="${esc(marker.subtype)}" ${state.relicTypesSelected.has(marker.subtype)?"checked":""}><img src="${esc(marker.icon)}" alt=""> ${esc(marker.pal)}</label>`).join("");
+  updateRelicTypeSummary();
+}
+function setRelicTypes(checked){
+  const allTypes=new Set((state.relicData?.markers||[]).map(marker=>marker.subtype));
+  for(const subtype of allTypes)if(checked)state.relicTypesSelected.add(subtype);else state.relicTypesSelected.delete(subtype);
+  renderRelicTypeFilters();renderRelicLayer();
+}
+function renderRelicLayer(){
+  if(!state.map||!state.width||!state.height)return;
+  state.relicLayer.clearLayers();
+  for(const marker of currentRelics()){
+    const image=markerImage(marker);if(!image)continue;
+    const icon=L.divIcon({className:"map-lab-relic-icon",html:`<img src="${esc(marker.icon)}" alt="">`,iconSize:[30,30],iconAnchor:[15,15],popupAnchor:[0,-16]});
+    L.marker(T.toLeaflet(image,state.height),{icon}).bindPopup(relicPopup(marker,image)).addTo(state.relicLayer);
+  }
+  if(!$("map-show-relics").checked)state.map.removeLayer(state.relicLayer);else state.relicLayer.addTo(state.map);
+}
+
 function renderLayers(){
   if(!state.map||!state.width||!state.height)return;
   state.markerLayer.clearLayers();state.referenceLayer.clearLayers();
@@ -187,6 +232,7 @@ function renderLayers(){
   renderAlphaLayer();
   renderTowerLayer();
   renderHolyWaterLayer();
+  renderRelicLayer();
 }
 
 function inspectClick(latlng){
@@ -238,6 +284,11 @@ async function loadDefaults(datasetKey=$("map-dataset").value){
     if(!holyWaterResponse.ok)throw new Error("Dados das fontes de Água Benta não encontrados.");
     state.holyWaterData=await holyWaterResponse.json();
   }
+  if(!state.relicData){
+    const relicResponse=await fetch("mapa-lab-data/relic-markers.json?v=20260722-1");
+    if(!relicResponse.ok)throw new Error("Dados de relíquias e estátuas não encontrados.");
+    state.relicData=await relicResponse.json();
+  }
   state.data=await dataResponse.json();
   state.calibration=calibrationResponse.ok?await calibrationResponse.json():null;
   const imagePath=state.mapConfig?.paths?.webImage||state.mapConfig?.paths?.composedImage||state.data.map?.image||"LOCAL_RESEARCH/raw/mapa-lab/map.png";
@@ -246,12 +297,14 @@ async function loadDefaults(datasetKey=$("map-dataset").value){
   state.imageUrl=imagePath;setImage(imagePath,image.naturalWidth,image.naturalHeight);
   const calibrated=fitCalibration();
   renderAlphaOptions();
+  renderRelicTypeFilters();
   const alphaCount=(state.alphaData.markers||[]).filter(marker=>marker.mapId===datasetKey).length;
   const towerCount=(state.towerData.markers||[]).filter(marker=>marker.mapId===datasetKey).length;
   const holyWaterCount=(state.holyWaterData.markers||[]).filter(marker=>marker.mapId===datasetKey).length;
+  const relicCount=(state.relicData.markers||[]).filter(marker=>marker.mapId===datasetKey).length;
   const message=datasetKey==="worldtree"&&!calibrated
     ?`World Tree local carregada. Transformação pendente; marcadores preservados, mas ocultos até a calibração da imagem 8192×8192.`
-    :`${state.data.markers?.length||0} viagens rápidas, ${alphaCount} Alpha Bosses, ${towerCount} torres e ${holyWaterCount} fontes de Água Benta disponíveis.`;
+    :`${state.data.markers?.length||0} viagens rápidas, ${alphaCount} Alpha Bosses, ${towerCount} torres, ${holyWaterCount} fontes de Água Benta e ${relicCount} relíquias/estátuas disponíveis.`;
   status(message);
 }
 
@@ -264,7 +317,11 @@ $("map-show-fast-travel").addEventListener("change",renderLayers);
 $("map-show-alpha-bosses").addEventListener("change",renderAlphaLayer);
 $("map-show-story-towers").addEventListener("change",renderTowerLayer);
 $("map-show-holy-water").addEventListener("change",renderHolyWaterLayer);
+$("map-show-relics").addEventListener("change",renderRelicLayer);
 $("map-alpha-search").addEventListener("input",()=>{if($("map-alpha-search").value)$("map-show-alpha-bosses").checked=true;renderAlphaLayer();});
+$("map-relic-type-options").addEventListener("change",event=>{if(event.target.type!=="checkbox")return;if(event.target.checked)state.relicTypesSelected.add(event.target.value);else state.relicTypesSelected.delete(event.target.value);$("map-show-relics").checked=true;updateRelicTypeSummary();renderRelicLayer();});
+$("map-relic-select-all").addEventListener("click",()=>setRelicTypes(true));
+$("map-relic-select-none").addEventListener("click",()=>setRelicTypes(false));
 $("map-show-references").addEventListener("change",renderLayers);
 $("map-dataset").addEventListener("change",event=>{$("map-alpha-search").value="";loadDefaults(event.target.value).catch(error=>status(error.message,true));});
 ensureMap();
