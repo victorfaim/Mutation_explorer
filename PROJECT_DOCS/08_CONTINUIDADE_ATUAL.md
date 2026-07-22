@@ -107,6 +107,9 @@ atualizar todos os consumidores.
 - os pontos de viagem rápida usam o ícone alado oficial e um terceiro filtro independente
   apresenta 13 torres de história extraídas de `PL_MainWorld5` (nove em Palpagos e quatro
   na World Tree), usando o símbolo oficial de torre;
+- a World Tree possui ainda um filtro próprio para as três fontes fixas de Água Benta,
+  confirmadas no jogo; cada marcador preserva X/Y/Z, exibe a recompensa de dez unidades e
+  informa a recarga individual de 600 segundos;
 - o gerador local extrai 152 pontos de viagem rápida de `PL_MainWorld5.json`, preservando
   coordenadas nativas, exibidas, em pixels e normalizadas;
 - a calibração vigente usa similaridade com duas referências de ajuste e uma validação

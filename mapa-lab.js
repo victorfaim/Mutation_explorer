@@ -1,5 +1,5 @@
 const T=window.MapLabTransform;
-const state={map:null,imageOverlay:null,imageUrl:null,width:0,height:0,data:null,alphaData:null,towerData:null,calibration:null,coefficients:null,markerLayer:null,alphaLayer:null,towerLayer:null,referenceLayer:null,datasetKey:"mainworld5",mapConfig:null};
+const state={map:null,imageOverlay:null,imageUrl:null,width:0,height:0,data:null,alphaData:null,towerData:null,holyWaterData:null,calibration:null,coefficients:null,markerLayer:null,alphaLayer:null,towerLayer:null,holyWaterLayer:null,referenceLayer:null,datasetKey:"mainworld5",mapConfig:null};
 const $=id=>document.getElementById(id);
 
 function esc(value){return String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[char]));}
@@ -13,6 +13,7 @@ function ensureMap(){
   state.markerLayer=L.layerGroup().addTo(state.map);
   state.alphaLayer=L.layerGroup().addTo(state.map);
   state.towerLayer=L.layerGroup().addTo(state.map);
+  state.holyWaterLayer=L.layerGroup().addTo(state.map);
   state.referenceLayer=L.layerGroup().addTo(state.map);
   state.map.on("click",event=>inspectClick(event.latlng));
 }
@@ -147,6 +148,27 @@ function renderTowerLayer(){
   if(!$("map-show-story-towers").checked)state.map.removeLayer(state.towerLayer);else state.towerLayer.addTo(state.map);
 }
 
+function holyWaterPopup(marker,image){
+  const normalized=T.normalize(image,state.width,state.height);
+  return `<div class="map-lab-holy-water-popup"><img src="assets/items/T_itemicon_Material_WorldTreeHolyWater.png" alt=""><div>`+
+    `<strong>${esc(marker.label)}</strong><p>${number(marker.reward.quantity,0)}× ${esc(marker.reward.name)}</p>`+
+    `<p>Recarga: ${number(marker.cooldownSeconds/60,0)} minutos</p>`+
+    `<p>jogo: ${number(marker.game.displayedX,0)}, ${number(marker.game.displayedY,0)}</p>`+
+    `<p>world: ${number(marker.world.x)}, ${number(marker.world.y)}, ${number(marker.world.z)}</p>`+
+    `<p>normalizada: ${number(normalized.u,6)}, ${number(normalized.v,6)}</p></div></div>`;
+}
+function renderHolyWaterLayer(){
+  if(!state.map||!state.width||!state.height)return;
+  state.holyWaterLayer.clearLayers();
+  const icon=L.divIcon({className:"map-lab-holy-water-icon",html:'<img src="assets/items/T_itemicon_Material_WorldTreeHolyWater.png" alt="">',iconSize:[32,32],iconAnchor:[16,16],popupAnchor:[0,-17]});
+  for(const marker of state.holyWaterData?.markers||[]){
+    if(marker.mapId!==state.datasetKey)continue;
+    const image=markerImage(marker);if(!image)continue;
+    L.marker(T.toLeaflet(image,state.height),{icon}).bindPopup(holyWaterPopup(marker,image)).addTo(state.holyWaterLayer);
+  }
+  if(!$("map-show-holy-water").checked)state.map.removeLayer(state.holyWaterLayer);else state.holyWaterLayer.addTo(state.map);
+}
+
 function renderLayers(){
   if(!state.map||!state.width||!state.height)return;
   state.markerLayer.clearLayers();state.referenceLayer.clearLayers();
@@ -164,6 +186,7 @@ function renderLayers(){
   if(!$("map-show-references").checked)state.map.removeLayer(state.referenceLayer);else state.referenceLayer.addTo(state.map);
   renderAlphaLayer();
   renderTowerLayer();
+  renderHolyWaterLayer();
 }
 
 function inspectClick(latlng){
@@ -210,6 +233,11 @@ async function loadDefaults(datasetKey=$("map-dataset").value){
     if(!towerResponse.ok)throw new Error("Dados das torres de história não encontrados.");
     state.towerData=await towerResponse.json();
   }
+  if(!state.holyWaterData){
+    const holyWaterResponse=await fetch("mapa-lab-data/worldtree-holy-water-markers.json?v=20260722-1");
+    if(!holyWaterResponse.ok)throw new Error("Dados das fontes de Água Benta não encontrados.");
+    state.holyWaterData=await holyWaterResponse.json();
+  }
   state.data=await dataResponse.json();
   state.calibration=calibrationResponse.ok?await calibrationResponse.json():null;
   const imagePath=state.mapConfig?.paths?.webImage||state.mapConfig?.paths?.composedImage||state.data.map?.image||"LOCAL_RESEARCH/raw/mapa-lab/map.png";
@@ -220,9 +248,10 @@ async function loadDefaults(datasetKey=$("map-dataset").value){
   renderAlphaOptions();
   const alphaCount=(state.alphaData.markers||[]).filter(marker=>marker.mapId===datasetKey).length;
   const towerCount=(state.towerData.markers||[]).filter(marker=>marker.mapId===datasetKey).length;
+  const holyWaterCount=(state.holyWaterData.markers||[]).filter(marker=>marker.mapId===datasetKey).length;
   const message=datasetKey==="worldtree"&&!calibrated
     ?`World Tree local carregada. Transformação pendente; marcadores preservados, mas ocultos até a calibração da imagem 8192×8192.`
-    :`${state.data.markers?.length||0} viagens rápidas, ${alphaCount} Alpha Bosses e ${towerCount} torres disponíveis.`;
+    :`${state.data.markers?.length||0} viagens rápidas, ${alphaCount} Alpha Bosses, ${towerCount} torres e ${holyWaterCount} fontes de Água Benta disponíveis.`;
   status(message);
 }
 
@@ -234,6 +263,7 @@ $("map-fit-calibration").addEventListener("click",()=>{try{fitCalibration();stat
 $("map-show-fast-travel").addEventListener("change",renderLayers);
 $("map-show-alpha-bosses").addEventListener("change",renderAlphaLayer);
 $("map-show-story-towers").addEventListener("change",renderTowerLayer);
+$("map-show-holy-water").addEventListener("change",renderHolyWaterLayer);
 $("map-alpha-search").addEventListener("input",()=>{if($("map-alpha-search").value)$("map-show-alpha-bosses").checked=true;renderAlphaLayer();});
 $("map-show-references").addEventListener("change",renderLayers);
 $("map-dataset").addEventListener("change",event=>{$("map-alpha-search").value="";loadDefaults(event.target.value).catch(error=>status(error.message,true));});

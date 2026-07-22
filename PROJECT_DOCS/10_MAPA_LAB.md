@@ -83,6 +83,18 @@ validação de 4,42 pixels na imagem 8192×8192; o limite local adotado é 5 pix
 node tests/map-calibration.test.js
 ```
 
+## Fontes de Água Benta da World Tree
+
+`mapa-lab-data/worldtree-holy-water-markers.json` registra as três instâncias fixas de
+`BP_LevelObject_HealSpring` encontradas em `PL_MainWorld5`. Cada fonte concede dez unidades
+de `WorldTreeHolyWater`, recupera o grupo e possui recarga individual de 600 segundos.
+Os três locais foram conferidos manualmente no jogo.
+
+O filtro **Água Benta** usa o ícone local oficial do item e aparece apenas com pontos na
+World Tree. O popup preserva coordenadas nativas, coordenadas exibidas, posição normalizada,
+quantidade concedida e tempo de recarga. Pixels continuam sendo calculados em tempo de
+execução pela transformação independente da World Tree.
+
 O laboratório aceita somente pontos e marcadores estáticos nesta fase. Eventos, spawns
 aleatórios e objetos dinâmicos ficam fora do conjunto de dados.
 
