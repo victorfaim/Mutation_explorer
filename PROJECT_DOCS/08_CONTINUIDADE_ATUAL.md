@@ -92,11 +92,11 @@ atualizar todos os consumidores.
 - a imagem otimizada e os JSONs derivados de marcadores/calibração são versionados para
   permitir validação por terceiros no GitHub Pages;
 - o seletor alterna entre Palpagos, com 152 pontos extraídos, e World Tree, com os 15
-  `WorldTree_*` internos; a captura integral anterior continua como registro histórico,
-  enquanto o novo fluxo usa um mosaico local 8192×8192 de tiles z=5;
-- `tools/world_tree_tiles.py` baixa, retoma, valida e compõe os 1.024 tiles da World Tree;
-  tiles e PNG bruto permanecem em `LOCAL_RESEARCH/raw/`, enquanto um WebP otimizado de
-  aproximadamente 6,1 MB é versionado somente para a página não listada de validação;
+  `WorldTree_*` internos; a World Tree usa um WebP derivado do asset oficial
+  `Pal/Content/Pal/Texture/UI/Map/T_TreeMap`, exportado em 8192×8192 RGBA;
+- o PNG oficial foi confirmado pixel a pixel como idêntico ao mosaico z=5 anterior; o
+  pipeline `tools/world_tree_tiles.py` permanece como fallback histórico reproduzível,
+  enquanto fontes brutas continuam ignoradas e somente o WebP otimizado é versionado;
 - a transformação por similaridade do mosaico da World Tree é independente, usa três pontos
   de ajuste e foi aprovada por um quarto ponto independente com erro de 13,25 pixels em
   8192×8192;
@@ -104,6 +104,9 @@ atualizar todos os consumidores.
   83 em Palpagos e sete na World Tree, todos associados à Palpedia e a ícones locais;
 - filtros independentes controlam viagem rápida e Alpha Bosses, com busca de Alpha por nome,
   ID interno ou elemento; NPCs, dungeons, eventos e spawns aleatórios permanecem excluídos;
+- os pontos de viagem rápida usam o ícone alado oficial e um terceiro filtro independente
+  apresenta 13 torres de história extraídas de `PL_MainWorld5` (nove em Palpagos e quatro
+  na World Tree), usando o símbolo oficial de torre;
 - o gerador local extrai 152 pontos de viagem rápida de `PL_MainWorld5.json`, preservando
   coordenadas nativas, exibidas, em pixels e normalizadas;
 - a calibração vigente usa similaridade com duas referências de ajuste e uma validação

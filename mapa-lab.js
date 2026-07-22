@@ -1,5 +1,5 @@
 const T=window.MapLabTransform;
-const state={map:null,imageOverlay:null,imageUrl:null,width:0,height:0,data:null,alphaData:null,calibration:null,coefficients:null,markerLayer:null,alphaLayer:null,referenceLayer:null,datasetKey:"mainworld5",mapConfig:null};
+const state={map:null,imageOverlay:null,imageUrl:null,width:0,height:0,data:null,alphaData:null,towerData:null,calibration:null,coefficients:null,markerLayer:null,alphaLayer:null,towerLayer:null,referenceLayer:null,datasetKey:"mainworld5",mapConfig:null};
 const $=id=>document.getElementById(id);
 
 function esc(value){return String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[char]));}
@@ -12,6 +12,7 @@ function ensureMap(){
   state.map=L.map("map-lab-map",{crs:L.CRS.Simple,minZoom:-5,maxZoom:5,zoomSnap:.25,attributionControl:false});
   state.markerLayer=L.layerGroup().addTo(state.map);
   state.alphaLayer=L.layerGroup().addTo(state.map);
+  state.towerLayer=L.layerGroup().addTo(state.map);
   state.referenceLayer=L.layerGroup().addTo(state.map);
   state.map.on("click",event=>inspectClick(event.latlng));
 }
@@ -126,10 +127,30 @@ function renderAlphaLayer(){
   if(!$("map-show-alpha-bosses").checked)state.map.removeLayer(state.alphaLayer);else state.alphaLayer.addTo(state.map);
 }
 
+function towerPopup(marker,image){
+  const normalized=T.normalize(image,state.width,state.height);
+  return `<strong>${esc(marker.label)}</strong><br>`+
+    `tipo interno: ${esc(marker.bossType)}<br>`+
+    `jogo: ${number(marker.game.displayedX,0)}, ${number(marker.game.displayedY,0)}<br>`+
+    `world: ${number(marker.world.x)}, ${number(marker.world.y)}, ${number(marker.world.z)}<br>`+
+    `normalizada: ${number(normalized.u,6)}, ${number(normalized.v,6)}`;
+}
+function renderTowerLayer(){
+  if(!state.map||!state.width||!state.height)return;
+  state.towerLayer.clearLayers();
+  const icon=L.icon({iconUrl:"assets/map/markers/story-tower.png",iconSize:[38,38],iconAnchor:[19,19],popupAnchor:[0,-20]});
+  for(const marker of state.towerData?.markers||[]){
+    if(marker.mapId!==state.datasetKey)continue;
+    const image=markerImage(marker);if(!image)continue;
+    L.marker(T.toLeaflet(image,state.height),{icon}).bindPopup(towerPopup(marker,image)).addTo(state.towerLayer);
+  }
+  if(!$("map-show-story-towers").checked)state.map.removeLayer(state.towerLayer);else state.towerLayer.addTo(state.map);
+}
+
 function renderLayers(){
   if(!state.map||!state.width||!state.height)return;
   state.markerLayer.clearLayers();state.referenceLayer.clearLayers();
-  const markerIcon=L.divIcon({className:"map-lab-marker",iconSize:[12,12],iconAnchor:[6,6]});
+  const markerIcon=L.icon({iconUrl:"assets/map/markers/fast-travel.png",iconSize:[30,30],iconAnchor:[15,15],popupAnchor:[0,-16]});
   const referenceIcon=L.divIcon({className:"map-lab-reference",iconSize:[12,12],iconAnchor:[6,6]});
   for(const marker of state.data?.markers||[]){
     const image=markerImage(marker);if(!image)continue;
@@ -142,6 +163,7 @@ function renderLayers(){
   if(!$("map-show-fast-travel").checked)state.map.removeLayer(state.markerLayer);else state.markerLayer.addTo(state.map);
   if(!$("map-show-references").checked)state.map.removeLayer(state.referenceLayer);else state.referenceLayer.addTo(state.map);
   renderAlphaLayer();
+  renderTowerLayer();
 }
 
 function inspectClick(latlng){
@@ -167,7 +189,7 @@ async function loadDefaults(datasetKey=$("map-dataset").value){
   };
   let candidates=datasets[datasetKey]||datasets.mainworld5;
   if(datasetKey==="worldtree"){
-    const configResponse=await fetch("mapa-lab-data/worldtree-map-config.json?v=20260721-2");
+    const configResponse=await fetch("mapa-lab-data/worldtree-map-config.json?v=20260721-3");
     if(!configResponse.ok)throw new Error("Configuração local da World Tree não encontrada.");
     state.mapConfig=await configResponse.json();
     candidates=[{markers:state.mapConfig.paths.markers,calibration:state.mapConfig.paths.calibration}];
@@ -183,6 +205,11 @@ async function loadDefaults(datasetKey=$("map-dataset").value){
     if(!alphaResponse.ok)throw new Error("Dados de Alpha Bosses não encontrados.");
     state.alphaData=await alphaResponse.json();
   }
+  if(!state.towerData){
+    const towerResponse=await fetch("mapa-lab-data/story-tower-markers.json?v=20260721-1");
+    if(!towerResponse.ok)throw new Error("Dados das torres de história não encontrados.");
+    state.towerData=await towerResponse.json();
+  }
   state.data=await dataResponse.json();
   state.calibration=calibrationResponse.ok?await calibrationResponse.json():null;
   const imagePath=state.mapConfig?.paths?.webImage||state.mapConfig?.paths?.composedImage||state.data.map?.image||"LOCAL_RESEARCH/raw/mapa-lab/map.png";
@@ -192,9 +219,10 @@ async function loadDefaults(datasetKey=$("map-dataset").value){
   const calibrated=fitCalibration();
   renderAlphaOptions();
   const alphaCount=(state.alphaData.markers||[]).filter(marker=>marker.mapId===datasetKey).length;
+  const towerCount=(state.towerData.markers||[]).filter(marker=>marker.mapId===datasetKey).length;
   const message=datasetKey==="worldtree"&&!calibrated
     ?`World Tree local carregada. Transformação pendente; marcadores preservados, mas ocultos até a calibração da imagem 8192×8192.`
-    :`${state.data.markers?.length||0} viagens rápidas e ${alphaCount} Alpha Bosses disponíveis.`;
+    :`${state.data.markers?.length||0} viagens rápidas, ${alphaCount} Alpha Bosses e ${towerCount} torres disponíveis.`;
   status(message);
 }
 
@@ -205,6 +233,7 @@ $("map-load-defaults").addEventListener("click",()=>loadDefaults().catch(error=>
 $("map-fit-calibration").addEventListener("click",()=>{try{fitCalibration();status("Calibração recalculada.");}catch(error){status(error.message,true);}});
 $("map-show-fast-travel").addEventListener("change",renderLayers);
 $("map-show-alpha-bosses").addEventListener("change",renderAlphaLayer);
+$("map-show-story-towers").addEventListener("change",renderTowerLayer);
 $("map-alpha-search").addEventListener("input",()=>{if($("map-alpha-search").value)$("map-show-alpha-bosses").checked=true;renderAlphaLayer();});
 $("map-show-references").addEventListener("change",renderLayers);
 $("map-dataset").addEventListener("change",event=>{$("map-alpha-search").value="";loadDefaults(event.target.value).catch(error=>status(error.message,true));});

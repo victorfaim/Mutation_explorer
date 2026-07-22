@@ -1,6 +1,13 @@
 {
   "schemaVersion": 1,
   "mapId": "world-tree",
+  "officialSource": {
+    "asset": "Pal/Content/Pal/Texture/UI/Map/T_TreeMap",
+    "exportFormat": "PNG",
+    "width": 8192,
+    "height": 8192,
+    "pixelEquivalentToLegacyTiles": true
+  },
   "source": {
     "urlTemplate": "https://palworld.gg/images/world-tree-tiles/{z}/{x}/{y}.png",
     "zoom": 5,
@@ -17,19 +24,19 @@
   "paths": {
     "tiles": "LOCAL_RESEARCH/raw/mapa-lab/world-tree/tiles/{z}/{x}/{y}.png",
     "composedImage": "LOCAL_RESEARCH/raw/mapa-lab/world-tree/worldtree-z5.png",
-    "webImage": "assets/map/worldtree-z5.webp",
+    "webImage": "assets/map/worldtree-official.webp",
     "calibration": "mapa-lab-data/worldtree-z5-calibration.json",
     "markers": "mapa-lab-data/worldtree-markers.json"
   },
   "revisions": {
-    "image": "palworld-gg-z5-webp-v2",
+    "image": "fmodel-t-treemap-webp-v1",
     "transformation": "worldtree-z5-similarity-v2",
     "markers": "pl-mainworld5-worldtree-15-v1"
   },
   "usage": {
     "localOnly": false,
     "publication": "unlisted validation page only",
-    "origin": "palworld.gg temporary validation source",
+    "origin": "FModel export of Pal/Content/Pal/Texture/UI/Map/T_TreeMap",
     "licenseCoveredByCode": false
   }
 }

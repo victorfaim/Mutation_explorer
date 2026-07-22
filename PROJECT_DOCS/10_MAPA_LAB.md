@@ -99,6 +99,18 @@ nome, ID interno ou elemento. O popup de Alpha mostra retrato, nível, elementos
 coordenadas preservadas e link para a ficha da Palpedia. Não são incluídos bosses de
 dungeon, NPCs, oil rigs, ovos, eventos ou spawns aleatórios.
 
+## Torres de história e ícones oficiais
+
+`mapa-lab-data/story-tower-markers.json` contém 13 torres extraídas das instâncias
+`BP_PalBossTower*` de `PL_MainWorld5`: nove em Palpagos e quatro na World Tree. O gerador
+`tools/generate-map-story-towers.js` preserva coordenadas nativas e exibidas e deixa a
+posição normalizada e em pixels como valores calculados pela calibração de cada mapa.
+
+Os pontos de viagem rápida usam o asset derivado de `T_icon_compass_FTtower`; as torres
+usam `T_icon_compass_tower`. Ambos permanecem locais em `assets/map/markers/`, sem
+hotlink. Os três conjuntos possuem filtros independentes: viagem rápida, Alpha Bosses e
+torres de história.
+
 Para regenerar a base após disponibilizar a DataTable no inbox local:
 
 ```powershell
@@ -114,25 +126,30 @@ A captura 1338×783 da World Tree e sua calibração pertencem ao ciclo anterior
 são reutilizadas na composição por tiles, pois os pixels das duas imagens não são o mesmo
 sistema de referência.
 
-## World Tree local por tiles
+## World Tree oficial e fluxo legado por tiles
 
-A configuração reproduzível fica em `mapa-lab-data/worldtree-map-config.json`. Ela define
-o mapa `world-tree`, a revisão do asset, da transformação e dos marcadores, além destes
-parâmetros fixos:
+A imagem vigente foi exportada do asset oficial
+`Pal/Content/Pal/Texture/UI/Map/T_TreeMap`. O PNG possui 8192×8192 pixels, canal alfa e
+foi comparado pixel a pixel com a composição z=5 anterior: não existe qualquer diferença
+em RGBA. Por isso, a transformação e os pontos de calibração já aprovados permanecem
+válidos sem ajuste. O WebP publicado fica em `assets/map/worldtree-official.webp`.
+
+A configuração reproduzível fica em `mapa-lab-data/worldtree-map-config.json` e registra
+separadamente o asset oficial vigente e o antigo fluxo de tiles:
 
 ```text
-origem temporária: https://palworld.gg/images/world-tree-tiles/{z}/{x}/{y}.png
+asset vigente: Pal/Content/Pal/Texture/UI/Map/T_TreeMap
+fallback histórico: https://palworld.gg/images/world-tree-tiles/{z}/{x}/{y}.png
 zoom: 5
 grade: x=0..31, y=0..31
 tile: 256x256 PNG
 imagem: 8192x8192 RGBA
 ```
 
-Os tiles e a composição PNG bruta não integram a licença do código, não são publicados e
-ficam sob `LOCAL_RESEARCH/raw/mapa-lab/world-tree/`, já protegido pela regra existente do
-`.gitignore`. Para validação pela página não listada, somente um WebP otimizado derivado é
-versionado em `assets/map/worldtree-z5.webp`. A origem temporária e a separação de licença
-continuam registradas na configuração do mapa.
+O PNG oficial bruto, os tiles e a composição anterior não são publicados e permanecem sob
+`LOCAL_RESEARCH/raw/`, protegido pelo `.gitignore`. O script de tiles continua disponível
+somente como fallback reproduzível e registro da validação que demonstrou equivalência.
+O asset derivado não é tratado como coberto pela licença do código.
 
 O utilitário exige Python 3 e Pillow. A dependência é exclusiva das ferramentas locais e
 não é carregada pelo site. Instale-a uma vez com:
@@ -178,10 +195,10 @@ hotlink ou requisições aos tiles de origem. As coordenadas mantêm
 `world.x/y/z`, `game` (incluindo os valores exibidos), `normalized.u/v` entre 0 e 1 e
 calculam `pixelX/pixelY` em tempo de execução.
 
-### Calibração do mosaico 8192×8192
+### Calibração da imagem oficial 8192×8192
 
 `mapa-lab-data/worldtree-z5-calibration.json` preserva os quatro pontos medidos
-na composição z=5:
+na imagem oficial, com os mesmos pixels da composição z=5:
 
 - `WorldTree_MiddleBoss_3` — jogo `-1995, 1624` — ajuste;
 - `WorldTree_MiddleBoss_1` — jogo `-1673, 1638` — ajuste;

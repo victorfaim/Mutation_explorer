@@ -31,6 +31,14 @@ class WorldTreeTilesTest(unittest.TestCase):
         self.assertEqual(MODULE.tile_position(self.config, 31, 31), (7936, 7936))
         self.assertEqual(self.config["resolution"], {"width": 8192, "height": 8192})
 
+    def test_official_image_source(self):
+        source = self.config["officialSource"]
+        self.assertEqual(source["asset"], "Pal/Content/Pal/Texture/UI/Map/T_TreeMap")
+        self.assertTrue(source["pixelEquivalentToLegacyTiles"])
+        self.assertEqual(self.config["paths"]["webImage"], "assets/map/worldtree-official.webp")
+        with Image.open(ROOT / self.config["paths"]["webImage"]) as image:
+            self.assertEqual(image.size, (8192, 8192))
+
     def test_invalid_png_is_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
             invalid = Path(directory) / "invalid.png"
