@@ -104,10 +104,11 @@ tile: 256x256 PNG
 imagem: 8192x8192 RGBA
 ```
 
-O asset é destinado somente à validação local. Os tiles e a composição não integram a
-licença do código, não devem ser publicados e ficam sob
-`LOCAL_RESEARCH/raw/mapa-lab/world-tree/`, já protegido pela regra existente do
-`.gitignore`.
+Os tiles e a composição PNG bruta não integram a licença do código, não são publicados e
+ficam sob `LOCAL_RESEARCH/raw/mapa-lab/world-tree/`, já protegido pela regra existente do
+`.gitignore`. Para validação pela página não listada, somente um WebP otimizado derivado é
+versionado em `assets/map/worldtree-z5.webp`. A origem temporária e a separação de licença
+continuam registradas na configuração do mapa.
 
 O utilitário exige Python 3 e Pillow. A dependência é exclusiva das ferramentas locais e
 não é carregada pelo site. Instale-a uma vez com:
@@ -148,14 +149,14 @@ A composição abre um tile por vez, preserva alfa e grava temporariamente antes
 `LOCAL_RESEARCH/raw/mapa-lab/world-tree/worldtree-z5.png`. Apenas a tela RGBA final fica em
 memória; os 1.024 tiles não são carregados simultaneamente.
 
-No `mapa-lab.html`, selecione **World Tree**. O laboratório procura exclusivamente a
-composição local configurada; não usa hotlink nem publica o mosaico. As coordenadas mantêm
+No `mapa-lab.html`, selecione **World Tree**. O laboratório carrega o WebP versionado, sem
+hotlink ou requisições aos tiles de origem. As coordenadas mantêm
 `world.x/y/z`, `game` (incluindo os valores exibidos), `normalized.u/v` entre 0 e 1 e
 calculam `pixelX/pixelY` em tempo de execução.
 
 ### Calibração do mosaico 8192×8192
 
-`mapa-lab-data/worldtree-z5-calibration-template.json` preserva os quatro pontos medidos
+`mapa-lab-data/worldtree-z5-calibration.json` preserva os quatro pontos medidos
 na composição z=5:
 
 - `WorldTree_MiddleBoss_3` — jogo `-1995, 1624` — ajuste;
@@ -166,9 +167,8 @@ na composição z=5:
 Os três primeiros pontos ajustam uma transformação de similaridade, coerente com um mosaico
 de tiles sem deformação. Seus erros ficam entre 5,03 e 8,62 pixels. O quarto é uma validação
 independente e apresentou erro de 13,25 pixels, abaixo do limite de 15 pixels na imagem
-8192×8192. Copie o template para
-`LOCAL_RESEARCH/raw/mapa-lab/world-tree/calibration.json` e recarregue a World Tree. A
-posição normalizada é calculada pela nova transformação, nunca copiada da imagem anterior.
+8192×8192. O mesmo JSON é carregado tanto localmente quanto na validação web. A posição
+normalizada é calculada pela nova transformação, nunca copiada da imagem anterior.
 
 Testes do pipeline e da transformação:
 

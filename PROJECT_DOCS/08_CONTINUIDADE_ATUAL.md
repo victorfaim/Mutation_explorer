@@ -95,7 +95,8 @@ atualizar todos os consumidores.
   `WorldTree_*` internos; a captura integral anterior continua como registro histórico,
   enquanto o novo fluxo usa um mosaico local 8192×8192 de tiles z=5;
 - `tools/world_tree_tiles.py` baixa, retoma, valida e compõe os 1.024 tiles da World Tree;
-  tiles e imagem permanecem em `LOCAL_RESEARCH/raw/`, sem publicação ou versionamento;
+  tiles e PNG bruto permanecem em `LOCAL_RESEARCH/raw/`, enquanto um WebP otimizado de
+  aproximadamente 6,1 MB é versionado somente para a página não listada de validação;
 - a transformação por similaridade do mosaico da World Tree é independente, usa três pontos
   de ajuste e foi aprovada por um quarto ponto independente com erro de 13,25 pixels em
   8192×8192;

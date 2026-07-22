@@ -133,7 +133,7 @@ async function loadDefaults(datasetKey=$("map-dataset").value){
   };
   let candidates=datasets[datasetKey]||datasets.mainworld5;
   if(datasetKey==="worldtree"){
-    const configResponse=await fetch("mapa-lab-data/worldtree-map-config.json");
+    const configResponse=await fetch("mapa-lab-data/worldtree-map-config.json?v=20260721-2");
     if(!configResponse.ok)throw new Error("Configuração local da World Tree não encontrada.");
     state.mapConfig=await configResponse.json();
     candidates=[{markers:state.mapConfig.paths.markers,calibration:state.mapConfig.paths.calibration}];
@@ -146,7 +146,7 @@ async function loadDefaults(datasetKey=$("map-dataset").value){
   if(!dataResponse)throw new Error("Dados do mapa não encontrados.");
   state.data=await dataResponse.json();
   state.calibration=calibrationResponse.ok?await calibrationResponse.json():null;
-  const imagePath=state.mapConfig?.paths?.composedImage||state.data.map?.image||"LOCAL_RESEARCH/raw/mapa-lab/map.png";
+  const imagePath=state.mapConfig?.paths?.webImage||state.mapConfig?.paths?.composedImage||state.data.map?.image||"LOCAL_RESEARCH/raw/mapa-lab/map.png";
   const image=new Image();
   await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=()=>reject(new Error(datasetKey==="worldtree"?`Imagem local não encontrada: ${imagePath}. Execute: python tools/world_tree_tiles.py all`:`Imagem não encontrada: ${imagePath}`));image.src=imagePath;});
   state.imageUrl=imagePath;setImage(imagePath,image.naturalWidth,image.naturalHeight);

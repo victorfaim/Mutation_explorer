@@ -17,17 +17,18 @@
   "paths": {
     "tiles": "LOCAL_RESEARCH/raw/mapa-lab/world-tree/tiles/{z}/{x}/{y}.png",
     "composedImage": "LOCAL_RESEARCH/raw/mapa-lab/world-tree/worldtree-z5.png",
-    "calibration": "LOCAL_RESEARCH/raw/mapa-lab/world-tree/calibration.json",
-    "calibrationTemplate": "mapa-lab-data/worldtree-z5-calibration-template.json",
+    "webImage": "assets/map/worldtree-z5.webp",
+    "calibration": "mapa-lab-data/worldtree-z5-calibration.json",
     "markers": "mapa-lab-data/worldtree-markers.json"
   },
   "revisions": {
-    "image": "palworld-gg-z5-local-v1",
+    "image": "palworld-gg-z5-webp-v2",
     "transformation": "worldtree-z5-similarity-v2",
     "markers": "pl-mainworld5-worldtree-15-v1"
   },
   "usage": {
-    "localOnly": true,
+    "localOnly": false,
+    "publication": "unlisted validation page only",
     "origin": "palworld.gg temporary validation source",
     "licenseCoveredByCode": false
   }
