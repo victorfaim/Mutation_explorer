@@ -86,8 +86,93 @@ node tests/map-calibration.test.js
 O laboratório aceita somente pontos e marcadores estáticos nesta fase. Eventos, spawns
 aleatórios e objetos dinâmicos ficam fora do conjunto de dados.
 
-A World Tree usa uma captura integral 1338×783, limpa apenas nas bordas e no HUD externo,
-e 15 pontos `WorldTree_*`. Três referências
-ajustam uma transformação afim nativa e `WorldTree_A` permanece independente, com erro
-observado de aproximadamente 5,07 pixels. O seletor da página alterna entre Palpagos e
-World Tree.
+A captura 1338×783 da World Tree e sua calibração pertencem ao ciclo anterior. Elas não
+são reutilizadas na composição por tiles, pois os pixels das duas imagens não são o mesmo
+sistema de referência.
+
+## World Tree local por tiles
+
+A configuração reproduzível fica em `mapa-lab-data/worldtree-map-config.json`. Ela define
+o mapa `world-tree`, a revisão do asset, da transformação e dos marcadores, além destes
+parâmetros fixos:
+
+```text
+origem temporária: https://palworld.gg/images/world-tree-tiles/{z}/{x}/{y}.png
+zoom: 5
+grade: x=0..31, y=0..31
+tile: 256x256 PNG
+imagem: 8192x8192 RGBA
+```
+
+O asset é destinado somente à validação local. Os tiles e a composição não integram a
+licença do código, não devem ser publicados e ficam sob
+`LOCAL_RESEARCH/raw/mapa-lab/world-tree/`, já protegido pela regra existente do
+`.gitignore`.
+
+O utilitário exige Python 3 e Pillow. A dependência é exclusiva das ferramentas locais e
+não é carregada pelo site. Instale-a uma vez com:
+
+```powershell
+python -m pip install -r tools/requirements-map-lab.txt
+```
+
+Se `python` não apontar para a instalação desejada no Windows, use `py -3` nos comandos.
+Para baixar e, em seguida, compor:
+
+```powershell
+python tools/world_tree_tiles.py download
+python tools/world_tree_tiles.py compose
+```
+
+O atalho abaixo executa as duas etapas:
+
+```powershell
+python tools/world_tree_tiles.py all
+```
+
+O download grava `tiles/5/{x}/{y}.png`. Ele limita a concorrência a quatro requisições,
+aplica um pequeno intervalo, tenta novamente falhas temporárias, valida HTTP 200,
+assinatura/formato PNG e dimensão 256×256. Para retomar uma execução interrompida, execute
+o mesmo comando novamente: tiles válidos são reutilizados e apenas ausentes ou inválidos
+são baixados. O processo retorna erro enquanto qualquer um dos 1.024 arquivos estiver
+ausente ou inválido.
+
+Para validar sem acessar a rede e para remontar a imagem já baixada:
+
+```powershell
+python tools/world_tree_tiles.py validate
+python tools/world_tree_tiles.py compose
+```
+
+A composição abre um tile por vez, preserva alfa e grava temporariamente antes de substituir
+`LOCAL_RESEARCH/raw/mapa-lab/world-tree/worldtree-z5.png`. Apenas a tela RGBA final fica em
+memória; os 1.024 tiles não são carregados simultaneamente.
+
+No `mapa-lab.html`, selecione **World Tree**. O laboratório procura exclusivamente a
+composição local configurada; não usa hotlink nem publica o mosaico. As coordenadas mantêm
+`world.x/y/z`, `game` (incluindo os valores exibidos), `normalized.u/v` entre 0 e 1 e
+calculam `pixelX/pixelY` em tempo de execução.
+
+### Calibração do mosaico 8192×8192
+
+`mapa-lab-data/worldtree-z5-calibration-template.json` preserva os quatro pontos medidos
+na composição z=5:
+
+- `WorldTree_MiddleBoss_3` — jogo `-1995, 1624` — ajuste;
+- `WorldTree_MiddleBoss_1` — jogo `-1673, 1638` — ajuste;
+- `WorldTree_MiddleBoss_2` — jogo `-1934, 1156` — ajuste;
+- `WorldTree_A` — jogo `-1457, 1385` — validação independente.
+
+Os três primeiros pontos ajustam uma transformação de similaridade, coerente com um mosaico
+de tiles sem deformação. Seus erros ficam entre 5,03 e 8,62 pixels. O quarto é uma validação
+independente e apresentou erro de 13,25 pixels, abaixo do limite de 15 pixels na imagem
+8192×8192. Copie o template para
+`LOCAL_RESEARCH/raw/mapa-lab/world-tree/calibration.json` e recarregue a World Tree. A
+posição normalizada é calculada pela nova transformação, nunca copiada da imagem anterior.
+
+Testes do pipeline e da transformação:
+
+```powershell
+python -m unittest tests/test_world_tree_tiles.py
+node tests/map-calibration.test.js
+```

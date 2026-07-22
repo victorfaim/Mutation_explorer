@@ -1,5 +1,5 @@
 const T=window.MapLabTransform;
-const state={map:null,imageOverlay:null,imageUrl:null,width:0,height:0,data:null,calibration:null,coefficients:null,markerLayer:null,referenceLayer:null};
+const state={map:null,imageOverlay:null,imageUrl:null,width:0,height:0,data:null,calibration:null,coefficients:null,markerLayer:null,referenceLayer:null,datasetKey:"mainworld5",mapConfig:null};
 const $=id=>document.getElementById(id);
 
 function esc(value){return String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[char]));}
@@ -41,12 +41,21 @@ function loadImageFile(file){
 
 function calibrationPoints(){return state.calibration?.referencePoints||state.data?.referencePoints||[];}
 function fitCalibration(){
-  const points=calibrationPoints(),fit=points.filter(point=>point.use!=="validation");
+  const points=calibrationPoints();
+  const usable=points.filter(point=>Number.isFinite(point.image?.pixelX)&&Number.isFinite(point.image?.pixelY)&&(point.world||point.native));
+  const fit=usable.filter(point=>point.use!=="validation");
   const model=state.calibration?.model||"affine";
+  const required=model==="similarity"?2:3;
+  if(fit.length<required){
+    state.coefficients=null;
+    $("map-calibration-output").innerHTML=rows({"Estado":"Pendente para esta imagem","Pontos de ajuste":`${fit.length}/${required}`,"Validação independente":state.datasetKey==="worldtree"?"1 ponto":"—"});
+    renderLayers();
+    return false;
+  }
   if(model==="similarity")state.coefficients=T.fitSimilarity(fit);
   else state.coefficients=T.fitAffine(fit);
   const fitReport=T.validate(fit,state.coefficients);
-  const validation=points.filter(point=>point.use==="validation");
+  const validation=usable.filter(point=>point.use==="validation");
   const validationReport=T.validate(validation,state.coefficients);
   const configured=state.calibration?.validation||{};
   const threshold=Number.isFinite(configured.maxErrorPixels)?configured.maxErrorPixels:null;
@@ -66,14 +75,18 @@ function fitCalibration(){
 }
 
 function markerImage(marker){
+  const world=marker.world||marker.native;
+  if(world&&state.coefficients)return T.nativeToPixel(world,state.coefficients);
+  if(state.datasetKey==="worldtree")return null;
+  if(marker.normalized&&Number.isFinite(marker.normalized.u)&&Number.isFinite(marker.normalized.v))return {pixelX:marker.normalized.u*state.width,pixelY:marker.normalized.v*state.height};
   if(marker.image&&Number.isFinite(marker.image.pixelX)&&Number.isFinite(marker.image.pixelY))return marker.image;
-  if(marker.native&&state.coefficients)return T.nativeToPixel(marker.native,state.coefficients);
   return null;
 }
 function popup(marker,image){
+  const world=marker.world||marker.native;
   const normalized=state.width&&state.height?T.normalize(image,state.width,state.height):{};
   return `<strong>${esc(marker.label||marker.id)}</strong><br>`+
-    `native: ${number(marker.native?.x)}, ${number(marker.native?.y)}, ${number(marker.native?.z)}<br>`+
+    `world: ${number(world?.x)}, ${number(world?.y)}, ${number(world?.z)}<br>`+
     `jogo: ${number(marker.game?.x)}, ${number(marker.game?.y)}<br>`+
     `pixel: ${number(image.pixelX)}, ${number(image.pixelY)}<br>`+
     `normalizada: ${number(normalized.u,6)}, ${number(normalized.v,6)}<br>`+
@@ -110,17 +123,21 @@ function inspectClick(latlng){
 }
 
 async function loadDefaults(datasetKey=$("map-dataset").value){
+  state.datasetKey=datasetKey;state.mapConfig=null;state.coefficients=null;
   const datasets={
     mainworld5:[
       {markers:"mapa-lab-data/mainworld5-markers.json",calibration:"mapa-lab-data/mainworld5-calibration.json"},
       {markers:"LOCAL_RESEARCH/raw/mapa-lab/markers.json",calibration:"LOCAL_RESEARCH/raw/mapa-lab/calibration.json"}
     ],
-    worldtree:[
-      {markers:"mapa-lab-data/worldtree-markers.json",calibration:"mapa-lab-data/worldtree-calibration.json"},
-      {markers:"LOCAL_RESEARCH/raw/mapa-lab/worldtree-markers.json",calibration:"LOCAL_RESEARCH/raw/mapa-lab/worldtree-calibration.json"}
-    ]
+    worldtree:[]
   };
-  const candidates=datasets[datasetKey]||datasets.mainworld5;
+  let candidates=datasets[datasetKey]||datasets.mainworld5;
+  if(datasetKey==="worldtree"){
+    const configResponse=await fetch("mapa-lab-data/worldtree-map-config.json");
+    if(!configResponse.ok)throw new Error("Configuração local da World Tree não encontrada.");
+    state.mapConfig=await configResponse.json();
+    candidates=[{markers:state.mapConfig.paths.markers,calibration:state.mapConfig.paths.calibration}];
+  }
   let dataResponse=null,calibrationResponse=null;
   for(const candidate of candidates){
     const responses=await Promise.all([fetch(candidate.markers),fetch(candidate.calibration)]);
@@ -129,11 +146,15 @@ async function loadDefaults(datasetKey=$("map-dataset").value){
   if(!dataResponse)throw new Error("Dados do mapa não encontrados.");
   state.data=await dataResponse.json();
   state.calibration=calibrationResponse.ok?await calibrationResponse.json():null;
-  const imagePath=state.data.map?.image||"LOCAL_RESEARCH/raw/mapa-lab/map.png";
+  const imagePath=state.mapConfig?.paths?.composedImage||state.data.map?.image||"LOCAL_RESEARCH/raw/mapa-lab/map.png";
   const image=new Image();
-  await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=()=>reject(new Error(`Imagem não encontrada: ${imagePath}`));image.src=imagePath;});
+  await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=()=>reject(new Error(datasetKey==="worldtree"?`Imagem local não encontrada: ${imagePath}. Execute: python tools/world_tree_tiles.py all`:`Imagem não encontrada: ${imagePath}`));image.src=imagePath;});
   state.imageUrl=imagePath;setImage(imagePath,image.naturalWidth,image.naturalHeight);
-  fitCalibration();status(`${state.data.markers?.length||0} marcadores carregados em ${state.data.map?.id||datasetKey}.`);
+  const calibrated=fitCalibration();
+  const message=datasetKey==="worldtree"&&!calibrated
+    ?`World Tree local carregada. Transformação pendente; marcadores preservados, mas ocultos até a calibração da imagem 8192×8192.`
+    :`${state.data.markers?.length||0} marcadores carregados em ${state.data.map?.id||datasetKey}.`;
+  status(message);
 }
 
 $("map-image-file").addEventListener("change",async event=>{try{if(event.target.files[0])await loadImageFile(event.target.files[0]);status("Imagem local carregada.");}catch(error){status(error.message,true);}});

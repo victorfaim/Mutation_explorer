@@ -30,4 +30,8 @@ for(const axis of ["pixelX","pixelY"]){
 }
 assert.throws(()=>T.fitSimilarity(similarityPoints.slice(0,1)),/ao menos dois pontos/);
 
+const worldPoints=points.map(({native,...point})=>({...point,world:native}));
+const worldFit=T.fitAffine(worldPoints.filter(point=>point.use==="fit"));
+assert.ok(T.validate([worldPoints[4]],worldFit).maxErrorPixels<1e-9);
+
 console.log("map-calibration: transformação, inversa, normalização e validação aprovadas");

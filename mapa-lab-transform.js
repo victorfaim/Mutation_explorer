@@ -25,7 +25,7 @@
     if(!Array.isArray(points)||points.length<3)throw new Error("A calibração afim exige ao menos três pontos.");
     const rows=[],values=[];
     for(const point of points){
-      const {x,y}=point.native,{pixelX,pixelY}=point.image;
+      const {x,y}=point.world||point.native,{pixelX,pixelY}=point.image;
       if(![x,y,pixelX,pixelY].every(Number.isFinite))throw new Error(`Referência inválida: ${point.id||"sem id"}`);
       rows.push([x,y,1,0,0,0],[0,0,0,x,y,1]);
       values.push(pixelX,pixelY);
@@ -43,7 +43,7 @@
     if(!Array.isArray(points)||points.length<2)throw new Error("A calibração por similaridade exige ao menos dois pontos.");
     const rows=[],values=[];
     for(const point of points){
-      const {x,y}=point.native,{pixelX,pixelY}=point.image;
+      const {x,y}=point.world||point.native,{pixelX,pixelY}=point.image;
       if(![x,y,pixelX,pixelY].every(Number.isFinite))throw new Error(`Referência inválida: ${point.id||"sem id"}`);
       rows.push([x,y,1,0],[y,-x,0,1]);
       values.push(pixelX,pixelY);
@@ -79,7 +79,7 @@
 
   function validate(points,coefficients){
     const rows=points.map(point=>{
-      const predicted=nativeToPixel(point.native,coefficients);
+      const predicted=nativeToPixel(point.world||point.native,coefficients);
       const dx=predicted.pixelX-point.image.pixelX,dy=predicted.pixelY-point.image.pixelY;
       return {id:point.id||"",dx,dy,errorPixels:Math.hypot(dx,dy)};
     });

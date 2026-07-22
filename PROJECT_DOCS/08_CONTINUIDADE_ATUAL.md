@@ -92,7 +92,13 @@ atualizar todos os consumidores.
 - a imagem otimizada e os JSONs derivados de marcadores/calibração são versionados para
   permitir validação por terceiros no GitHub Pages;
 - o seletor alterna entre Palpagos, com 152 pontos extraídos, e World Tree, com os 15
-  `WorldTree_*` internos calibrados sobre captura integral;
+  `WorldTree_*` internos; a captura integral anterior continua como registro histórico,
+  enquanto o novo fluxo usa um mosaico local 8192×8192 de tiles z=5;
+- `tools/world_tree_tiles.py` baixa, retoma, valida e compõe os 1.024 tiles da World Tree;
+  tiles e imagem permanecem em `LOCAL_RESEARCH/raw/`, sem publicação ou versionamento;
+- a transformação por similaridade do mosaico da World Tree é independente, usa três pontos
+  de ajuste e foi aprovada por um quarto ponto independente com erro de 13,25 pixels em
+  8192×8192;
 - o gerador local extrai 152 pontos de viagem rápida de `PL_MainWorld5.json`, preservando
   coordenadas nativas, exibidas, em pixels e normalizadas;
 - a calibração vigente usa similaridade com duas referências de ajuste e uma validação
