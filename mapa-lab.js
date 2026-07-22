@@ -1,5 +1,5 @@
 const T=window.MapLabTransform;
-const state={map:null,imageOverlay:null,imageUrl:null,width:0,height:0,data:null,calibration:null,coefficients:null,markerLayer:null,referenceLayer:null,datasetKey:"mainworld5",mapConfig:null};
+const state={map:null,imageOverlay:null,imageUrl:null,width:0,height:0,data:null,alphaData:null,calibration:null,coefficients:null,markerLayer:null,alphaLayer:null,referenceLayer:null,datasetKey:"mainworld5",mapConfig:null};
 const $=id=>document.getElementById(id);
 
 function esc(value){return String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[char]));}
@@ -11,6 +11,7 @@ function ensureMap(){
   if(state.map)return;
   state.map=L.map("map-lab-map",{crs:L.CRS.Simple,minZoom:-5,maxZoom:5,zoomSnap:.25,attributionControl:false});
   state.markerLayer=L.layerGroup().addTo(state.map);
+  state.alphaLayer=L.layerGroup().addTo(state.map);
   state.referenceLayer=L.layerGroup().addTo(state.map);
   state.map.on("click",event=>inspectClick(event.latlng));
 }
@@ -93,6 +94,38 @@ function popup(marker,image){
     `origem: ${esc(marker.source?.asset||"—")} ${esc(marker.source?.row||"")}`;
 }
 
+function normalizedText(value){return String(value||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();}
+function currentAlphaBosses(){
+  const query=normalizedText($("map-alpha-search").value);
+  return (state.alphaData?.markers||[]).filter(marker=>marker.mapId===state.datasetKey&&(!query||normalizedText(`${marker.pal.name} ${marker.characterId} ${marker.pal.elements.join(" ")}`).includes(query)));
+}
+function alphaPopup(marker,image){
+  const normalized=T.normalize(image,state.width,state.height);
+  const icon=`assets/pals/${encodeURIComponent(marker.pal.icon)}.png`;
+  const suffix=marker.pal.suffix?` / ${marker.pal.suffix}`:"";
+  return `<div class="map-lab-alpha-popup"><img src="${icon}" alt="${esc(marker.pal.name)}"><div>`+
+    `<strong>Alpha ${esc(marker.pal.name)}</strong><p>Nível ${number(marker.level,0)} · ${esc(marker.pal.elements.join(" / "))}</p>`+
+    `<p>Palpedia N-#${esc(marker.pal.index)}${esc(suffix)}</p><p>jogo: ${number(marker.game.displayedX,0)}, ${number(marker.game.displayedY,0)}</p>`+
+    `<p>world: ${number(marker.world.x)}, ${number(marker.world.y)}, ${number(marker.world.z)}</p>`+
+    `<p>normalizada: ${number(normalized.u,6)}, ${number(normalized.v,6)}</p>`+
+    `<a href="pal.html?pal=${encodeURIComponent(marker.pal.slug)}">Abrir na Palpedia</a></div></div>`;
+}
+function renderAlphaOptions(){
+  const names=[...new Set((state.alphaData?.markers||[]).filter(marker=>marker.mapId===state.datasetKey).map(marker=>marker.pal.name))].sort((a,b)=>a.localeCompare(b));
+  $("map-alpha-options").innerHTML=names.map(name=>`<option value="${esc(name)}"></option>`).join("");
+}
+function renderAlphaLayer(){
+  if(!state.map||!state.width||!state.height)return;
+  state.alphaLayer.clearLayers();
+  for(const marker of currentAlphaBosses()){
+    const image=markerImage(marker);if(!image)continue;
+    const iconPath=`assets/pals/${encodeURIComponent(marker.pal.icon)}.png`;
+    const icon=L.divIcon({className:"map-lab-alpha-icon",html:`<img src="${iconPath}" alt="">`,iconSize:[34,34],iconAnchor:[17,17],popupAnchor:[0,-18]});
+    L.marker(T.toLeaflet(image,state.height),{icon}).bindPopup(alphaPopup(marker,image)).addTo(state.alphaLayer);
+  }
+  if(!$("map-show-alpha-bosses").checked)state.map.removeLayer(state.alphaLayer);else state.alphaLayer.addTo(state.map);
+}
+
 function renderLayers(){
   if(!state.map||!state.width||!state.height)return;
   state.markerLayer.clearLayers();state.referenceLayer.clearLayers();
@@ -106,8 +139,9 @@ function renderLayers(){
     if(!point.image)continue;
     L.marker(T.toLeaflet(point.image,state.height),{icon:referenceIcon}).bindPopup(popup(point,point.image)).addTo(state.referenceLayer);
   }
-  if(!$("map-show-markers").checked)state.map.removeLayer(state.markerLayer);else state.markerLayer.addTo(state.map);
+  if(!$("map-show-fast-travel").checked)state.map.removeLayer(state.markerLayer);else state.markerLayer.addTo(state.map);
   if(!$("map-show-references").checked)state.map.removeLayer(state.referenceLayer);else state.referenceLayer.addTo(state.map);
+  renderAlphaLayer();
 }
 
 function inspectClick(latlng){
@@ -144,6 +178,11 @@ async function loadDefaults(datasetKey=$("map-dataset").value){
     if(responses[0].ok){[dataResponse,calibrationResponse]=responses;break;}
   }
   if(!dataResponse)throw new Error("Dados do mapa não encontrados.");
+  if(!state.alphaData){
+    const alphaResponse=await fetch("mapa-lab-data/alpha-boss-markers.json?v=20260721-1");
+    if(!alphaResponse.ok)throw new Error("Dados de Alpha Bosses não encontrados.");
+    state.alphaData=await alphaResponse.json();
+  }
   state.data=await dataResponse.json();
   state.calibration=calibrationResponse.ok?await calibrationResponse.json():null;
   const imagePath=state.mapConfig?.paths?.webImage||state.mapConfig?.paths?.composedImage||state.data.map?.image||"LOCAL_RESEARCH/raw/mapa-lab/map.png";
@@ -151,9 +190,11 @@ async function loadDefaults(datasetKey=$("map-dataset").value){
   await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=()=>reject(new Error(datasetKey==="worldtree"?`Imagem local não encontrada: ${imagePath}. Execute: python tools/world_tree_tiles.py all`:`Imagem não encontrada: ${imagePath}`));image.src=imagePath;});
   state.imageUrl=imagePath;setImage(imagePath,image.naturalWidth,image.naturalHeight);
   const calibrated=fitCalibration();
+  renderAlphaOptions();
+  const alphaCount=(state.alphaData.markers||[]).filter(marker=>marker.mapId===datasetKey).length;
   const message=datasetKey==="worldtree"&&!calibrated
     ?`World Tree local carregada. Transformação pendente; marcadores preservados, mas ocultos até a calibração da imagem 8192×8192.`
-    :`${state.data.markers?.length||0} marcadores carregados em ${state.data.map?.id||datasetKey}.`;
+    :`${state.data.markers?.length||0} viagens rápidas e ${alphaCount} Alpha Bosses disponíveis.`;
   status(message);
 }
 
@@ -162,8 +203,10 @@ $("map-markers-file").addEventListener("change",async event=>{try{state.data=awa
 $("map-calibration-file").addEventListener("change",async event=>{try{state.calibration=await readJson(event.target.files[0]);fitCalibration();status("Calibração carregada e validada.");}catch(error){status(`Calibração inválida: ${error.message}`,true);}});
 $("map-load-defaults").addEventListener("click",()=>loadDefaults().catch(error=>status(error.message,true)));
 $("map-fit-calibration").addEventListener("click",()=>{try{fitCalibration();status("Calibração recalculada.");}catch(error){status(error.message,true);}});
-$("map-show-markers").addEventListener("change",renderLayers);
+$("map-show-fast-travel").addEventListener("change",renderLayers);
+$("map-show-alpha-bosses").addEventListener("change",renderAlphaLayer);
+$("map-alpha-search").addEventListener("input",()=>{if($("map-alpha-search").value)$("map-show-alpha-bosses").checked=true;renderAlphaLayer();});
 $("map-show-references").addEventListener("change",renderLayers);
-$("map-dataset").addEventListener("change",event=>loadDefaults(event.target.value).catch(error=>status(error.message,true)));
+$("map-dataset").addEventListener("change",event=>{$("map-alpha-search").value="";loadDefaults(event.target.value).catch(error=>status(error.message,true));});
 ensureMap();
 loadDefaults().catch(error=>status(error.message,true));

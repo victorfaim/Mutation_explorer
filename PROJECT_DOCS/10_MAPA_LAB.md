@@ -86,6 +86,30 @@ node tests/map-calibration.test.js
 O laboratório aceita somente pontos e marcadores estáticos nesta fase. Eventos, spawns
 aleatórios e objetos dinâmicos ficam fora do conjunto de dados.
 
+## Alpha Bosses fixos
+
+`mapa-lab-data/alpha-boss-markers.json` contém 90 localizações fixas derivadas de
+`DT_BossSpawnerLoactionData`: 83 em Palpagos e sete na World Tree. Registros cujo
+`CharacterID` é `None` são NPCs, regiões ou estruturas e ficam fora desse conjunto. Todos
+os 90 `CharacterID` de Pals foram associados à Palpedia e aos retratos locais em
+`assets/pals/`.
+
+O mapa oferece filtros independentes para viagem rápida e Alpha Bosses, além de busca por
+nome, ID interno ou elemento. O popup de Alpha mostra retrato, nível, elementos,
+coordenadas preservadas e link para a ficha da Palpedia. Não são incluídos bosses de
+dungeon, NPCs, oil rigs, ovos, eventos ou spawns aleatórios.
+
+Para regenerar a base após disponibilizar a DataTable no inbox local:
+
+```powershell
+node tools/generate-map-alpha-bosses.js
+node tests/map-alpha-bosses.test.js
+```
+
+O gerador também calcula as coordenadas exibidas no jogo a partir da relação observada nos
+pontos já calibrados. A classificação da World Tree usa os IDs `worldtree_*` e o ponto
+`remainsIsland_1_GrassGolem_FBOSS` situado dentro dos limites nativos desse mapa.
+
 A captura 1338×783 da World Tree e sua calibração pertencem ao ciclo anterior. Elas não
 são reutilizadas na composição por tiles, pois os pixels das duas imagens não são o mesmo
 sistema de referência.

@@ -100,6 +100,10 @@ atualizar todos os consumidores.
 - a transformação por similaridade do mosaico da World Tree é independente, usa três pontos
   de ajuste e foi aprovada por um quarto ponto independente com erro de 13,25 pixels em
   8192×8192;
+- `alpha-boss-markers.json` adiciona 90 Alpha Bosses fixos derivados da DataTable oficial:
+  83 em Palpagos e sete na World Tree, todos associados à Palpedia e a ícones locais;
+- filtros independentes controlam viagem rápida e Alpha Bosses, com busca de Alpha por nome,
+  ID interno ou elemento; NPCs, dungeons, eventos e spawns aleatórios permanecem excluídos;
 - o gerador local extrai 152 pontos de viagem rápida de `PL_MainWorld5.json`, preservando
   coordenadas nativas, exibidas, em pixels e normalizadas;
 - a calibração vigente usa similaridade com duas referências de ajuste e uma validação
