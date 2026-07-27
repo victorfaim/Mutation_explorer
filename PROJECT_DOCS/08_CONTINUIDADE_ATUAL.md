@@ -1,5 +1,12 @@
 # CONTINUIDADE ATUAL DO PROJETO
 
+## Calculadora padrão de breeding
+
+`breeding.html` oferece consultas de pais para filho e de filho para pais para o resultado
+padrão. A página reutiliza diretamente `normalChild()` de `core.js`; regras especiais
+oficiais mantêm precedência e o índice reverso é derivado em tempo de execução, sem uma
+tabela manual nova. Mutações, gênero, passivas e IVs não integram essa calculadora.
+
 Este documento registra o estado observado no `HEAD` `9d36c50` da branch `main`, em
 21/07/2026. Ele complementa os documentos 01–06 e prevalece quando houver divergência
 causada pela evolução posterior do código.

@@ -172,6 +172,7 @@ document.addEventListener("DOMContentLoaded",()=>activateAssetFallbacks(document
     {href:"index.html",label:"Início",active:isPage(["index.html",""])},
     {href:"palpedia.html",label:"Palpedia",active:isPage(["palpedia.html","pal.html"])},
     {label:"Breeding",children:[
+      {href:"breeding.html",label:"Calculadora de Breeding",active:isPage(["breeding.html"])},
       {href:"reverso.html",label:"Mutação Reversa",active:isPage(["reverso.html"])},
       {href:"caminho.html",label:"Caminho de Breeding",active:isPage(["caminho.html"])}
     ]},
@@ -272,7 +273,7 @@ document.addEventListener("DOMContentLoaded",()=>activateAssetFallbacks(document
 // O módulo global observa também o conteúdo criado dinamicamente pelas ferramentas.
 if(!document.querySelector('script[data-pme-i18n]')){
   const i18nScript=document.createElement("script");
-  i18nScript.src="i18n.js?v=20260727-3";
+  i18nScript.src="i18n.js?v=20260727-4";
   i18nScript.dataset.pmeI18n="1";
   document.head.appendChild(i18nScript);
 }

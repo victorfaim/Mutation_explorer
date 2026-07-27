@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Calculadora de Breeding</title>
+  <link rel="stylesheet" href="style.css?v=20260727-2">
+  <link rel="stylesheet" href="breeding.css?v=20260727-1">
+</head>
+<body>
+<header><nav><a href="index.html">Início</a></nav></header>
+<main class="breeding-page">
+  <div class="breeding-heading">
+    <div>
+      <span class="eyebrow">BREEDING</span>
+      <h1>Calculadora de Breeding</h1>
+      <p class="muted">Consulte o filho padrão de dois Pals ou encontre todos os casais que geram um Pal.</p>
+    </div>
+  </div>
+
+  <div class="breeding-tabs" role="tablist" aria-label="Modo da calculadora">
+    <button id="tab-parents" class="is-active" role="tab" aria-selected="true" aria-controls="panel-parents">Pais → filho</button>
+    <button id="tab-child" role="tab" aria-selected="false" aria-controls="panel-child">Filho → pais</button>
+  </div>
+
+  <div id="breeding-notice" class="status" aria-live="polite" hidden></div>
+
+  <section id="panel-parents" class="panel breeding-panel" role="tabpanel" aria-labelledby="tab-parents">
+    <div class="breeding-parent-grid">
+      <div id="parent1-picker" class="breeding-picker"></div>
+      <button id="swap-parents" class="breeding-swap" type="button" aria-label="Trocar os pais">⇄</button>
+      <div id="parent2-picker" class="breeding-picker"></div>
+    </div>
+    <div class="breeding-actions">
+      <button id="clear-parents" type="button">Limpar</button>
+    </div>
+    <div id="standard-result" class="breeding-result" aria-live="polite">
+      <p class="muted">Selecione os dois pais para calcular o filho padrão.</p>
+    </div>
+  </section>
+
+  <section id="panel-child" class="panel breeding-panel" role="tabpanel" aria-labelledby="tab-child" hidden>
+    <div id="child-picker" class="breeding-picker breeding-child-picker"></div>
+    <div class="breeding-reverse-filters">
+      <label>Filtrar pais <input id="pair-search" type="search" placeholder="Nome do Pal"></label>
+      <label><input id="hide-identical" type="checkbox"> Ocultar pais iguais</label>
+      <label><input id="special-only" type="checkbox"> Somente cruzamentos especiais</label>
+    </div>
+    <div id="reverse-summary" class="status" aria-live="polite">Selecione um filho.</div>
+    <div id="reverse-results" class="breeding-pairs"></div>
+    <div class="pagination"><button id="more-pairs" type="button" hidden>Mostrar mais</button></div>
+  </section>
+
+  <section class="panel breeding-note">
+    <h2>Sobre o resultado</h2>
+    <p>Esta calculadora mostra somente o resultado padrão do breeding. Mutações, passivas, IVs e outros sistemas não fazem parte deste cálculo.</p>
+  </section>
+</main>
+<script src="data.js?v=20260720-13"></script>
+<script src="breeding-official-data.js?v=20260721-2"></script>
+<script src="pal-tooltip-data.js?v=20260721-1"></script>
+<script src="asset-config.js?v=20260720-13"></script>
+<script src="core.js?v=20260727-4"></script>
+<script src="breeding.js?v=20260727-1"></script>
+</body>
+</html>
