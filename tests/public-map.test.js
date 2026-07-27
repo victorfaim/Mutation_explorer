@@ -65,5 +65,8 @@ assert(!html.includes("map-fit-calibration"));
 assert(!html.includes("habitat-pilot"));
 assert(html.includes("core.js?v=20260727-3"));
 assert(PublicMap.DEFAULT_CATEGORIES.length<3,"Estado padrão visualmente excessivo");
+assert.deepStrictEqual(PublicMap.ICON_SIZES,{"fast-travel":30,"story-tower":38,"alpha-boss":34,"holy-water":32,relic:30},"Tamanhos devem acompanhar o Mapa Lab");
+assert(html.includes("mapa.css?v=20260727-2"));
+assert(html.includes("mapa.js?v=20260727-2"));
 
 console.log("public-map: separação, mapas, filtros, busca, projeção e i18n aprovados");

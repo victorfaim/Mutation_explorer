@@ -26,6 +26,7 @@
     relic:{label:"Relíquias e estátuas",source:"mapa-lab-data/relic-markers.json"}
   };
   const DEFAULT_CATEGORIES=["story-tower"];
+  const ICON_SIZES={"fast-travel":30,"story-tower":38,"alpha-boss":34,"holy-water":32,relic:30};
   const sharedCache=new Map(),mapCache=new Map();
 
   function normalizeText(value){return String(value||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();}
@@ -115,11 +116,14 @@
       const category=CATEGORIES[marker.category];
       const url=marker.category==="alpha-boss"?`assets/pals/${encodeURIComponent(marker.pal.icon)}.png`:
         marker.category==="relic"?marker.icon:category.icon;
-      const size=marker.category==="story-tower"?38:marker.category==="alpha-boss"?36:32;
+      const size=ICON_SIZES[marker.category];
+      if(marker.category==="fast-travel"||marker.category==="story-tower"){
+        return L.icon({iconUrl:url,iconSize:[size,size],iconAnchor:[size/2,size/2],popupAnchor:[0,-size/2-1]});
+      }
       return L.divIcon({
-        className:`public-map-marker public-map-marker-${marker.category}`,
+        className:`public-map-leaflet-icon public-map-leaflet-${marker.category}`,
         html:url?`<img src="${esc(url)}" alt="">`:"",
-        iconSize:[size,size],iconAnchor:[size/2,size/2]
+        iconSize:[size,size],iconAnchor:[size/2,size/2],popupAnchor:[0,-size/2-1]
       });
     }
     function categoryCounts(){
@@ -151,7 +155,8 @@
       for(const marker of rows){
         const pixel=markerToPixel(marker,state.data.coefficients);
         if(!pixel)continue;
-        const leafletMarker=L.marker(T.toLeaflet(pixel,state.data.config.height),{icon:iconFor(marker),title:marker.label||marker.id});
+        const title=markerTitle(marker);
+        const leafletMarker=L.marker(T.toLeaflet(pixel,state.data.config.height),{icon:iconFor(marker),title,alt:title});
         leafletMarker.on("click",()=>selectMarker(marker,leafletMarker));
         leafletMarker.addTo(state.layers.get(marker.category));
         state.markerIndex.set(marker.id,leafletMarker);
@@ -301,5 +306,5 @@
     switchMap("mainworld5");
   }
 
-  return {MAPS,CATEGORIES,DEFAULT_CATEGORIES,normalizeText,compileCalibration,markerToPixel,markerMatches,filterMarkers,loadMapData,init};
+  return {MAPS,CATEGORIES,DEFAULT_CATEGORIES,ICON_SIZES,normalizeText,compileCalibration,markerToPixel,markerMatches,filterMarkers,loadMapData,init};
 });
