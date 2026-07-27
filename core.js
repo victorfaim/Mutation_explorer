@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded",()=>activateAssetFallbacks(document
       {href:"reverso.html",label:"Mutação Reversa",active:isPage(["reverso.html"])},
       {href:"caminho.html",label:"Caminho de Breeding",active:isPage(["caminho.html"])}
     ]},
-    {href:"mapa-lab.html",label:"Mapa",active:false},
+    {href:"mapa.html",label:"Mapa",active:isPage(["mapa.html"])},
     {href:"itens.html",label:"Itens",active:isPage(["itens.html","item.html"])},
     {label:"Equipes",children:[
       {href:"team-builder.html",label:"Team Builder",active:isPage(["team-builder.html"])},
@@ -272,7 +272,7 @@ document.addEventListener("DOMContentLoaded",()=>activateAssetFallbacks(document
 // O módulo global observa também o conteúdo criado dinamicamente pelas ferramentas.
 if(!document.querySelector('script[data-pme-i18n]')){
   const i18nScript=document.createElement("script");
-  i18nScript.src="i18n.js?v=20260727-2";
+  i18nScript.src="i18n.js?v=20260727-3";
   i18nScript.dataset.pmeI18n="1";
   document.head.appendChild(i18nScript);
 }

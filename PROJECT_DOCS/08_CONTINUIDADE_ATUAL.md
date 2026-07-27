@@ -123,6 +123,20 @@ atualizar todos os consumidores.
   independente, cujo erro observado é 4,42 pixels em 8192×8192;
 - formato e operação estão documentados em `PROJECT_DOCS/10_MAPA_LAB.md`.
 
+### Mapa público
+
+- `mapa.html` é a superfície pública do mapa e o destino do item **Mapa** na navegação;
+- `mapa-lab.html` permanece separado, com `noindex`, controles técnicos e URL direta;
+- a página pública reutiliza Leaflet local, `mapa-lab-transform.js`, imagens, calibrações e
+  datasets derivados existentes, sem alterar coordenadas ou transformações;
+- Palpagos e World Tree mantêm configuração, transformação e estado de filtros
+  independentes;
+- o estado inicial ativa somente torres de história; viagem rápida, Alpha Pals, Água
+  Benta e relíquias/estátuas podem ser adicionados pelo usuário;
+- busca, filtros, legenda e painel de detalhes são bilíngues e não exibem coordenadas
+  nativas, coeficientes ou diagnóstico de calibração;
+- habitats continuam exclusivos do Mapa Lab por serem um piloto regional incompleto.
+
 ### URLs legadas preservadas
 
 - `auditoria.html` → `palpedia.html`

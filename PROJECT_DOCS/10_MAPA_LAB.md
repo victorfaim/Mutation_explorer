@@ -4,6 +4,36 @@
 ausente da navegação pública. Ela usa Leaflet 1.9.4 armazenado em `vendor/leaflet/`,
 `L.CRS.Simple` e uma única imagem versionada e otimizada.
 
+## Mapa público
+
+`mapa.html` é a superfície destinada ao jogador. Ela reutiliza o Leaflet local,
+`mapa-lab-transform.js`, as imagens versionadas, as calibrações e os JSONs derivados já
+validados, sem expor coordenadas nativas, coeficientes, referências ou controles de
+calibração.
+
+Palpagos e World Tree possuem configurações, imagens, marcadores, estado de filtros e
+transformações independentes. A World Tree pública usa
+`worldtree-z5-calibration.json` e `worldtree-official.webp`; a transformação de Palpagos
+jamais é aplicada como fallback. Os pixels são calculados em tempo de execução a partir
+de `world`/`native`, sem persistir uma segunda posição pública.
+
+As categorias públicas são limitadas aos conjuntos estáticos já confirmados:
+
+- viagem rápida;
+- torres de história;
+- Alpha Pals fixos;
+- fontes de Água Benta;
+- relíquias e estátuas.
+
+Somente torres começam ativas para preservar a leitura do mapa. O piloto incompleto de
+habitats continua exclusivo do Mapa Lab. O mapa público oferece busca sem distinção de
+maiúsculas, minúsculas ou acentos, filtros por categoria e detalhes simplificados com
+coordenadas exibidas no jogo. O teste focado pode ser executado com:
+
+```powershell
+node tests/public-map.test.js
+```
+
 ## Entradas locais
 
 O carregamento automático procura primeiro os derivados versionáveis:

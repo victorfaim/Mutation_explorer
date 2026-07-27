@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mapa Interativo | Pal Mutation Explorer</title>
+  <link rel="stylesheet" href="style.css?v=20260727-2">
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css?v=1.9.4">
+  <link rel="stylesheet" href="mapa.css?v=20260727-1">
+</head>
+<body class="public-map-page">
+  <header><nav><a href="index.html">Início</a><a href="palpedia.html">Palpedia</a><a href="mapa.html" class="active">Mapa</a><a href="itens.html">Itens</a></nav></header>
+  <main class="public-map-main">
+    <section class="public-map-heading">
+      <div>
+        <span class="public-map-kicker">EXPLORAÇÃO</span>
+        <h1>Mapa Interativo</h1>
+        <p>Encontre pontos fixos importantes em Palpagos e na World Tree.</p>
+      </div>
+      <button id="public-map-filter-toggle" class="public-map-filter-toggle" type="button" aria-controls="public-map-tools" aria-expanded="false">Filtros</button>
+    </section>
+
+    <section id="public-map-tools" class="public-map-tools" aria-label="Ferramentas do mapa">
+      <label>Mapa
+        <select id="public-map-dataset">
+          <option value="mainworld5">Palpagos</option>
+          <option value="worldtree">World Tree</option>
+        </select>
+      </label>
+      <label class="public-map-search-field">Buscar ponto
+        <input id="public-map-search" type="search" placeholder="Nome, Pal ou categoria" autocomplete="off" aria-label="Buscar ponto" aria-controls="public-map-results">
+        <span id="public-map-search-count" class="public-map-search-count" aria-live="polite"></span>
+      </label>
+      <div class="public-map-actions" aria-label="Ações dos filtros">
+        <button id="public-map-enable-all" type="button">Ativar todas</button>
+        <button id="public-map-disable-all" type="button">Desativar todas</button>
+        <button id="public-map-reset" type="button">Restaurar</button>
+      </div>
+      <fieldset class="public-map-categories">
+        <legend>Categorias</legend>
+        <div id="public-map-category-options"></div>
+      </fieldset>
+    </section>
+
+    <div id="public-map-status" class="public-map-status" role="status">Carregando mapa...</div>
+
+    <section class="public-map-workspace">
+      <div class="public-map-canvas-wrap">
+        <div id="public-map-canvas" aria-label="Mapa interativo"></div>
+        <div id="public-map-results" class="public-map-results" role="listbox" aria-label="Resultados da busca" hidden></div>
+        <div id="public-map-empty" class="public-map-empty" hidden>Nenhum marcador corresponde aos filtros atuais.</div>
+      </div>
+      <aside id="public-map-details" class="public-map-details" aria-labelledby="public-map-details-title" tabindex="-1">
+        <button id="public-map-details-close" class="public-map-details-close" type="button" aria-label="Fechar detalhes">×</button>
+        <div id="public-map-details-content">
+          <span class="public-map-detail-kicker">DETALHES</span>
+          <h2 id="public-map-details-title">Selecione um ponto</h2>
+          <p>Escolha um marcador no mapa ou use a busca para ver mais informações.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="public-map-legend panel" aria-label="Legenda do mapa">
+      <h2>Legenda</h2>
+      <div id="public-map-legend-items"></div>
+    </section>
+  </main>
+  <script src="vendor/leaflet/leaflet.js?v=1.9.4"></script>
+  <script src="mapa-lab-transform.js?v=20260721-3"></script>
+  <script src="core.js?v=20260727-3"></script>
+  <script src="mapa.js?v=20260727-1"></script>
+</body>
+</html>
