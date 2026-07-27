@@ -6,7 +6,7 @@
   <title>Mapa Interativo | Pal Mutation Explorer</title>
   <link rel="stylesheet" href="style.css?v=20260727-2">
   <link rel="stylesheet" href="vendor/leaflet/leaflet.css?v=1.9.4">
-  <link rel="stylesheet" href="mapa.css?v=20260727-2">
+  <link rel="stylesheet" href="mapa.css?v=20260727-3">
 </head>
 <body class="public-map-page">
   <header><nav><a href="index.html">Início</a><a href="palpedia.html">Palpedia</a><a href="mapa.html" class="active">Mapa</a><a href="itens.html">Itens</a></nav></header>
@@ -50,7 +50,7 @@
         <div id="public-map-results" class="public-map-results" role="listbox" aria-label="Resultados da busca" hidden></div>
         <div id="public-map-empty" class="public-map-empty" hidden>Nenhum marcador corresponde aos filtros atuais.</div>
       </div>
-      <aside id="public-map-details" class="public-map-details" aria-labelledby="public-map-details-title" tabindex="-1">
+      <aside id="public-map-details" class="public-map-details" aria-live="polite" aria-labelledby="public-map-details-title" tabindex="-1">
         <button id="public-map-details-close" class="public-map-details-close" type="button" aria-label="Fechar detalhes">×</button>
         <div id="public-map-details-content">
           <span class="public-map-detail-kicker">DETALHES</span>
@@ -67,7 +67,9 @@
   </main>
   <script src="vendor/leaflet/leaflet.js?v=1.9.4"></script>
   <script src="mapa-lab-transform.js?v=20260721-3"></script>
+  <script src="i18n.js?v=20260727-5" data-pme-i18n></script>
   <script src="core.js?v=20260727-4"></script>
-  <script src="mapa.js?v=20260727-2"></script>
+  <script src="mapa-details.js?v=20260727-1"></script>
+  <script src="mapa.js?v=20260727-3"></script>
 </body>
 </html>

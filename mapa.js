@@ -164,45 +164,41 @@
       $("public-map-empty").hidden=rows.length>0;
       updateSearchResults();
     }
-    function markerTitle(marker){return marker.category==="alpha-boss"?`Alpha ${marker.pal.name}`:marker.label||marker.id;}
-    function markerDescription(marker){
-      if(marker.category==="fast-travel")return "Ponto fixo de viagem rápida.";
-      if(marker.category==="story-tower")return "Torre de história.";
-      if(marker.category==="alpha-boss")return "Alpha Pal fixo.";
-      if(marker.category==="holy-water")return "Recurso único da World Tree.";
-      if(marker.category==="relic")return marker.bonus?`Bônus: ${marker.bonus}.`:"Coletável fixo.";
-      return "Este marcador não possui detalhes adicionais.";
+    function markerTitle(marker){
+      if(marker.category==="alpha-boss")return marker.pal?.name||marker.label||tr("Alpha Pal");
+      if(marker.category==="fast-travel"&&(!marker.label||marker.label===marker.id||/^FTPoint|^WorldTree_/i.test(marker.label)))return tr("Ponto de Viagem Rápida");
+      return marker.label||tr("Nenhum detalhe adicional disponível");
     }
     function detailImage(marker){
       const url=marker.category==="alpha-boss"?`assets/pals/${encodeURIComponent(marker.pal.icon)}.png`:
-        marker.category==="relic"?marker.icon:CATEGORIES[marker.category].icon;
+        marker.category==="relic"?marker.icon:CATEGORIES[marker.category]?.icon;
       return url?`<div class="public-map-detail-image"><img src="${esc(url)}" alt="${esc(markerTitle(marker))}"></div>`:"";
     }
-    function internalLinks(marker){
-      const links=[];
-      if(marker.category==="alpha-boss"&&marker.pal?.slug)links.push(`<a href="pal.html?pal=${encodeURIComponent(marker.pal.slug)}&${langParam()}">${tr("Ver na Palpedia")}</a>`);
-      if(marker.category==="holy-water")links.push(`<a href="itens.html?${langParam()}">${tr("Ver fontes do item")}</a>`);
-      return links.length?`<div class="public-map-detail-links">${links.join("")}</div>`:"";
+    const detailRenderer=env.PublicMapDetails?.createRenderer({env,document,tr,esc,number,langParam,maps:MAPS,categories:CATEGORIES,detailImage,markerTitle});
+    async function renderMarkerDetails(marker){
+      if(!detailRenderer){
+        return `<span class="public-map-detail-kicker">${tr("DETALHES")}</span><h2 id="public-map-details-title">${esc(markerTitle(marker))}</h2><p>${tr("Nenhum detalhe adicional disponível")}</p>`;
+      }
+      return detailRenderer(marker);
     }
-    function selectMarker(marker,leafletMarker=null){
+    async function selectMarker(marker,leafletMarker=null,{updateUrl=true}={}){
       state.selected=marker;
       const point=markerToPixel(marker,state.data.coefficients);
       if(point)state.map.setView(T.toLeaflet(point,state.data.config.height),Math.max(state.map.getZoom(),1),{animate:true});
       if(leafletMarker)leafletMarker.openPopup?.();
-      const game=marker.game||{};
-      const x=Number.isFinite(game.displayedX)?game.displayedX:game.x;
-      const y=Number.isFinite(game.displayedY)?game.displayedY:game.y;
-      const extra=marker.category==="alpha-boss"?`<dt>${tr("Nível")}</dt><dd>${number(marker.level)}</dd><dt>${tr("Elementos")}</dt><dd>${esc(marker.pal.elements.join(" / "))}</dd><dt>${tr("Palpedia")}</dt><dd>N-#${esc(marker.pal.index)}${marker.pal.suffix?` / ${esc(marker.pal.suffix)}`:""}</dd>`:
-        marker.category==="holy-water"?`<dt>${tr("Recompensa")}</dt><dd>${number(marker.reward.quantity)}× ${esc(marker.reward.name)}</dd><dt>${tr("Recarga")}</dt><dd>${number(marker.cooldownSeconds/60)} ${tr("minutos")}</dd>`:"";
-      $("public-map-details-content").innerHTML=`<span class="public-map-detail-kicker">${tr(CATEGORIES[marker.category].label)}</span>${detailImage(marker)}<h2 id="public-map-details-title">${esc(markerTitle(marker))}</h2><p>${esc(tr(markerDescription(marker)))}</p><dl class="public-map-detail-list"><dt>${tr("Coordenadas no jogo")}</dt><dd>${number(x)}, ${number(y)}</dd>${extra}</dl>${internalLinks(marker)}`;
+      $("public-map-details-content").innerHTML=`<span class="public-map-detail-kicker">${tr(CATEGORIES[marker.category]?.label||"DETALHES")}</span><h2 id="public-map-details-title">${esc(markerTitle(marker))}</h2><p>${tr("Carregando detalhes...")}</p>`;
       $("public-map-details").classList.add("is-open");
       $("public-map-details").focus({preventScroll:true});
       $("public-map-results").hidden=true;
+      if(updateUrl){const url=new URL(location.href);url.searchParams.set("map",state.mapId);url.searchParams.set("marker",marker.id);history.replaceState(null,"",url);}
+      const content=await renderMarkerDetails(marker);
+      if(state.selected===marker)$("public-map-details-content").innerHTML=content;
     }
-    function clearDetails(){
+    function clearDetails({updateUrl=true}={}){
       state.selected=null;
       $("public-map-details").classList.remove("is-open");
       $("public-map-details-content").innerHTML=`<span class="public-map-detail-kicker">${tr("DETALHES")}</span><h2 id="public-map-details-title">${tr("Selecione um ponto")}</h2><p>${tr("Escolha um marcador no mapa ou use a busca para ver mais informações.")}</p>`;
+      if(updateUrl){const url=new URL(location.href);url.searchParams.delete("marker");history.replaceState(null,"",url);}
     }
     function searchableMarkers(){
       const query=$("public-map-search").value;
@@ -240,7 +236,7 @@
     }
     async function switchMap(mapId){
       status("Carregando mapa...");
-      clearDetails();
+      clearDetails({updateUrl:false});
       $("public-map-results").hidden=true;
       try{
         const data=await loadMapData(mapId);
@@ -256,6 +252,9 @@
         renderCategories();renderLegend();renderMarkers();
         const total=data.markers.length;
         status(`${data.config.label}: ${number(total)} ${tr("pontos fixos disponíveis")}.`);
+        const requested=new URLSearchParams(location.search).get("marker");
+        const requestedMarker=requested&&data.markers.find(row=>row.id===requested);
+        if(requestedMarker){state.enabledByMap.get(mapId).add(requestedMarker.category);renderCategories();renderMarkers();selectMarker(requestedMarker,state.markerIndex.get(requestedMarker.id),{updateUrl:false});}
       }catch(error){
         console.error("Falha ao carregar mapa público",error);
         status("Não foi possível carregar o mapa. Tente novamente mais tarde.",true);
@@ -266,6 +265,7 @@
 
     $("public-map-dataset").addEventListener("change",event=>{
       $("public-map-search").value="";
+      const url=new URL(location.href);url.searchParams.set("map",event.target.value);url.searchParams.delete("marker");history.replaceState(null,"",url);
       switchMap(event.target.value);
     });
     $("public-map-category-options").addEventListener("change",event=>{
@@ -303,7 +303,10 @@
       if(event.key==="Escape"&&state.selected){clearDetails();$("public-map-canvas").focus?.();}
     });
     ensureMap();
-    switchMap("mainworld5");
+    const initialMap=new URLSearchParams(location.search).get("map");
+    state.mapId=MAPS[initialMap]?initialMap:"mainworld5";
+    $("public-map-dataset").value=state.mapId;
+    switchMap(state.mapId);
   }
 
   return {MAPS,CATEGORIES,DEFAULT_CATEGORIES,ICON_SIZES,normalizeText,compileCalibration,markerToPixel,markerMatches,filterMarkers,loadMapData,init};

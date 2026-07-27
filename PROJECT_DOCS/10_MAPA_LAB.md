@@ -306,3 +306,11 @@ normalizadas são calculados no navegador pela calibração vigente. O raio visu
 node tools/generate-map-habitat-pilot.js
 node tests/map-habitat-pilot.test.js
 ```
+
+## Painel de detalhes do mapa público
+
+O mapa público mantém um único painel lateral e delega a apresentação de cada categoria a renderizadores em `mapa-details.js`. Fast Travel, torres, Água Benta e relíquias preservam apenas os campos confirmados de seus marcadores.
+
+Ao selecionar um Alpha, o navegador carrega `drop-tables-data.js` sob demanda e relaciona `marker.pal.id` a `PAL_DROP_TABLES.pals[id].boss`. A seleção da tabela é determinística: nível exato do marcador, depois tabela-base de nível 0 e, se ela não existir, o menor nível disponível. Itens repetidos são apresentados em um único card; variantes distintas de chance ou quantidade permanecem separadas, sem soma ou inferência de probabilidades.
+
+A seleção atual é registrada pelos parâmetros `map` e `marker`, permitindo preservar o ponto ao alternar o idioma. Essa camada não altera coordenadas, calibração, marcadores ou datasets.

@@ -13,7 +13,7 @@ const lab=fs.readFileSync(path.join(root,"mapa-lab.html"),"utf8");
 for(const file of ["mapa.html","mapa.css","mapa.js","mapa-lab.html","mapa-lab.js","mapa-lab-transform.js"]){
   assert(fs.existsSync(path.join(root,file)),`Arquivo ausente: ${file}`);
 }
-for(const reference of ["vendor/leaflet/leaflet.js","mapa-lab-transform.js","mapa.js","mapa.css"]){
+for(const reference of ["vendor/leaflet/leaflet.js","mapa-lab-transform.js","mapa-details.js","mapa.js","mapa.css"]){
   assert(html.includes(reference),`Dependência pública ausente: ${reference}`);
 }
 assert(core.includes('href:"mapa.html"'),"Menu público não aponta para mapa.html");
@@ -66,7 +66,10 @@ assert(!html.includes("habitat-pilot"));
 assert(html.includes("core.js?v=20260727-4"));
 assert(PublicMap.DEFAULT_CATEGORIES.length<3,"Estado padrão visualmente excessivo");
 assert.deepStrictEqual(PublicMap.ICON_SIZES,{"fast-travel":30,"story-tower":38,"alpha-boss":34,"holy-water":32,relic:30},"Tamanhos devem acompanhar o Mapa Lab");
-assert(html.includes("mapa.css?v=20260727-2"));
-assert(html.includes("mapa.js?v=20260727-2"));
+assert(html.includes("mapa.css?v=20260727-3"));
+assert(html.includes("mapa-details.js?v=20260727-1"));
+assert(html.includes("mapa.js?v=20260727-3"));
+assert(html.includes('id="public-map-details" class="public-map-details" aria-live="polite"'));
+assert.strictEqual((html.match(/id="public-map-details"/g)||[]).length,1,"Deve existir um único painel visual de detalhes");
 
 console.log("public-map: separação, mapas, filtros, busca, projeção e i18n aprovados");
