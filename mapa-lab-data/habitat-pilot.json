@@ -1,0 +1,981 @@
+{
+  "schemaVersion": 1,
+  "mapId": "mainworld5",
+  "revision": "habitat-pilot-green-a-green-d-v1",
+  "coverage": "partial",
+  "incomplete": true,
+  "radiusNative": 10000,
+  "source": {
+    "spawnerBase": "BP_PalSpawner_Standard",
+    "location": "PL_MainWorld5 MainGrid exports",
+    "note": "Piloto regional; nao representa a distribuicao mundial completa."
+  },
+  "pals": [
+    {
+      "id": "lamball",
+      "characterId": "SheepBall",
+      "name": "Lamball",
+      "palpediaNumber": "001",
+      "icon": "assets/pals/T_SheepBall_icon_normal.png",
+      "availableTimes": [
+        "day"
+      ],
+      "sourceRegions": [
+        "green_A"
+      ],
+      "points": [
+        {
+          "world": {
+            "x": -353160.78,
+            "y": 252818.3,
+            "z": 3562.5032
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y9_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004065226",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -352595.84,
+            "y": 255477.69,
+            "z": 3678.608
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y9_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004066227",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -347153.56,
+            "y": 253184.53,
+            "z": 1997.8431
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y9_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004077237",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -343584.28,
+            "y": 253102.12,
+            "z": 1328.1404
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y9_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004084243",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -341131.84,
+            "y": 253991.72,
+            "z": 1874.5781
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y9_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004090249",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -337516.78,
+            "y": 254253.19,
+            "z": 3136.7
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y9_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004096254",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -354643.44,
+            "y": 254394.16,
+            "z": 3696.582
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y9_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_SheepBall_C_UAID_9C6B003DE9DAC1CF02_1617185296",
+            "actorType": "BP_PalSpawner_Sheets_green_A_SheepBall_C"
+          }
+        },
+        {
+          "world": {
+            "x": -348701.53,
+            "y": 246790.28,
+            "z": -31.18196
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y9_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_SheepBall_C_UAID_A8A159F81E9D80DD02_1627258805",
+            "actorType": "BP_PalSpawner_Sheets_green_A_SheepBall_C"
+          }
+        },
+        {
+          "world": {
+            "x": -336238.53,
+            "y": 233950.28,
+            "z": -1857.169
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y9_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_SheepBall_C_UAID_A8A159F81E9D80DD02_1642567806",
+            "actorType": "BP_PalSpawner_Sheets_green_A_SheepBall_C"
+          }
+        },
+        {
+          "world": {
+            "x": -339210.53,
+            "y": 240168.28,
+            "z": -1415.4529
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y9_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_SheepBall_C_UAID_A8A159F81E9D80DD02_1655483807",
+            "actorType": "BP_PalSpawner_Sheets_green_A_SheepBall_C"
+          }
+        },
+        {
+          "world": {
+            "x": -357194.03,
+            "y": 267413.03,
+            "z": 7083.1567
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004063224",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -357394.2,
+            "y": 269701.22,
+            "z": 7885.4766
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004064225",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -353707.7,
+            "y": 258838.86,
+            "z": 3999.0073
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004068229",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -355220.12,
+            "y": 270316,
+            "z": 7098.4653
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004071231",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -355523.94,
+            "y": 273272.47,
+            "z": 7389.9863
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004072232",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -349972.72,
+            "y": 256258.55,
+            "z": 3228.45
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004073233",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -352385.44,
+            "y": 271131.03,
+            "z": 7067.088
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004076236",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -346780.22,
+            "y": 256119.73,
+            "z": 2322.8525
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004078238",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -346714.22,
+            "y": 261380.17,
+            "z": 3994.6838
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004079239",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -348222.44,
+            "y": 268502,
+            "z": 5574.2607
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004080240",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -349540.88,
+            "y": 276682.97,
+            "z": 3214.571
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004083242",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -344700.2,
+            "y": 262600.97,
+            "z": 4045.7986
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004086245",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -344996.5,
+            "y": 265848.4,
+            "z": 4654.934
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004087246",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -345188.6,
+            "y": 268602.25,
+            "z": 5253.3647
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004088247",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -346484.9,
+            "y": 274669.1,
+            "z": 3214.571
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004089248",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -341381.94,
+            "y": 257205.95,
+            "z": 2969.8572
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004091250",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -341599.5,
+            "y": 259374.8,
+            "z": 3029.6921
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004092251",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -342061.4,
+            "y": 263044.7,
+            "z": 3835.0388
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004093252",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -342512.4,
+            "y": 265591.06,
+            "z": 4299.037
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004094253",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -338925.25,
+            "y": 260108.1,
+            "z": 3206.9304
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004097255",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -351740,
+            "y": 266986.03,
+            "z": 5844.2207
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_SheepBall_C_UAID_9C6B003DE9DAC1CF02_1559913295",
+            "actorType": "BP_PalSpawner_Sheets_green_A_SheepBall_C"
+          }
+        },
+        {
+          "world": {
+            "x": -357990.53,
+            "y": 263648.28,
+            "z": 7101.3354
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_SheepBall_C_UAID_9C6B003DE9DAC1CF02_1651983297",
+            "actorType": "BP_PalSpawner_Sheets_green_A_SheepBall_C"
+          }
+        },
+        {
+          "world": {
+            "x": -348599.84,
+            "y": 270687.4,
+            "z": 5783.951
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_SheepBall_C_UAID_9C6B003DE9DAC1CF02_1757427298",
+            "actorType": "BP_PalSpawner_Sheets_green_A_SheepBall_C"
+          }
+        },
+        {
+          "world": {
+            "x": -339888.88,
+            "y": 263386.78,
+            "z": 4207.125
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_SheepBall_C_UAID_9C6B003DE9DAC1CF02_1795254299",
+            "actorType": "BP_PalSpawner_Sheets_green_A_SheepBall_C"
+          }
+        },
+        {
+          "world": {
+            "x": -351964.53,
+            "y": 257930.28,
+            "z": 3986.4868
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_SheepBall_C_UAID_A8A159F81E9D80DD02_1586584803",
+            "actorType": "BP_PalSpawner_Sheets_green_A_SheepBall_C"
+          }
+        },
+        {
+          "world": {
+            "x": -374277.56,
+            "y": 259396.66,
+            "z": 2539.532
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-15_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004037203",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -376193.03,
+            "y": 273841.25,
+            "z": -1567.7786
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-15_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004038204",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -371274.56,
+            "y": 258972.6,
+            "z": 2453.7085
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-15_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004042207",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -372000.75,
+            "y": 262742.03,
+            "z": 4494.422
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-15_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004043208",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -368402.06,
+            "y": 259190.27,
+            "z": 3205.2263
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-15_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004046211",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -369739.28,
+            "y": 268660.56,
+            "z": 1555.7075
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-15_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004048212",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -365750.56,
+            "y": 262992.38,
+            "z": 6609.229
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-15_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004052215",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -366886.72,
+            "y": 271603.62,
+            "z": 3657.94
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-15_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004053216",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -367090.75,
+            "y": 275434.3,
+            "z": 4767.0264
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-15_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004055217",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -362614.12,
+            "y": 263518.1,
+            "z": 7101.206
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-15_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004058220",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -360224.2,
+            "y": 263894.12,
+            "z": 7101.335
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-15_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004061222",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -360175.03,
+            "y": 266301.78,
+            "z": 7981.974
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-15_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_C_UAID_345A605CEA4EC2A802_2004062223",
+            "actorType": "BP_PalSpawner_Sheets_green_A_C"
+          }
+        },
+        {
+          "world": {
+            "x": -361384.53,
+            "y": 262642.28,
+            "z": 7088.008
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-15_Y10_DL9CFECD92",
+            "actor": "BP_PalSpawner_Sheets_green_A_SheepBall_C_UAID_A8A159F81E9D7FDD02_1641437869",
+            "actorType": "BP_PalSpawner_Sheets_green_A_SheepBall_C"
+          }
+        }
+      ]
+    },
+    {
+      "id": "depresso",
+      "characterId": "NegativeKoala",
+      "name": "Depresso",
+      "palpediaNumber": "016",
+      "icon": "assets/pals/T_NegativeKoala_icon_normal.png",
+      "availableTimes": [
+        "night"
+      ],
+      "sourceRegions": [
+        "green_D"
+      ],
+      "points": [
+        {
+          "world": {
+            "x": -323740,
+            "y": 178740,
+            "z": -1025
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-13_Y6_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1738009661",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -319100,
+            "y": 173525,
+            "z": -1240
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-13_Y6_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1744848662",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -319945,
+            "y": 169140,
+            "z": -1760
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-13_Y6_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1765376663",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -321160,
+            "y": 165120,
+            "z": -1920
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-13_Y6_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1770633664",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -317135,
+            "y": 165555,
+            "z": -1920
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-13_Y6_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1772699665",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -312835,
+            "y": 164865,
+            "z": -1920
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-13_Y6_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1777653666",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -332370,
+            "y": 167335,
+            "z": -1375
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-13_Y6_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1813706674",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -326015,
+            "y": 162685,
+            "z": -1520
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-13_Y6_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1818118675",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -330875,
+            "y": 201065,
+            "z": -1355
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-13_Y7_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1659403647",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -330660,
+            "y": 196090,
+            "z": -1175
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-13_Y7_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1678907652",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -326665,
+            "y": 203535,
+            "z": -445
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-13_Y7_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1687075653",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -322120,
+            "y": 203600,
+            "z": 35
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-13_Y7_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1700121654",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -321380,
+            "y": 199815,
+            "z": 675
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-13_Y7_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1703066655",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -320815,
+            "y": 195680,
+            "z": 675
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-13_Y7_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1705288656",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -324845,
+            "y": 198420,
+            "z": 675
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-13_Y7_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1707791657",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -327060,
+            "y": 192845,
+            "z": -765
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-13_Y7_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1721995658",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -323540,
+            "y": 187470,
+            "z": -1675
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-13_Y7_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1726788659",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -325525,
+            "y": 182450,
+            "z": -1210
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-13_Y7_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1735844660",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -331840,
+            "y": 204950,
+            "z": -1395
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-13_Y8_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1612601646",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -340430,
+            "y": 178715,
+            "z": 810
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y6_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1796040669",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -336075,
+            "y": 175455,
+            "z": 375
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y6_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1809035672",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -335305,
+            "y": 170245,
+            "z": -340
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y6_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1811078673",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -335670,
+            "y": 202255,
+            "z": -580
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y7_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1667935648",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -335920,
+            "y": 199665,
+            "z": -285
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y7_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1670433649",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -336335,
+            "y": 196360,
+            "z": -140
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y7_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1672998650",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -335140,
+            "y": 191975,
+            "z": -115
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y7_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1676228651",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -335425,
+            "y": 184540,
+            "z": 810
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y7_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1790626667",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -333750,
+            "y": 180545,
+            "z": 810
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y7_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1793157668",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -341705,
+            "y": 181310,
+            "z": 810
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y7_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1798819670",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        },
+        {
+          "world": {
+            "x": -338265,
+            "y": 181225,
+            "z": 810
+          },
+          "source": {
+            "cell": "MainGrid_L0_X-14_Y7_DLC6F3CE9A",
+            "actor": "BP_PalSpawner_Sheets_green_D_C_UAID_345A605CEA4EA7AA02_1801113671",
+            "actorType": "BP_PalSpawner_Sheets_green_D_C"
+          }
+        }
+      ]
+    }
+  ]
+}

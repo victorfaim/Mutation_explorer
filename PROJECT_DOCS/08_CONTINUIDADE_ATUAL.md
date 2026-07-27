@@ -113,6 +113,10 @@ atualizar todos os consumidores.
 - um filtro opcional de relíquias e estátuas reúne 407 coletáveis fixos extraídos do
   `MainGrid`: 360 em Palpagos e 47 na World Tree, sendo 155 efígies de Lifmunk e 252
   estátuas de onze tipos; Mimog e Vitalidade ficam fora por não possuírem ponto fixo;
+- um piloto de habitats, desligado por padrão, permite buscar Lamball ou Depresso e
+  alternar Dia/Noite; ele deriva 48 spawners `green_A` e 30 `green_D` dos MainGrids
+  fornecidos, informa explicitamente que a cobertura é regional e incompleta e não se
+  aplica à World Tree;
 - o gerador local extrai 152 pontos de viagem rápida de `PL_MainWorld5.json`, preservando
   coordenadas nativas, exibidas, em pixels e normalizadas;
 - a calibração vigente usa similaridade com duas referências de ajuste e uma validação
@@ -129,6 +133,21 @@ atualizar todos os consumidores.
 
 Os redirecionamentos usam `meta refresh`, `location.replace` e um link de fallback. Eles
 preservam URLs antigas e não devem ser apagados como arquivos “duplicados”.
+
+### Navegação pré-lançamento
+
+O menu canônico é montado por `core.js` e reduz as opções simultâneas sem remover páginas.
+Início, Palpedia, Mapa e Itens ficam no primeiro nível; Breeding, Equipes, Ferramentas e
+Mais organizam as demais ferramentas em dropdowns. A mesma hierarquia é usada no menu
+mobile, com suporte a teclado, fechamento por Escape e rótulos PT-BR/EN-US. Os HTMLs
+mantêm seus menus estáticos como fallback, e as URLs legadas continuam redirecionando.
+`Mutation Explorer` não aparece como opção separada enquanto apontar para a mesma Home.
+Auditoria permanece em `Mais`, identificada como ferramenta técnica.
+
+O rodapé compartilhado apresenta versão fixa `v0.9.0` e links para `sobre.html`,
+`contato.html`, `aviso-legal.html` e o repositório no GitHub. As três páginas
+institucionais são estáticas, bilíngues e não carregam datasets, formulários ou serviços
+externos.
 
 ## Assets e volume atual
 

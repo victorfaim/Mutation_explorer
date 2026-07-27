@@ -1,5 +1,5 @@
 const T=window.MapLabTransform;
-const state={map:null,imageOverlay:null,imageUrl:null,width:0,height:0,data:null,alphaData:null,towerData:null,holyWaterData:null,relicData:null,relicTypesSelected:null,calibration:null,coefficients:null,markerLayer:null,alphaLayer:null,towerLayer:null,holyWaterLayer:null,relicLayer:null,referenceLayer:null,datasetKey:"mainworld5",mapConfig:null};
+const state={map:null,imageOverlay:null,imageUrl:null,width:0,height:0,data:null,alphaData:null,towerData:null,holyWaterData:null,relicData:null,habitatData:null,relicTypesSelected:null,calibration:null,coefficients:null,markerLayer:null,alphaLayer:null,towerLayer:null,holyWaterLayer:null,relicLayer:null,habitatLayer:null,referenceLayer:null,datasetKey:"mainworld5",mapConfig:null};
 const $=id=>document.getElementById(id);
 
 function esc(value){return String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[char]));}
@@ -15,6 +15,10 @@ function ensureMap(){
   state.towerLayer=L.layerGroup().addTo(state.map);
   state.holyWaterLayer=L.layerGroup().addTo(state.map);
   state.relicLayer=L.layerGroup().addTo(state.map);
+  state.map.createPane("habitatPane");
+  state.map.getPane("habitatPane").style.zIndex=350;
+  state.map.getPane("habitatPane").classList.add("map-lab-habitat-pane");
+  state.habitatLayer=L.layerGroup().addTo(state.map);
   state.referenceLayer=L.layerGroup().addTo(state.map);
   state.map.on("click",event=>inspectClick(event.latlng));
 }
@@ -214,6 +218,43 @@ function renderRelicLayer(){
   if(!$("map-show-relics").checked)state.map.removeLayer(state.relicLayer);else state.relicLayer.addTo(state.map);
 }
 
+function currentHabitatPal(){
+  const query=normalizedText($("map-habitat-search").value);
+  if(!query)return null;
+  return (state.habitatData?.pals||[]).find(pal=>[pal.name,pal.id,pal.characterId,`N-#${pal.palpediaNumber}`].some(value=>normalizedText(value)===query))||null;
+}
+function habitatTime(){return document.querySelector('input[name="map-habitat-time"]:checked')?.value||"day";}
+function habitatRadiusPixels(point){
+  const center=markerImage(point);
+  const edge=markerImage({world:{x:point.world.x+state.habitatData.radiusNative,y:point.world.y,z:point.world.z}});
+  return center&&edge?Math.hypot(edge.pixelX-center.pixelX,edge.pixelY-center.pixelY):0;
+}
+function renderHabitatOptions(){
+  $("map-habitat-options").innerHTML=(state.habitatData?.pals||[]).map(pal=>`<option value="${esc(pal.name)}">N-#${esc(pal.palpediaNumber)}</option>`).join("");
+}
+function setHabitatMessage(message,warning=false){
+  $("map-habitat-message").textContent=message;
+  $("map-habitat-message").classList.toggle("is-warning",warning);
+}
+function renderHabitatLayer(){
+  if(!state.map||!state.width||!state.height)return;
+  state.habitatLayer.clearLayers();
+  if(!$("map-show-habitats").checked){state.map.removeLayer(state.habitatLayer);setHabitatMessage("Selecione um Pal para exibir a amostra.");return;}
+  if(state.datasetKey!=="mainworld5"){state.map.removeLayer(state.habitatLayer);setHabitatMessage("O piloto de habitats está disponível apenas em Palpagos.",true);return;}
+  const pal=currentHabitatPal();
+  if(!pal){state.map.removeLayer(state.habitatLayer);setHabitatMessage("Selecione Lamball ou Depresso.",true);return;}
+  const time=habitatTime();
+  if(!pal.availableTimes.includes(time)){state.map.removeLayer(state.habitatLayer);setHabitatMessage(`${pal.name} não parece estar ativo neste horário.`);return;}
+  const color=time==="night"?"#58bfff":"#ff9b24";
+  for(const point of pal.points){
+    const image=markerImage(point);if(!image)continue;
+    const radius=habitatRadiusPixels(point);if(!radius)continue;
+    L.circle(T.toLeaflet(image,state.height),{pane:"habitatPane",radius,color,weight:8,opacity:.12,fillColor:color,fillOpacity:.15,className:"map-lab-habitat-shape",interactive:false}).addTo(state.habitatLayer);
+  }
+  state.habitatLayer.addTo(state.map);
+  setHabitatMessage(`${pal.name}: amostra ${time==="night"?"noturna":"diurna"} com ${pal.points.length} spawners confirmados. Cobertura regional incompleta.`,true);
+}
+
 function renderLayers(){
   if(!state.map||!state.width||!state.height)return;
   state.markerLayer.clearLayers();state.referenceLayer.clearLayers();
@@ -233,6 +274,7 @@ function renderLayers(){
   renderTowerLayer();
   renderHolyWaterLayer();
   renderRelicLayer();
+  renderHabitatLayer();
 }
 
 function inspectClick(latlng){
@@ -289,6 +331,11 @@ async function loadDefaults(datasetKey=$("map-dataset").value){
     if(!relicResponse.ok)throw new Error("Dados de relíquias e estátuas não encontrados.");
     state.relicData=await relicResponse.json();
   }
+  if(!state.habitatData){
+    const habitatResponse=await fetch("mapa-lab-data/habitat-pilot.json?v=20260722-1");
+    if(!habitatResponse.ok)throw new Error("Dados do piloto de habitats não encontrados.");
+    state.habitatData=await habitatResponse.json();
+  }
   state.data=await dataResponse.json();
   state.calibration=calibrationResponse.ok?await calibrationResponse.json():null;
   const imagePath=state.mapConfig?.paths?.webImage||state.mapConfig?.paths?.composedImage||state.data.map?.image||"LOCAL_RESEARCH/raw/mapa-lab/map.png";
@@ -298,6 +345,7 @@ async function loadDefaults(datasetKey=$("map-dataset").value){
   const calibrated=fitCalibration();
   renderAlphaOptions();
   renderRelicTypeFilters();
+  renderHabitatOptions();
   const alphaCount=(state.alphaData.markers||[]).filter(marker=>marker.mapId===datasetKey).length;
   const towerCount=(state.towerData.markers||[]).filter(marker=>marker.mapId===datasetKey).length;
   const holyWaterCount=(state.holyWaterData.markers||[]).filter(marker=>marker.mapId===datasetKey).length;
@@ -318,6 +366,9 @@ $("map-show-alpha-bosses").addEventListener("change",renderAlphaLayer);
 $("map-show-story-towers").addEventListener("change",renderTowerLayer);
 $("map-show-holy-water").addEventListener("change",renderHolyWaterLayer);
 $("map-show-relics").addEventListener("change",renderRelicLayer);
+$("map-show-habitats").addEventListener("change",renderHabitatLayer);
+$("map-habitat-search").addEventListener("input",()=>{if(currentHabitatPal())$("map-show-habitats").checked=true;renderHabitatLayer();});
+document.querySelectorAll('input[name="map-habitat-time"]').forEach(input=>input.addEventListener("change",renderHabitatLayer));
 $("map-alpha-search").addEventListener("input",()=>{if($("map-alpha-search").value)$("map-show-alpha-bosses").checked=true;renderAlphaLayer();});
 $("map-relic-type-options").addEventListener("change",event=>{if(event.target.type!=="checkbox")return;if(event.target.checked)state.relicTypesSelected.add(event.target.value);else state.relicTypesSelected.delete(event.target.value);$("map-show-relics").checked=true;updateRelicTypeSummary();renderRelicLayer();});
 $("map-relic-select-all").addEventListener("click",()=>setRelicTypes(true));

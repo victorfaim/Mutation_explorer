@@ -256,3 +256,23 @@ Testes do pipeline e da transformação:
 python -m unittest tests/test_world_tree_tiles.py
 node tests/map-calibration.test.js
 ```
+
+## Piloto de habitats
+
+O Mapa Lab possui uma camada experimental, desligada por padrão, para validar habitats
+a partir de spawners fixos. O primeiro recorte inclui 48 spawners de Lamball no segmento
+`green_A` (Dia) e 30 de Depresso no segmento `green_D` (Noite).
+
+Esses totais são amostras regionais, não a distribuição completa de Palpagos. O JSON
+registra `coverage: partial` e `incomplete: true`, e a interface repete esse aviso. A
+World Tree permanece fora deste piloto.
+
+`tools/generate-map-habitat-pilot.js` lê os exports brutos ignorados pelo Git, extrai X/Y/Z
+dos `DefaultSceneRoot` e gera `mapa-lab-data/habitat-pilot.json`. Pixels e posições
+normalizadas são calculados no navegador pela calibração vigente. O raio visual usa os
+10.000 pontos nativos de `WanderingRadius` confirmados em `BP_PalSpawner_Standard`.
+
+```powershell
+node tools/generate-map-habitat-pilot.js
+node tests/map-habitat-pilot.test.js
+```

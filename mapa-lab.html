@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex,nofollow">
   <title>Mapa Lab | Pal Mutation Explorer</title>
   <link rel="stylesheet" href="vendor/leaflet/leaflet.css?v=1.9.4">
-  <link rel="stylesheet" href="mapa-lab.css?v=20260722-4">
+  <link rel="stylesheet" href="mapa-lab.css?v=20260722-5">
 </head>
 <body>
   <main class="map-lab-shell">
@@ -36,6 +36,10 @@
         <div class="map-lab-relic-type-actions"><button id="map-relic-select-all" type="button">Todas</button><button id="map-relic-select-none" type="button">Nenhuma</button></div>
         <div id="map-relic-type-options" class="map-lab-relic-type-options"></div>
       </details>
+      <label><input id="map-show-habitats" type="checkbox"> Habitats (piloto)</label>
+      <label class="map-lab-habitat-search">Buscar Pal<input id="map-habitat-search" type="search" list="map-habitat-options" placeholder="Lamball ou Depresso" autocomplete="off"><datalist id="map-habitat-options"></datalist></label>
+      <fieldset class="map-lab-habitat-time" aria-label="Horário do habitat"><label><input type="radio" name="map-habitat-time" value="day" checked> Dia</label><label><input type="radio" name="map-habitat-time" value="night"> Noite</label></fieldset>
+      <span id="map-habitat-message" class="map-lab-habitat-message">Selecione um Pal para exibir a amostra.</span>
     </section>
 
     <div id="map-lab-status" class="map-lab-status" role="status">Carregando mapa de validação...</div>
@@ -53,6 +57,6 @@
   </main>
   <script src="vendor/leaflet/leaflet.js?v=1.9.4"></script>
   <script src="mapa-lab-transform.js?v=20260721-3"></script>
-  <script src="mapa-lab.js?v=20260722-4"></script>
+  <script src="mapa-lab.js?v=20260722-5"></script>
 </body>
 </html>
