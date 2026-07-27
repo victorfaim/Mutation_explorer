@@ -1,4 +1,7 @@
 const assert=require("assert");
+const fs=require("fs");
+const path=require("path");
+const vm=require("vm");
 const Details=require("../mapa-details.js");
 const tables=[{level:0,drops:[{itemId:"Fallback",rate:10,min:1,max:1}]},{level:55,drops:[{itemId:"Exact",rate:25,min:1,max:2}]},{level:70,drops:[]}];
 assert.strictEqual(Details.selectBossDropTable(tables,55).level,55,"Nível exato deve ter precedência");
@@ -13,7 +16,7 @@ const renderer=Details.createRenderer({env,document:{},tr:value=>value,esc:value
 const alpha={id:"alpha-jetragon",mapId:"mainworld5",category:"alpha-boss",level:55,game:{x:-1,y:2},pal:{id:"jetdragon",slug:"jetragon",name:"Jetragon",elements:["Dragon"]}};
 (async()=>{
   const html=await renderer(alpha);
-  for(const expected of ["Jetragon","Nível 55","Dragon","Carbon Fiber","Chance: 20%","Quantidade: 1–2","pal.html?pal=jetragon&lang=pt-BR","breeding.html?child=jetdragon&lang=pt-BR","caminho.html?target=jetdragon&lang=pt-BR","reverso.html?target=jetdragon&lang=pt-BR","Drops conhecidos para a variante Alpha/Boss deste Pal."]){assert(html.includes(expected),"Detalhe Alpha incompleto: "+expected);}
+  for(const expected of ["Jetragon","Nível 55","Dragon","Carbon Fiber","Chance: 20%","Quantidade: 1–2","pal.html?pal=jetragon&lang=pt-BR","breeding.html?child=jetdragon&lang=pt-BR","caminho.html?target=jetdragon&lang=pt-BR","reverso.html?pal=jetdragon&lang=pt-BR","Drops conhecidos para a variante Alpha/Boss deste Pal."]){assert(html.includes(expected),"Detalhe Alpha incompleto: "+expected);}
   assert.strictEqual((html.match(/class="public-map-drop"/g)||[]).length,1,"Item duplicado no painel");
   const tower=await renderer({id:"tower",label:"Torre",mapId:"mainworld5",category:"story-tower",game:{x:1,y:2}});
   assert(!/HP|drop|Nível/.test(tower),"Tower recebeu dados não confirmados");
@@ -21,3 +24,13 @@ const alpha={id:"alpha-jetragon",mapId:"mainworld5",category:"alpha-boss",level:
   assert(unknown.includes("Nenhum detalhe adicional disponível"));
   console.log("map-details: seleção de drops, deduplicação, renderizadores e links aprovados");
 })().catch(error=>{console.error(error);process.exitCode=1;});
+
+const reverseSource=fs.readFileSync(path.resolve(__dirname,"../reverso.js"),"utf8");
+const reverseInit=reverseSource.match(/const qp=new URLSearchParams\(location\.search\)\.get\("pal"\);[\s\S]*$/);
+assert(reverseInit,"Contrato ?pal da Mutação Reversa não encontrado");
+let selectedFromUrl=null;
+vm.runInNewContext(reverseInit[0],{URLSearchParams,location:{search:"?pal=jetdragon&lang=pt-BR"},findPal:value=>value==="jetdragon"?{id:"jetdragon"}:null,selectPal:id=>{selectedFromUrl=id;}});
+assert.strictEqual(selectedFromUrl,"jetdragon","ID técnico correto não foi pré-selecionado");
+vm.runInNewContext(reverseInit[0],{URLSearchParams,location:{search:"?pal=invalid-id&lang=pt-BR"},findPal:()=>null,selectPal:()=>{throw new Error("Parâmetro inválido tentou selecionar um Pal");}});
+const detailsSource=fs.readFileSync(path.resolve(__dirname,"../mapa-details.js"),"utf8");
+assert(!detailsSource.includes("reverso.html?target="),"O painel ainda usa o parâmetro incorreto ?target");
