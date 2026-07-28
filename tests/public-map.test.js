@@ -64,7 +64,7 @@ assert(!html.includes("map-calibration-output"));
 assert(!html.includes("map-fit-calibration"));
 assert(!html.includes("habitat-pilot"));
 assert(html.includes("item-icon-map.js?v=20260728-2"));
-assert(html.includes("core.js?v=20260728-5"));
+assert(html.includes("core.js?v=20260728-8"));
 assert(PublicMap.DEFAULT_CATEGORIES.length<3,"Estado padrão visualmente excessivo");
 const mapSource=fs.readFileSync(path.join(root,"mapa.js"),"utf8");
 assert(mapSource.includes("state.map.panTo("),"Seleção deve preservar o zoom atual");

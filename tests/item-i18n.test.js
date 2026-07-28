@@ -8,8 +8,8 @@ const itemScript=fs.readFileSync(path.join(root,"item.js"),"utf8");
 for(const page of ["itens.html","item.html"]){
   const html=fs.readFileSync(path.join(root,page),"utf8");
   const game=html.indexOf("game-localization-data.js?v=20260728-1");
-  const language=html.indexOf("i18n.js?v=20260728-9");
-  const core=html.indexOf("core.js?v=20260728-5");
+  const language=html.indexOf("i18n.js?v=20260728-12");
+  const core=html.indexOf("core.js?v=20260728-8");
   assert(game>=0&&language>game&&core>language,`Ordem de idioma incorreta: ${page}`);
 }
 for(const key of ["ITEM DROPÁVEL","Todos os itens","fonte condicional","Não foi possível carregar as fontes deste item.","Nenhuma fonte válida foi encontrada na base.","Máx."]){
