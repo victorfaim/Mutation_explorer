@@ -54,7 +54,7 @@
   }
 
   async function fetchJson(path){
-    const response=await fetch(`${path}?v=20260727-1`);
+    const response=await fetch(`${path}?v=20260728-2`);
     if(!response.ok)throw new Error(`HTTP ${response.status}: ${path}`);
     const data=await response.json();
     if(!data||typeof data!=="object")throw new Error(`Dataset inválido: ${path}`);

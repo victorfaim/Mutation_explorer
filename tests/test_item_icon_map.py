@@ -108,6 +108,20 @@ class ItemIconMapTests(unittest.TestCase):
         self.assertTrue(self.relic_overrides)
         self.assertTrue(all(value is None for value in self.relic_overrides.values()))
 
+    def test_tower_lotus_icons_use_confirmed_food_assets(self):
+        expected = {
+            "Lotus_hp_02": "T_itemicon_Food_Lotus_hp_02",
+            "Lotus_stamina_02": "T_itemicon_Food_Lotus_stamina_02",
+            "Lotus_attack_02": "T_itemicon_Food_Lotus_attack_02",
+            "Lotus_workspeed_02": "T_itemicon_Food_Lotus_workspeed_02",
+            "Lotus_weight_02": "T_itemicon_Food_Lotus_weight_02",
+        }
+        for item_id, texture in expected.items():
+            entry = self.icon_map[item_id]
+            self.assertEqual(entry["textureBasename"], texture)
+            self.assertEqual(entry["resolutionMethod"], "alias-existing")
+            self.assertTrue((ROOT / entry["publicPath"]).is_file())
+
     def test_fallback_and_public_consumers(self):
         unresolved = next(
             entry for entry in self.icon_map.values()

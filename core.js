@@ -281,7 +281,7 @@ if(!document.querySelector('script[data-pme-i18n]')){
   const loadI18n=()=>{
     if(document.querySelector('script[data-pme-i18n]'))return;
     const i18nScript=document.createElement("script");
-    i18nScript.src="i18n.js?v=20260728-1";
+    i18nScript.src="i18n.js?v=20260728-2";
     i18nScript.dataset.pmeI18n="1";
     document.head.appendChild(i18nScript);
   };

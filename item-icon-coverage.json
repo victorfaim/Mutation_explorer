@@ -1,16 +1,16 @@
 {
   "totalItems": 2466,
-  "resolved": 2143,
-  "unresolved": 313,
+  "resolved": 2148,
+  "unresolved": 308,
   "specialUnresolved": 10,
-  "publishedOriginalTextures": 807,
+  "publishedOriginalTextures": 812,
   "generatedBlueprints": 548,
   "methods": {
-    "alias-existing": 7,
+    "alias-existing": 12,
     "blueprint-composite": 548,
     "category-iconname-exact": 1399,
     "itemid-exact": 189,
     "special-unresolved": 10,
-    "unresolved": 313
+    "unresolved": 308
   }
 }

@@ -7,11 +7,20 @@ const T=require("../mapa-lab-transform.js");
 const root=path.resolve(__dirname,"..");
 const data=JSON.parse(fs.readFileSync(path.join(root,"mapa-lab-data","story-tower-markers.json"),"utf8"));
 assert.deepStrictEqual(data.summary,{total:13,mainworld5:9,worldtree:4});
+assert.strictEqual(data.schemaVersion,2);
 assert.strictEqual(data.markers.length,13);
 for(const marker of data.markers){
   assert.ok(["mainworld5","worldtree"].includes(marker.mapId));
   assert.strictEqual(marker.type,"story-tower");
   assert.ok(marker.label&&marker.internalLabel&&marker.bossType);
+  assert.ok(marker.battle&&marker.battle.difficulties.length>=1,"Dados de batalha ausentes: "+marker.id);
+  assert.strictEqual(marker.battle.hpRoundingConfidence,"partial");
+  assert.deepStrictEqual(Object.keys(marker.battle.multiplayerHpRates),["1","2","3","4","5","6","7","8"]);
+  for(const difficulty of marker.battle.difficulties){
+    assert.ok(difficulty.characterId&&difficulty.names["pt-BR"].name&&difficulty.names["en-US"].name);
+    assert.ok(Number.isFinite(difficulty.level)&&Number.isFinite(difficulty.battleTimeSeconds));
+    assert.ok(Number.isFinite(difficulty.hpParameters.base)&&Number.isFinite(difficulty.hpParameters.enemyMaxRate));
+  }
   assert.ok([marker.world.x,marker.world.y,marker.world.z,marker.game.x,marker.game.y].every(Number.isFinite));
 }
 assert.strictEqual(new Set(data.markers.map(marker=>marker.source.actor)).size,13);
@@ -28,4 +37,4 @@ for(const mapId of ["mainworld5","worldtree"]){
 for(const icon of ["fast-travel.png","story-tower.png"]){
   assert.ok(fs.existsSync(path.join(root,"assets","map","markers",icon)),`Ícone ausente: ${icon}`);
 }
-console.log("map-story-towers: 13 torres, mapas, coordenadas e ícones aprovados");
+console.log("map-story-towers: 13 torres, batalhas, coordenadas e ícones aprovados");

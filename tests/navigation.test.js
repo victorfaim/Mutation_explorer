@@ -22,12 +22,12 @@ for(const legacy of ["worker-finder.html","impossiveis.html","auditoria.html","e
 for(const page of ["index.html","breeding.html","reverso.html","caminho.html","palpedia.html","pal.html","itens.html","item.html","partner-skills.html","team-builder.html","tierlist.html","comparador.html","comparador-trabalho.html","mapa.html"]){
   const html=fs.readFileSync(path.join(root,page),"utf8");
   assert(html.includes("style.css?v=20260727-2"),`Cache CSS desatualizado: ${page}`);
-  assert(html.includes("core.js?v=20260728-1"),`Cache da navegação desatualizado: ${page}`);
+  assert(html.includes("core.js?v=20260728-2"),`Cache da navegação desatualizado: ${page}`);
 }
 for(const page of ["sobre.html","contato.html","aviso-legal.html"]){
   const html=fs.readFileSync(path.join(root,page),"utf8");
   assert(html.includes("style.css?v=20260727-2"));
-  assert(html.includes("core.js?v=20260728-1"));
+  assert(html.includes("core.js?v=20260728-2"));
   assert(!html.includes("data.js"),`Página institucional carregando dataset: ${page}`);
   assert(!/<form\b/i.test(html),`Formulário fora do escopo: ${page}`);
 }
@@ -49,4 +49,13 @@ for(const file of fs.readdirSync(root).filter(name=>name.endsWith(".html"))){
 assert(core.includes('aria-controls="nav-menu-${index}"'));
 assert(core.includes('event.key!=="Escape"'));
 assert(core.includes('event.key==="ArrowDown"'));
+const homeTheme=fs.readFileSync(path.join(root,"index.html"),"utf8");
+const contactTheme=fs.readFileSync(path.join(root,"contato.html"),"utf8");
+assert(!homeTheme.includes("Cada módulo carrega apenas o necessário"));
+for(const asset of ["T_itemicon_Material_PalEgg_MutationPal.png","T_itemicon_PalSphere.png"]){
+  assert(homeTheme.includes("assets/items/"+asset));
+  assert(fs.existsSync(path.join(root,"assets","items",asset)),"Asset ausente: "+asset);
+}
+assert(contactTheme.includes("mailto:palforgeteam@gmail.com"));
+assert(contactTheme.includes(">palforgeteam@gmail.com</a>"));
 console.log("navigation: links, legados, cache e controles de teclado aprovados");

@@ -20,6 +20,11 @@
   ],
   "itemAliases": {
     "Herbs": "T_itemicon_Food_Herbs.png",
+    "Lotus_attack_02": "T_itemicon_Food_Lotus_attack_02.png",
+    "Lotus_hp_02": "T_itemicon_Food_Lotus_hp_02.png",
+    "Lotus_stamina_02": "T_itemicon_Food_Lotus_stamina_02.png",
+    "Lotus_weight_02": "T_itemicon_Food_Lotus_weight_02.png",
+    "Lotus_workspeed_02": "T_itemicon_Food_Lotus_workspeed_02.png",
     "Narcotic": "T_itemicon_Food_Narcotic.png",
     "Opium": "T_itemicon_Food_Opium.png",
     "PalCrystal_Ex": "T_itemicon_Material_AncientParts2.png",

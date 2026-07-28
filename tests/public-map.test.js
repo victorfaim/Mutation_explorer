@@ -63,13 +63,13 @@ assert(!html.includes("map-coordinate-output"));
 assert(!html.includes("map-calibration-output"));
 assert(!html.includes("map-fit-calibration"));
 assert(!html.includes("habitat-pilot"));
-assert(html.includes("item-icon-map.js?v=20260727-1"));
-assert(html.includes("core.js?v=20260728-1"));
+assert(html.includes("item-icon-map.js?v=20260728-1"));
+assert(html.includes("core.js?v=20260728-2"));
 assert(PublicMap.DEFAULT_CATEGORIES.length<3,"Estado padrão visualmente excessivo");
 assert.deepStrictEqual(PublicMap.ICON_SIZES,{"fast-travel":30,"story-tower":38,"alpha-boss":34,"holy-water":32,relic:30},"Tamanhos devem acompanhar o Mapa Lab");
-assert(html.includes("mapa.css?v=20260727-3"));
-assert(html.includes("mapa-details.js?v=20260727-3"));
-assert(html.includes("mapa.js?v=20260727-3"));
+assert(html.includes("mapa.css?v=20260728-1"));
+assert(html.includes("mapa-details.js?v=20260728-4"));
+assert(html.includes("mapa.js?v=20260728-2"));
 assert(html.includes('id="public-map-details" class="public-map-details" aria-live="polite"'));
 assert.strictEqual((html.match(/id="public-map-details"/g)||[]).length,1,"Deve existir um único painel visual de detalhes");
 

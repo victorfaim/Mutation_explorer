@@ -319,3 +319,7 @@ Regeneração e validação:
 python tools/generate-game-localization.py
 node tests/game-localization.test.js
 ```
+
+### Detalhes das Tower Bosses no mapa
+
+O mapa público consome a revisão 2 de mapa-lab-data/story-tower-markers.json. As 13 torres incluem unidade oficial combinada, níveis, elementos, tempos, recompensas e parâmetros de HP por dificuldade. tools/generate-map-story-towers.js deriva esses campos dos exports locais do manager, parâmetros de personagem e L10N. A escala de 1–8 jogadores é confirmada; somente a ordem do arredondamento intermediário permanece marcada como parcial.

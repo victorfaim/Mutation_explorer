@@ -175,6 +175,8 @@ dungeon, NPCs, oil rigs, ovos, eventos ou spawns aleatórios.
 `tools/generate-map-story-towers.js` preserva coordenadas nativas e exibidas e deixa a
 posição normalizada e em pixels como valores calculados pela calibração de cada mapa.
 
+A revisão 2 do dataset também incorpora os parâmetros confirmados de BP_PalBossBattleManager, DT_PalMonsterParameter_Common e das tabelas L10N oficiais: unidade combinada, nível, elementos, limites de tempo, recompensas Normal/Difícil e a escala multiplayer de HP para 1–8 jogadores. Os fatores de HP são nativos; a ordem exata do arredondamento intermediário ainda é evidência parcial e aparece como Parcial no painel, sem apresentar um HP final calculado como confirmado.
+
 Os pontos de viagem rápida usam o asset derivado de `T_icon_compass_FTtower`; as torres
 usam `T_icon_compass_tower`. Ambos permanecem locais em `assets/map/markers/`, sem
 hotlink. Os três conjuntos possuem filtros independentes: viagem rápida, Alpha Bosses e
