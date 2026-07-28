@@ -378,3 +378,13 @@ header nav a{white-space:nowrap}
 .home-feature-icon{display:block;width:132px;height:132px;object-fit:contain;filter:drop-shadow(0 12px 22px rgba(0,0,0,.45))}
 .contact-placeholder{text-decoration:none}
 .contact-placeholder:hover{border-style:solid;color:#fff}
+
+/* Identidade pública Pal Forge v1.0.0 */
+header{display:flex;align-items:center;gap:14px}
+.site-brand{display:inline-flex;align-items:center;gap:9px;flex:0 0 auto;color:#f8fafc;text-decoration:none;font-weight:850;letter-spacing:-.02em}
+.site-brand img{width:36px;height:36px;display:block}
+.site-brand:focus-visible{outline:2px solid #67e8f9;outline-offset:4px;border-radius:9px}
+.site-nav{flex:1}
+.hero-subtitle{margin:-8px 0 14px;color:#67e8f9;font-size:clamp(1.05rem,2vw,1.35rem);font-weight:700}
+@media(max-width:900px){header,.header-with-language{padding-top:58px}.site-brand{position:absolute;top:11px;left:76px}.site-brand img{width:36px;height:36px}.site-brand span{font-size:15px}.site-nav{flex-basis:100%}}
+@media(max-width:420px){.site-brand span{display:none}}

@@ -1,5 +1,12 @@
 # CONTINUIDADE ATUAL DO PROJETO
 
+## Lançamento público Pal Forge v1.0.0
+
+A marca pública vigente é **Pal Forge**. O nome **Pal Mutation Explorer** permanece apenas como referência histórica ao projeto original, e `Mutation_explorer` continua sendo o nome técnico do repositório. A origem canônica é `https://palforge.com.br`, publicada como site estático pelo GitHub Pages com `CNAME` versionado. O DNS e a camada de domínio podem usar Cloudflare, sem migração da hospedagem.
+
+A navegação pública inclui Home, Palpedia, breeding, mutações, mapa, itens, equipes, rankings e páginas institucionais. `mapa-lab.html`, Auditoria, relatórios, testes e documentação interna não entram no sitemap e permanecem técnicos. A identidade em `assets/brand/` é própria, separada dos assets do jogo. A versão pública é `v1.0.0`.
+
+
 ## Calculadora padrão de breeding
 
 `breeding.html` oferece consultas de pais para filho e de filho para pais para o resultado
@@ -43,9 +50,7 @@ antigo `CNAME`. As fases funcionais mais importantes foram:
 13. correções finais das páginas de itens;
 14. remoção do antigo `CONTINUAR_EM_OUTRO_CHAT.txt`.
 
-O histórico do `CNAME` mostra criação, alteração e remoção no mesmo dia. No estado atual
-não há `CNAME`, `.nojekyll`, workflow de deploy ou `404.html` versionado. Portanto, não
-reintroduzir domínio personalizado nem mudar o mecanismo de publicação por suposição.
+O domínio personalizado vigente é preservado pelo `CNAME` com `palforge.com.br`. A publicação continua estática e direta pelo GitHub Pages; alterações de domínio ou hospedagem exigem validação explícita.
 
 ## Arquitetura vigente
 
@@ -167,7 +172,7 @@ mantêm seus menus estáticos como fallback, e as URLs legadas continuam redirec
 `Mutation Explorer` não aparece como opção separada enquanto apontar para a mesma Home.
 Auditoria permanece em `Mais`, identificada como ferramenta técnica.
 
-O rodapé compartilhado apresenta versão fixa `v0.9.0` e links para `sobre.html`,
+O rodapé compartilhado apresenta versão fixa `v1.0.0` e links para `sobre.html`,
 `contato.html`, `aviso-legal.html` e o repositório no GitHub. As três páginas
 institucionais são estáticas, bilíngues e não carregam datasets, formulários ou serviços
 externos.

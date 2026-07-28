@@ -111,7 +111,7 @@ function initTabs(){
 if(!pal){
   document.getElementById("pal-detail-loading").innerHTML="<b>Pal não encontrado.</b> Volte à Palpedia e escolha outro registro.";
 }else{
-  document.title=`${pal.name} | Palpedia`;
+  document.title=`${pal.name} — Palpedia | Pal Forge`;
   const compact=PALS[pal.id]||pal;
   const mutation=PAL_STATUS?.[pal.id]||{state:"outside",reason:"Sem auditoria"};
   const partner=pal.partnerSkill||{};

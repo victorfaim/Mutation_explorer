@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /mapa-lab.html
+Disallow: /auditoria.html
+Disallow: /LOCAL_RESEARCH/
+Disallow: /PROJECT_DOCS/
+Disallow: /tests/
+Disallow: /tools/
+
+Sitemap: https://palforge.com.br/sitemap.xml

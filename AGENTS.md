@@ -1,11 +1,11 @@
-# AGENTS.md — Pal Mutation Explorer
+# AGENTS.md — Pal Forge
 
 Este arquivo orienta qualquer agente que trabalhe neste repositório. As regras valem para
 todo o projeto, salvo instrução mais específica em um `AGENTS.md` de subdiretório.
 
 ## Contexto do projeto
 
-O Pal Mutation Explorer é um portal multipágina, inteiramente estático, para consulta de
+O Pal Forge (originalmente Pal Mutation Explorer) é um portal multipágina, inteiramente estático, para consulta de
 breeding, mutações, Pals, itens, Partner Skills, composição de times e rankings do
 Palworld. A publicação é feita diretamente pelo GitHub Pages.
 

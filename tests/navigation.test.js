@@ -21,13 +21,13 @@ for(const legacy of ["worker-finder.html","impossiveis.html","auditoria.html","e
 }
 for(const page of ["index.html","breeding.html","reverso.html","caminho.html","palpedia.html","pal.html","itens.html","item.html","partner-skills.html","team-builder.html","tierlist.html","comparador.html","comparador-trabalho.html","mapa.html"]){
   const html=fs.readFileSync(path.join(root,page),"utf8");
-  assert(html.includes("style.css?v=20260728-1"),`Cache CSS desatualizado: ${page}`);
-  assert(html.includes("core.js?v=20260728-2"),`Cache da navegação desatualizado: ${page}`);
+  assert(html.includes("style.css?v=20260728-2"),`Cache CSS desatualizado: ${page}`);
+  assert(html.includes("core.js?v=20260728-5"),`Cache da navegação desatualizado: ${page}`);
 }
 for(const page of ["sobre.html","contato.html","aviso-legal.html"]){
   const html=fs.readFileSync(path.join(root,page),"utf8");
-  assert(html.includes("style.css?v=20260728-1"));
-  assert(html.includes("core.js?v=20260728-2"));
+  assert(html.includes("style.css?v=20260728-2"));
+  assert(html.includes("core.js?v=20260728-5"));
   assert(!html.includes("data.js"),`Página institucional carregando dataset: ${page}`);
   assert(!/<form\b/i.test(html),`Formulário fora do escopo: ${page}`);
 }
@@ -35,7 +35,7 @@ for(const href of ["sobre.html","contato.html","aviso-legal.html"]){
   assert(core.includes(`["${href}"`),`Link institucional ausente: ${href}`);
 }
 assert(core.includes("https://github.com/victorfaim/Mutation_explorer"));
-assert(core.includes("Versão v0.9.0"));
+assert(core.includes("Versão v1.0.0"));
 assert(fs.existsSync(path.join(root,"mapa-lab.html")),"Mapa Lab técnico ausente");
 for(const file of fs.readdirSync(root).filter(name=>name.endsWith(".html"))){
   const html=fs.readFileSync(path.join(root,file),"utf8");

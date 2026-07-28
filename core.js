@@ -215,6 +215,12 @@ document.addEventListener("DOMContentLoaded",()=>activateAssetFallbacks(document
   mobileToggle.setAttribute("aria-expanded","false");
   mobileToggle.setAttribute("aria-controls",nav.id);
   mobileToggle.innerHTML='<span aria-hidden="true">☰</span><span>Menu</span>';
+  const brand=document.createElement("a");
+  brand.className="site-brand";
+  brand.href="index.html";
+  brand.setAttribute("aria-label","Pal Forge — Início");
+  brand.innerHTML='<img src="assets/brand/pal-forge-mark.svg" alt=""><span>Pal Forge</span>';
+  header.insertBefore(brand,nav);
   header.insertBefore(mobileToggle,nav);
   const closeGroups=except=>nav.querySelectorAll(".nav-group.is-open").forEach(group=>{
     if(group===except)return;
@@ -273,7 +279,7 @@ document.addEventListener("DOMContentLoaded",()=>activateAssetFallbacks(document
   const footer=document.querySelector("footer.home-footer")||document.createElement("footer");
   if(!footer.classList||!document.body)return;
   footer.classList.add("site-footer");
-  footer.innerHTML=`<div class="site-footer-copy"><span>Projeto comunitário e não oficial para Palworld.</span><span>Dados baseados na versão analisada da base do projeto.</span></div><nav class="site-footer-links" aria-label="Links institucionais">${links.map(([href,label])=>`<a href="${href}"${page===href?' aria-current="page"':""}>${label}</a>`).join("")}<a href="https://github.com/victorfaim/Mutation_explorer" target="_blank" rel="noopener noreferrer">GitHub</a><span>Versão v0.9.0</span></nav>`;
+  footer.innerHTML=`<div class="site-footer-copy"><span><strong>Pal Forge</strong><span>Projeto comunitário não oficial de Palworld.</span></div><nav class="site-footer-links" aria-label="Links institucionais">${links.map(([href,label])=>`<a href="${href}"${page===href?' aria-current="page"':""}>${label}</a>`).join("")}<a href="https://github.com/victorfaim/Mutation_explorer" target="_blank" rel="noopener noreferrer">GitHub</a><span>Versão v1.0.0</span></nav>`;
   if(!footer.isConnected)document.body.appendChild(footer);
 })();
 // O módulo global observa também o conteúdo criado dinamicamente pelas ferramentas.
@@ -281,7 +287,7 @@ if(!document.querySelector('script[data-pme-i18n]')){
   const loadI18n=()=>{
     if(document.querySelector('script[data-pme-i18n]'))return;
     const i18nScript=document.createElement("script");
-    i18nScript.src="i18n.js?v=20260728-6";
+    i18nScript.src="i18n.js?v=20260728-9";
     i18nScript.dataset.pmeI18n="1";
     document.head.appendChild(i18nScript);
   };

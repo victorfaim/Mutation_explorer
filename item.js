@@ -82,7 +82,7 @@
         ${row.variant?`<div class="item-source-condition"><span>${esc(tr(dropConditionLabel(row)))}</span></div>`:""}
       </article>`;
 
-    document.title = `${displayName} | ${tr("Itens")}`;
+    document.title = `${displayName} — ${tr("Item")} | Pal Forge`;
     const best = sources[0];
 
     detailEl.innerHTML = `

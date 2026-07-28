@@ -20,7 +20,7 @@ prevalece sobre os documentos antigos.
 
 ## Versão consolidada atual
 
-Pal Mutation Explorer V2.4 — Resultados Expandidos, com dados oficiais de breeding e
+Pal Forge V2.4 — Resultados Expandidos, com dados oficiais de breeding e
 tabelas de drop integrados posteriormente.
 
 ## Regra principal
