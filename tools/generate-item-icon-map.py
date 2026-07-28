@@ -28,17 +28,17 @@ blueprints = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(blueprints)
 
 RELIC_ICON_OVERRIDES = {
-    "JumpPower": None,
-    "RainbowPassiveRate": None,
-    "FoodDecayReduction": None,
-    "ExpBonus": None,
-    "GliderSpeed": None,
-    "ClimbSpeed": None,
-    "SphereHoming": None,
-    "StatusAilmentResist": None,
-    "SwimSpeed": None,
-    "StaminaReduction": None,
-    "HungerReduction": None,
+    "JumpPower": "T_itemicon_Relic_04",
+    "RainbowPassiveRate": "T_itemicon_Relic_11",
+    "FoodDecayReduction": "T_itemicon_Relic_03",
+    "ExpBonus": "T_itemicon_Relic_10",
+    "GliderSpeed": "T_itemicon_Relic_05",
+    "ClimbSpeed": "T_itemicon_Relic_06",
+    "SphereHoming": "T_itemicon_Relic_09",
+    "StatusAilmentResist": "T_itemicon_Relic_07",
+    "SwimSpeed": "T_itemicon_Relic_02",
+    "StaminaReduction": "T_itemicon_Relic_08",
+    "HungerReduction": "T_itemicon_Relic_01",
 }
 
 

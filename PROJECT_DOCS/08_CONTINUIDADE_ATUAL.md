@@ -185,7 +185,10 @@ GitHub Pages. Não trocar a capitalização nem converter referências para hotl
 ## Dados gerados e reprodutibilidade
 
 `tools/generate-drop-tables.py` gera `drop-tables-data.js` a partir de
-`DT_PalDropItem_Common.json`. `tools/generate-breeding-official-data.py` gera
+`DT_PalDropItem_Common.json` quando disponível. A etapa de metadados resolve cada `ItemId`
+diretamente em `DT_ItemDataTable.json`, `DT_ItemNameText_Common` EN/PT-BR e
+`item-icon-map.js`; sem a tabela bruta de drops, ela preserva as relações existentes e
+regenera somente nomes e ícones. `tools/generate-breeding-official-data.py` gera
 `breeding-official-data.js` a partir de `DT_PalMonsterParameter_Common.json` e
 `DT_PalCombiUnique.json`.
 
@@ -287,7 +290,7 @@ As páginas usam scripts clássicos e globais em `window`. A ordem é significat
 - `item-icon-coverage.json` registra a cobertura por método sem incluir dumps brutos.
 - `tools/generate-item-icon-map.py` lê `DT_ItemDataTable.json` e `LOCAL_RESEARCH/raw/fmodel/mutation/inbox/Texture/`, publica apenas texturas vinculadas em `assets/items/`, gera compostos de Blueprint e atualiza os ícones do dataset derivado de drops.
 - A prioridade é override confirmado, ItemId exato, `TypeA + IconName`, alias existente, composição confirmada e fallback. Não existe fuzzy matching.
-- `window.RELIC_ICON_OVERRIDES` permanece com valores nulos: os itens `Relic_01`–`Relic_12` têm textura confirmada, mas a ligação `EPalRelicType -> Relic_XX` ainda não foi encontrada.
+- A ligação das 12 estátuas do mapa às texturas oficiais foi confirmada e registrada em `window.RELIC_ICON_OVERRIDES` e `tools/generate-map-relics.js`: Lifmunk usa `T_itemicon_Relic`, e as demais usam `T_itemicon_Relic_01`–`11`. `T_itemicon_Relic_12` não pertence aos 12 tipos mapeados e permanece fora do filtro.
 - Galeria técnica local: `LOCAL_RESEARCH/reviews/item-icon-coverage.html`. Ela não faz parte da navegação pública.
 
 Regeneração local:
@@ -323,3 +326,15 @@ node tests/game-localization.test.js
 ### Detalhes das Tower Bosses no mapa
 
 O mapa público consome a revisão 2 de mapa-lab-data/story-tower-markers.json. As 13 torres incluem unidade oficial combinada, níveis, elementos, tempos, recompensas e parâmetros de HP por dificuldade. tools/generate-map-story-towers.js deriva esses campos dos exports locais do manager, parâmetros de personagem e L10N. A escala de 1–8 jogadores é confirmada; somente a ordem do arredondamento intermediário permanece marcada como parcial.
+
+## Correção da identidade dos itens de drop (2026-07-28)
+
+- Os 150 `ItemId` presentes em `drop-tables-data.js` carregam nomes oficiais independentes
+  em `names.en-US` e `names.pt-BR`; 149 identidades são únicas e `Poppy`/`poppy` é o único
+  alias confirmado por diferença de capitalização.
+- O nome não é mais inferido por ordem, aparência da textura ou tabela manual. A textura
+  continua resolvida por `item-icon-map.js` e o link usa sempre o `ItemId` técnico.
+- `drop-tables.js`, `item.js`, `itens.js` e `mapa-details.js` escolhem o nome pelo idioma
+  atual sem alterar o identificador usado na URL.
+- A auditoria corrigiu 32 nomes divergentes e confirmou zero divergências de textura nos
+  150 itens usados pelas tabelas de drops.

@@ -9,10 +9,18 @@ assert.strictEqual(data.markers.length,407);
 assert.strictEqual(new Set(data.markers.map(marker=>marker.id)).size,407);
 assert.strictEqual(new Set(data.markers.map(marker=>marker.subtype)).size,12);
 assert.ok(!data.markers.some(marker=>/mimog/i.test(`${marker.label} ${marker.pal} ${marker.subtype}`)));
+const officialIcons={
+  lifmunk:"T_itemicon_Relic.png",lamball:"T_itemicon_Relic_01.png",pengullet:"T_itemicon_Relic_02.png",
+  munchill:"T_itemicon_Relic_03.png",rooby:"T_itemicon_Relic_04.png",herbil:"T_itemicon_Relic_05.png",
+  tanzee:"T_itemicon_Relic_06.png",depresso:"T_itemicon_Relic_07.png",cattiva:"T_itemicon_Relic_08.png",
+  lunaris:"T_itemicon_Relic_09.png",relaxaurus:"T_itemicon_Relic_10.png",yakumo:"T_itemicon_Relic_11.png"
+};
+assert.deepStrictEqual(Object.keys(officialIcons).sort(),[...new Set(data.markers.map(marker=>marker.subtype))].sort());
 for(const marker of data.markers){
   assert.strictEqual(marker.type,"relic");
   assert.ok(["mainworld5","worldtree"].includes(marker.mapId));
   assert.ok(marker.label&&marker.bonus&&marker.icon);
+  assert.strictEqual(marker.icon,`assets/items/${officialIcons[marker.subtype]}`);
   assert.ok([marker.world.x,marker.world.y,marker.world.z,marker.game.x,marker.game.y].every(Number.isFinite));
   assert.ok(fs.existsSync(path.join(root,marker.icon)),`Ícone ausente: ${marker.icon}`);
 }

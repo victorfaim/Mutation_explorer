@@ -1,6 +1,6 @@
 const ITEMS=Object.values(window.ITEMS_DATA_ACCURATE||window.ITEMS_DATA);
 let filtered=[],visible=0;const pageSize=48;
-const localizedItemName=i=>window.PME_I18N?.itemName(i.name)||i.name;
+const localizedItemName=i=>localizedDropItemName(i);
 const bestRate=i=>Math.max(...i.droppedBy.map(x=>Number(x.rate)||0),0);
 const bestQty=i=>Math.max(...i.droppedBy.map(x=>Number(x.max)||Number(x.min)||0),0);
 function card(i){const b=i.droppedBy[0];return `<a class="item-card" href="item.html?id=${encodeURIComponent(i.rawId||i.id)}"><div class="item-card-icon">${i.icon?assetImg(ASSETS.itemsDirectory,i.icon,i.name,"item-main-image"):"◆"}</div><div class="item-card-body"><h2>${esc(localizedItemName(i))}</h2><div class="item-card-metrics"><span><b>${i.droppedBy.length}</b> fontes condicionais</span><span>Maior taxa <b>${bestRate(i)}%</b></span><span>Máx. <b>x${bestQty(i)}</b></span></div>${b?`<p>Primeira condição: <strong>${esc(b.palName)}</strong> · ${esc(dropConditionLabel(b))}</p>`:""}<span class="item-card-link">Ver fontes →</span></div></a>`;}

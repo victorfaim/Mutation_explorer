@@ -34,6 +34,7 @@
       return;
     }
 
+    const displayName = localizedDropItemName(item);
     const sources = Array.isArray(item.droppedBy)
       ? item.droppedBy.filter(row => row && row.palName)
       : [];
@@ -78,14 +79,14 @@
         ${row.variant?`<div class="item-source-condition"><span>${esc(dropConditionLabel(row))}</span></div>`:""}
       </article>`;
 
-    document.title = `${item.name} | Itens`;
+    document.title = `${displayName} | Itens`;
     const best = sources[0];
 
     detailEl.innerHTML = `
       <div class="item-breadcrumb">
         <a href="itens.html">Todos os itens</a>
         <span>/</span>
-        <b>${esc(item.name)}</b>
+        <b>${esc(displayName)}</b>
       </div>
 
       <section class="item-detail-hero panel">
@@ -94,7 +95,7 @@
             ? assetImg(
                 ASSETS.itemsDirectory,
                 item.icon,
-                item.name,
+                displayName,
                 "item-detail-image",
                 "eager"
               )
@@ -103,7 +104,7 @@
 
         <div>
           <span class="hero-kicker">ITEM DROPÁVEL</span>
-          <h1>${esc(item.name)}</h1>
+          <h1>${esc(displayName)}</h1>
           <p class="muted">
             ${sources.length.toLocaleString("pt-BR")}
             fonte${sources.length === 1 ? " condicional" : "s condicionais"} registrada${sources.length === 1 ? "" : "s"}.

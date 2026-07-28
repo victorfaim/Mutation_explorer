@@ -10,7 +10,8 @@ Object.entries(DROP_TABLES.items).forEach(([itemId,meta])=>{
   const identity=`${String(meta.name||itemId).trim().toLowerCase()}|${String(meta.icon||"").trim().toLowerCase()}`;
   DROP_ITEM_ALIASES[itemId]=DROP_ITEM_CANONICAL[identity]||itemId;
 });
-function dropItemMeta(itemId){const meta=DROP_TABLES.items[itemId]||{id:itemId,name:itemId,icon:"",descr:""};return {...meta,canonicalId:DROP_ITEM_ALIASES[itemId]||itemId};}
+function localizedDropItemName(item){const locale=window.PME_I18N?.locale||new URLSearchParams(location.search).get("lang")||"pt-BR";return item?.names?.[locale]||window.PME_I18N?.itemName(item?.name)||item?.name||"";}
+function dropItemMeta(itemId){const meta=DROP_TABLES.items[itemId]||{id:itemId,name:itemId,names:{},icon:"",descr:""};return {...meta,canonicalId:DROP_ITEM_ALIASES[itemId]||itemId};}
 function dropConditionLabel(source){const variant=source.variant==="boss"?"Alpha/Boss":"Comum";return source.level?`${variant} · Nv. ${source.level}`:variant;}
 function buildAccurateItems(){
   const result={};
@@ -34,7 +35,7 @@ window.ITEM_ID_ALIASES=DROP_ITEM_ALIASES;
 
 function tableDropRows(table){
   if(!table?.drops?.length)return '<div class="paldex-empty">Nenhum drop com taxa positiva nesta condição.</div>';
-  return `<div class="paldex-drop-grid">${table.drops.map(d=>{const item=dropItemMeta(d.itemId);return `<a class="paldex-drop-card" href="item.html?id=${encodeURIComponent(item.canonicalId)}"><div class="paldex-drop-placeholder">${item.icon?assetImg(ASSETS.itemsDirectory,item.icon,item.name,"paldex-drop-image"):"◆"}</div><div><strong>${esc(item.name)}</strong><span>x${d.min}${d.max!==d.min?`–${d.max}`:""} · ${d.rate}%</span></div></a>`;}).join("")}</div>`;
+  return `<div class="paldex-drop-grid">${table.drops.map(d=>{const item=dropItemMeta(d.itemId),displayName=localizedDropItemName(item);return `<a class="paldex-drop-card" href="item.html?id=${encodeURIComponent(item.canonicalId)}"><div class="paldex-drop-placeholder">${item.icon?assetImg(ASSETS.itemsDirectory,item.icon,displayName,"paldex-drop-image"):"◆"}</div><div><strong>${esc(displayName)}</strong><span>x${d.min}${d.max!==d.min?`–${d.max}`:""} · ${d.rate}%</span></div></a>`;}).join("")}</div>`;
 }
 function palDropTablesPanel(pal){
   const data=DROP_TABLES.pals[pal.id];

@@ -327,7 +327,7 @@ async function loadDefaults(datasetKey=$("map-dataset").value){
     state.holyWaterData=await holyWaterResponse.json();
   }
   if(!state.relicData){
-    const relicResponse=await fetch("mapa-lab-data/relic-markers.json?v=20260722-1");
+    const relicResponse=await fetch("mapa-lab-data/relic-markers.json?v=20260728-1");
     if(!relicResponse.ok)throw new Error("Dados de relíquias e estátuas não encontrados.");
     state.relicData=await relicResponse.json();
   }

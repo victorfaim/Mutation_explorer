@@ -99,14 +99,25 @@ class ItemIconMapTests(unittest.TestCase):
         ]
         self.assertGreaterEqual(len(resolved), 22)
 
-    def test_relic_items_resolve_but_statues_remain_unassigned(self):
+    def test_relic_items_and_statue_types_use_confirmed_textures(self):
         for number in range(1, 13):
             item_id = f"Relic_{number:02d}"
             self.assertEqual(
                 self.icon_map[item_id]["textureBasename"], f"T_itemicon_{item_id}"
             )
-        self.assertTrue(self.relic_overrides)
-        self.assertTrue(all(value is None for value in self.relic_overrides.values()))
+        self.assertEqual({
+            "JumpPower": "T_itemicon_Relic_04",
+            "RainbowPassiveRate": "T_itemicon_Relic_11",
+            "FoodDecayReduction": "T_itemicon_Relic_03",
+            "ExpBonus": "T_itemicon_Relic_10",
+            "GliderSpeed": "T_itemicon_Relic_05",
+            "ClimbSpeed": "T_itemicon_Relic_06",
+            "SphereHoming": "T_itemicon_Relic_09",
+            "StatusAilmentResist": "T_itemicon_Relic_07",
+            "SwimSpeed": "T_itemicon_Relic_02",
+            "StaminaReduction": "T_itemicon_Relic_08",
+            "HungerReduction": "T_itemicon_Relic_01",
+        }, self.relic_overrides)
 
     def test_tower_lotus_icons_use_confirmed_food_assets(self):
         expected = {

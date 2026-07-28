@@ -9,18 +9,18 @@ const TRAVEL=path.join(ROOT,"mapa-lab-data","mainworld5-markers.json");
 const OUTPUT=path.join(ROOT,"mapa-lab-data","relic-markers.json");
 
 const TYPES={
-  BP_LevelObject_Relic_C:{key:"lifmunk",label:"Efígie de Lifmunk",pal:"Lifmunk",bonus:"Poder de captura",icon:"lifmunk.png"},
-  BP_LevelObject_Relic_FlameBambi_C:{key:"rooby",label:"Estátua de Rooby",pal:"Rooby",bonus:"Salto",icon:"rooby.png"},
-  BP_LevelObject_Relic_GuardianDog_C:{key:"yakumo",label:"Estátua de Yakumo",pal:"Yakumo",bonus:"Sorte iridescente",icon:"yakumo.png"},
-  BP_LevelObject_Relic_IceCrocodile_C:{key:"munchill",label:"Estátua de Munchill",pal:"Munchill",bonus:"Preservação de alimentos",icon:"munchill.png"},
-  BP_LevelObject_Relic_LazyDragon_C:{key:"relaxaurus",label:"Estátua de Relaxaurus",pal:"Relaxaurus",bonus:"Experiência obtida",icon:"relaxaurus.png"},
-  BP_LevelObject_Relic_LeafMomonga_C:{key:"herbil",label:"Estátua de Herbil",pal:"Herbil",bonus:"Capacidade de planar",icon:"herbil.png"},
-  BP_LevelObject_Relic_Monkey_C:{key:"tanzee",label:"Estátua de Tanzee",pal:"Tanzee",bonus:"Escalada",icon:"tanzee.png"},
-  BP_LevelObject_Relic_Mutant_C:{key:"lunaris",label:"Estátua de Lunaris",pal:"Lunaris",bonus:"Perseguição de esferas",icon:"lunaris.png"},
-  BP_LevelObject_Relic_NegativeKoala_C:{key:"depresso",label:"Estátua de Depresso",pal:"Depresso",bonus:"Resistência a condições negativas",icon:"depresso.png"},
-  BP_LevelObject_Relic_Penguin_C:{key:"pengullet",label:"Estátua de Pengullet",pal:"Pengullet",bonus:"Nado",icon:"pengullet.png"},
-  BP_LevelObject_Relic_PinkCat_C:{key:"cattiva",label:"Estátua de Cattiva",pal:"Cattiva",bonus:"Redução de consumo de vigor",icon:"cattiva.png"},
-  BP_LevelObject_Relic_SheepBall_C:{key:"lamball",label:"Estátua de Lamball",pal:"Lamball",bonus:"Saciedade",icon:"lamball.png"}
+  BP_LevelObject_Relic_C:{key:"lifmunk",label:"Efígie de Lifmunk",pal:"Lifmunk",bonus:"Poder de captura",icon:"T_itemicon_Relic.png"},
+  BP_LevelObject_Relic_FlameBambi_C:{key:"rooby",label:"Estátua de Rooby",pal:"Rooby",bonus:"Salto",icon:"T_itemicon_Relic_04.png"},
+  BP_LevelObject_Relic_GuardianDog_C:{key:"yakumo",label:"Estátua de Yakumo",pal:"Yakumo",bonus:"Sorte iridescente",icon:"T_itemicon_Relic_11.png"},
+  BP_LevelObject_Relic_IceCrocodile_C:{key:"munchill",label:"Estátua de Munchill",pal:"Munchill",bonus:"Preservação de alimentos",icon:"T_itemicon_Relic_03.png"},
+  BP_LevelObject_Relic_LazyDragon_C:{key:"relaxaurus",label:"Estátua de Relaxaurus",pal:"Relaxaurus",bonus:"Experiência obtida",icon:"T_itemicon_Relic_10.png"},
+  BP_LevelObject_Relic_LeafMomonga_C:{key:"herbil",label:"Estátua de Herbil",pal:"Herbil",bonus:"Capacidade de planar",icon:"T_itemicon_Relic_05.png"},
+  BP_LevelObject_Relic_Monkey_C:{key:"tanzee",label:"Estátua de Tanzee",pal:"Tanzee",bonus:"Escalada",icon:"T_itemicon_Relic_06.png"},
+  BP_LevelObject_Relic_Mutant_C:{key:"lunaris",label:"Estátua de Lunaris",pal:"Lunaris",bonus:"Perseguição de esferas",icon:"T_itemicon_Relic_09.png"},
+  BP_LevelObject_Relic_NegativeKoala_C:{key:"depresso",label:"Estátua de Depresso",pal:"Depresso",bonus:"Resistência a condições negativas",icon:"T_itemicon_Relic_07.png"},
+  BP_LevelObject_Relic_Penguin_C:{key:"pengullet",label:"Estátua de Pengullet",pal:"Pengullet",bonus:"Nado",icon:"T_itemicon_Relic_02.png"},
+  BP_LevelObject_Relic_PinkCat_C:{key:"cattiva",label:"Estátua de Cattiva",pal:"Cattiva",bonus:"Redução de consumo de vigor",icon:"T_itemicon_Relic_08.png"},
+  BP_LevelObject_Relic_SheepBall_C:{key:"lamball",label:"Estátua de Lamball",pal:"Lamball",bonus:"Saciedade",icon:"T_itemicon_Relic_01.png"}
 };
 
 function generate(){
@@ -42,7 +42,7 @@ function generate(){
     return {
       id:`relic-${definition.key}-${index+1}`,
       type:"relic",mapId,subtype:definition.key,label:definition.label,pal:definition.pal,bonus:definition.bonus,
-      icon:`assets/map/markers/relics/${definition.icon}`,world,
+      icon:`assets/items/${definition.icon}`,world,
       game:{...calculatedGame,displayedX:Math.round(calculatedGame.x),displayedY:Math.round(calculatedGame.y)},
       source:{asset:"Pal/Content/Pal/Maps/MainWorld_5/MainGrid_L15_X0_Y0_DL961A8730",actor:actor.Name,blueprint:actor.Type.replace(/_C$/,"")}
     };

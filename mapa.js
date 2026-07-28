@@ -23,7 +23,7 @@
     "story-tower":{label:"Torres de história",icon:"assets/map/markers/story-tower.png",source:"mapa-lab-data/story-tower-markers.json"},
     "alpha-boss":{label:"Alpha Pals fixos",source:"mapa-lab-data/alpha-boss-markers.json"},
     "holy-water":{label:"Água Benta",icon:"assets/items/T_itemicon_Material_WorldTreeHolyWater.png",source:"mapa-lab-data/worldtree-holy-water-markers.json"},
-    relic:{label:"Relíquias e estátuas",source:"mapa-lab-data/relic-markers.json"}
+    relic:{label:"Relíquias e estátuas",source:"mapa-lab-data/relic-markers.json?v=20260728-1"}
   };
   const DEFAULT_CATEGORIES=["story-tower"];
   const ICON_SIZES={"fast-travel":30,"story-tower":38,"alpha-boss":34,"holy-water":32,relic:30};
