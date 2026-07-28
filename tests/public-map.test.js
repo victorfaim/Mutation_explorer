@@ -66,10 +66,16 @@ assert(!html.includes("habitat-pilot"));
 assert(html.includes("item-icon-map.js?v=20260728-2"));
 assert(html.includes("core.js?v=20260728-2"));
 assert(PublicMap.DEFAULT_CATEGORIES.length<3,"Estado padrão visualmente excessivo");
+const mapSource=fs.readFileSync(path.join(root,"mapa.js"),"utf8");
+assert(mapSource.includes("state.map.panTo("),"Seleção deve preservar o zoom atual");
+assert(!mapSource.includes("state.map.setView(T.toLeaflet(point"),"Seleção ainda redefine o zoom");
+for(const label of ["Fonte de Água Benta","Poder de captura"]){assert(i18n.includes(`"${label}"`),`Tradução dinâmica ausente: ${label}`);}
+assert(i18n.includes("^Efígie de (.+)$"),"Padrão de tradução das efígies ausente");
+assert(i18n.includes("^Estátua de (.+)$"),"Padrão de tradução das estátuas ausente");
 assert.deepStrictEqual(PublicMap.ICON_SIZES,{"fast-travel":30,"story-tower":38,"alpha-boss":34,"holy-water":32,relic:30},"Tamanhos devem acompanhar o Mapa Lab");
 assert(html.includes("mapa.css?v=20260728-1"));
 assert(html.includes("mapa-details.js?v=20260728-5"));
-assert(html.includes("mapa.js?v=20260728-3"));
+assert(html.includes("mapa.js?v=20260728-4"));
 assert(html.includes('id="public-map-details" class="public-map-details" aria-live="polite"'));
 assert.strictEqual((html.match(/id="public-map-details"/g)||[]).length,1,"Deve existir um único painel visual de detalhes");
 

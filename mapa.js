@@ -167,7 +167,7 @@
     function markerTitle(marker){
       if(marker.category==="alpha-boss")return marker.pal?.name||marker.label||tr("Alpha Pal");
       if(marker.category==="fast-travel"&&(!marker.label||marker.label===marker.id||/^FTPoint|^WorldTree_/i.test(marker.label)))return tr("Ponto de Viagem Rápida");
-      return marker.label||tr("Nenhum detalhe adicional disponível");
+      return tr(marker.label||"Nenhum detalhe adicional disponível");
     }
     function detailImage(marker){
       const url=marker.category==="alpha-boss"?`assets/pals/${encodeURIComponent(marker.pal.icon)}.png`:
@@ -184,7 +184,7 @@
     async function selectMarker(marker,leafletMarker=null,{updateUrl=true}={}){
       state.selected=marker;
       const point=markerToPixel(marker,state.data.coefficients);
-      if(point)state.map.setView(T.toLeaflet(point,state.data.config.height),Math.max(state.map.getZoom(),1),{animate:true});
+      if(point)state.map.panTo(T.toLeaflet(point,state.data.config.height),{animate:true});
       if(leafletMarker)leafletMarker.openPopup?.();
       $("public-map-details-content").innerHTML=`<span class="public-map-detail-kicker">${tr(CATEGORIES[marker.category]?.label||"DETALHES")}</span><h2 id="public-map-details-title">${esc(markerTitle(marker))}</h2><p>${tr("Carregando detalhes...")}</p>`;
       $("public-map-details").classList.add("is-open");

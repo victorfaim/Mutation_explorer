@@ -73,7 +73,7 @@ atualizar todos os consumidores.
 - `i18n.js`: catálogo e comportamento de tradução.
 - `combat-score.js`: normalização e scores de combate.
 - `work-score.js`: scores de trabalho, versatilidade e especialização.
-- `drop-tables.js`: união e apresentação das tabelas de drop oficiais.
+- `drop-tables.js`: união e apresentação das tabelas de drop oficiais. As páginas de catálogo e ficha carregam a localização antes dos módulos consumidores para manter nomes, métricas e links dinâmicos no idioma selecionado.
 - `skill-recommendations.js`: recomendações relacionadas a Active Skills.
 - `style.css`: estilos globais e de todos os módulos.
 
@@ -140,8 +140,9 @@ atualizar todos os consumidores.
   independentes;
 - o estado inicial ativa somente torres de história; viagem rápida, Alpha Pals, Água
   Benta e relíquias/estátuas podem ser adicionados pelo usuário;
-- busca, filtros, legenda e painel de detalhes são bilíngues e não exibem coordenadas
+- busca, filtros, legenda e painel de detalhes são bilíngues, incluindo títulos, recompensas e bônus vindos dos marcadores, e não exibem coordenadas
   nativas, coeficientes ou diagnóstico de calibração;
+- selecionar um marcador ou resultado apenas centraliza o ponto, preservando o nível de zoom escolhido pelo usuário;
 - habitats continuam exclusivos do Mapa Lab por serem um piloto regional incompleto.
 
 ### URLs legadas preservadas
@@ -160,7 +161,7 @@ preservam URLs antigas e não devem ser apagados como arquivos “duplicados”.
 O menu canônico é montado por `core.js` e reduz as opções simultâneas sem remover páginas.
 Início, Palpedia, Mapa e Itens ficam no primeiro nível; Breeding, Equipes, Ferramentas e
 Mais organizam as demais ferramentas em dropdowns. A mesma hierarquia é usada no menu
-mobile, com suporte a teclado, fechamento por Escape e rótulos PT-BR/EN-US. Os HTMLs
+mobile, com suporte a teclado, fechamento por Escape e rótulos PT-BR/EN-US. Em desktop, a área de hover cobre também o pequeno espaço entre o botão e a lista, evitando o fechamento durante a passagem do ponteiro. Os HTMLs
 mantêm seus menus estáticos como fallback, e as URLs legadas continuam redirecionando.
 `Mutation Explorer` não aparece como opção separada enquanto apontar para a mesma Home.
 Auditoria permanece em `Mais`, identificada como ferramenta técnica.

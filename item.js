@@ -4,10 +4,13 @@
 
   const loadingEl = document.getElementById("item-loading");
   const detailEl = document.getElementById("item-detail");
+  const tr = value => window.PME_I18N?.t(String(value ?? "")) || String(value ?? "");
+  const locale = () => window.PME_I18N?.locale || new URLSearchParams(location.search).get("lang") || "pt-BR";
+  const withLanguage = href => { const url = new URL(href, location.href); url.searchParams.set("lang", locale()); return url.pathname.split("/").pop() + url.search; };
 
   function showError(message, error) {
     console.error(message, error || "");
-    loadingEl.innerHTML = `<b>Não foi possível carregar as fontes deste item.</b><br><span class="muted">${esc(message)}</span>`;
+    loadingEl.innerHTML = `<b>${tr("Não foi possível carregar as fontes deste item.")}</b><br><span class="muted">${esc(tr(message))}</span>`;
     loadingEl.hidden = false;
     detailEl.hidden = true;
   }
@@ -30,7 +33,7 @@
       );
 
     if (!item) {
-      loadingEl.innerHTML = "<b>Item não encontrado.</b> Volte à Enciclopédia de Itens.";
+      loadingEl.innerHTML = `<b>${tr("Item não encontrado.")}</b> ${tr("Volte à Enciclopédia de Itens.")}`;
       return;
     }
 
@@ -52,7 +55,7 @@
         <div class="item-source-rank">${index === 0 ? "★" : index + 1}</div>
 
         <a class="item-source-pal"
-           href="pal.html?pal=${encodeURIComponent(row.palSlug || row.palName)}">
+           href="${withLanguage(`pal.html?pal=${encodeURIComponent(row.palSlug || row.palName)}`)}">
           ${row.palIcon
             ? assetImg(
                 ASSETS.palsDirectory,
@@ -68,23 +71,23 @@
         </a>
 
         <div class="item-source-value">
-          <span>Quantidade</span>
+          <span>${tr("Quantidade")}</span>
           <b>${quantityText(row)}</b>
         </div>
 
         <div class="item-source-value">
-          <span>Taxa</span>
+          <span>${tr("Taxa")}</span>
           <b>${row.rate !== undefined && row.rate !== null ? `${row.rate}%` : "—"}</b>
         </div>
-        ${row.variant?`<div class="item-source-condition"><span>${esc(dropConditionLabel(row))}</span></div>`:""}
+        ${row.variant?`<div class="item-source-condition"><span>${esc(tr(dropConditionLabel(row)))}</span></div>`:""}
       </article>`;
 
-    document.title = `${displayName} | Itens`;
+    document.title = `${displayName} | ${tr("Itens")}`;
     const best = sources[0];
 
     detailEl.innerHTML = `
       <div class="item-breadcrumb">
-        <a href="itens.html">Todos os itens</a>
+        <a href="${withLanguage("itens.html")}">${tr("Todos os itens")}</a>
         <span>/</span>
         <b>${esc(displayName)}</b>
       </div>
@@ -103,17 +106,16 @@
         </div>
 
         <div>
-          <span class="hero-kicker">ITEM DROPÁVEL</span>
+          <span class="hero-kicker">${tr("ITEM DROPÁVEL")}</span>
           <h1>${esc(displayName)}</h1>
           <p class="muted">
-            ${sources.length.toLocaleString("pt-BR")}
-            fonte${sources.length === 1 ? " condicional" : "s condicionais"} registrada${sources.length === 1 ? "" : "s"}.
+            ${tr(`${sources.length.toLocaleString(locale())} fonte${sources.length === 1 ? " condicional" : "s condicionais"} registrada${sources.length === 1 ? "" : "s"}.`)}
           </p>
 
           ${best
             ? `<div class="item-best-source">
-                Melhor fonte:
-                <a href="pal.html?pal=${encodeURIComponent(best.palSlug || best.palName)}">
+                ${tr("Melhor fonte")}:
+                <a href="${withLanguage(`pal.html?pal=${encodeURIComponent(best.palSlug || best.palName)}`)}">
                   ${esc(best.palName)}
                 </a>
                 — ${quantityText(best)} ·
@@ -126,16 +128,16 @@
       <section class="item-detail-section">
         <div class="section-heading">
           <div>
-            <span class="hero-kicker">FONTES</span>
-            <h2>Pals que dropam este item</h2>
+            <span class="hero-kicker">${tr("FONTES")}</span>
+            <h2>${tr("Pals que dropam este item")}</h2>
           </div>
-          <p>Separado por variante e nível da tabela de drops.</p>
+          <p>${tr("Separado por variante e nível da tabela de drops.")}</p>
         </div>
 
         <div class="item-source-list">
           ${sources.length
             ? sources.map(sourceRow).join("")
-            : '<div class="panel"><b>Nenhuma fonte válida foi encontrada na base.</b></div>'}
+            : `<div class="panel"><b>${tr("Nenhuma fonte válida foi encontrada na base.")}</b></div>`}
         </div>
       </section>`;
 
@@ -143,6 +145,6 @@
     detailEl.hidden = false;
     activateAssetFallbacks(detailEl);
   } catch (error) {
-    showError(error?.message || "Erro inesperado ao montar a página.", error);
+    showError(error?.message || tr("Erro inesperado ao montar a página."), error);
   }
 })();
