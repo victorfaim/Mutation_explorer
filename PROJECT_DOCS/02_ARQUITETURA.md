@@ -135,3 +135,18 @@ O projeto deve continuar sem hotlink.
 Não adicionar URLs diretas do PalBreed, Palworld.gg ou de outros sites às páginas.
 
 Todo asset necessário deve ficar no próprio repositório.
+## Localização oficial do jogo
+
+### game-localization-data.js
+
+Camada derivada e versionada de localização para PT-BR e EN-US. Ela é gerada por
+`tools/generate-game-localization.py` a partir das 27 DataTables de texto em
+`LOCAL_RESEARCH/raw/fmodel/mutation/inbox/{en,pt-BR}/Pal/DataTable/Text`.
+
+O arquivo não substitui IDs ou campos técnicos das bases. Ele mapeia apenas textos
+exibidos, oferece contextos por `Pal.key` e pela descrição técnica da skill para
+resolver homônimos, expande referências como nomes de itens e remove marcação de rich text
+do jogo. `core.js` garante que essa camada seja carregada antes de `i18n.js`.
+
+`game-localization-coverage.json` registra tabelas, linhas pareadas e cobertura. As
+fontes brutas continuam locais e não devem ser versionadas.

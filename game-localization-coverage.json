@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "sourceTables": 27,
+  "pairedRows": 14725,
+  "tableRows": {
+    "DT_BuildObjectCategoryText": 82,
+    "DT_BuildObjectDescText_Common": 549,
+    "DT_CharacterTeamMissionText": 18,
+    "DT_DungeonNameText": 42,
+    "DT_FishPondTargetTypeNameText": 3,
+    "DT_HelpGuideDescText": 47,
+    "DT_HumanNameText_Common": 132,
+    "DT_ItemDescriptionText_Common": 1924,
+    "DT_ItemNameText_Common": 1994,
+    "DT_LabResearchText": 204,
+    "DT_MapObjectNameText_Common": 616,
+    "DT_MapRespawnPointInfoText": 199,
+    "DT_NamePrefixText_Common": 369,
+    "DT_NoteDescText": 67,
+    "DT_NpcTalkText_Common": 869,
+    "DT_PalFirstActivatedInfoText": 305,
+    "DT_PalLongDescriptionText": 310,
+    "DT_PalNameText_Common": 322,
+    "DT_PartnerSkillAppendText": 160,
+    "DT_SkillDescText_Common": 439,
+    "DT_SkillNameText_Common": 1157,
+    "DT_TechnologyDescText_Common": 587,
+    "DT_TechnologyNameText_Common": 835,
+    "DT_TutorialMessage_Text": 35,
+    "DT_UI_Common_Text_Common": 3137,
+    "DT_UniqueNPCText_Common": 167,
+    "DT_WorldMap_Common_Text_Common": 156
+  },
+  "displayStrings": 4143,
+  "generatedMappings": {
+    "en-US": 151,
+    "pt-BR": 2017
+  },
+  "ambiguousGenericSources": {
+    "en-US": 0,
+    "pt-BR": 127
+  },
+  "directPalFields": {
+    "name": {
+      "total": 299,
+      "resolved": 297
+    },
+    "description": {
+      "total": 297,
+      "resolved": 297
+    },
+    "partnerDescription": {
+      "total": 297,
+      "resolved": 297
+    }
+  },
+  "directItemRecords": {
+    "total": 233,
+    "resolved": 223
+  },
+  "directSkillRecords": {
+    "total": 306,
+    "resolved": 299,
+    "ambiguous": 7
+  },
+  "contextRecords": {
+    "en-US": {
+      "pals": 299,
+      "skills": 296
+    },
+    "pt-BR": {
+      "pals": 299,
+      "skills": 296
+    }
+  }
+}

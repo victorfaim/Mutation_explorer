@@ -22,12 +22,12 @@ for(const legacy of ["worker-finder.html","impossiveis.html","auditoria.html","e
 for(const page of ["index.html","breeding.html","reverso.html","caminho.html","palpedia.html","pal.html","itens.html","item.html","partner-skills.html","team-builder.html","tierlist.html","comparador.html","comparador-trabalho.html","mapa.html"]){
   const html=fs.readFileSync(path.join(root,page),"utf8");
   assert(html.includes("style.css?v=20260727-2"),`Cache CSS desatualizado: ${page}`);
-  assert(html.includes("core.js?v=20260727-6"),`Cache da navegação desatualizado: ${page}`);
+  assert(html.includes("core.js?v=20260728-1"),`Cache da navegação desatualizado: ${page}`);
 }
 for(const page of ["sobre.html","contato.html","aviso-legal.html"]){
   const html=fs.readFileSync(path.join(root,page),"utf8");
   assert(html.includes("style.css?v=20260727-2"));
-  assert(html.includes("core.js?v=20260727-6"));
+  assert(html.includes("core.js?v=20260728-1"));
   assert(!html.includes("data.js"),`Página institucional carregando dataset: ${page}`);
   assert(!/<form\b/i.test(html),`Formulário fora do escopo: ${page}`);
 }

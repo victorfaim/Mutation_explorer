@@ -295,3 +295,27 @@ Regeneração local:
 ```powershell
 python tools/generate-item-icon-map.py
 ```
+## Localização oficial consolidada (2026-07-28)
+
+- `tools/generate-game-localization.py` lê 27 DataTables de texto EN e PT-BR, com
+  14.725 linhas pareadas e validação de paridade por chave.
+- A saída pública é `game-localization-data.js`; a auditoria reproduzível fica em
+  `game-localization-coverage.json`.
+- IDs, nomes técnicos, fórmulas e datasets de cálculo não são traduzidos nem modificados.
+- Pals, descrições, prefixos, Partner Skills e skills homônimas usam contexto técnico para
+  evitar que uma tradução global associe o texto ao registro errado.
+- Itens e drops usam o vínculo confirmado pelo basename de textura/ItemId quando o texto
+  inglês não identifica a linha de forma única.
+- Elementos, aptidões e atributos exibidos usam os rótulos oficiais ou, quando a própria
+  tabela contém placeholders, o rótulo técnico equivalente sem expor `pt-BR_Text`.
+- `core.js` carrega a localização gerada antes de `i18n.js`. `mapa.html`,
+  que carrega o idioma explicitamente, também respeita essa ordem.
+- As fontes em `LOCAL_RESEARCH/` permanecem ignoradas; para regenerar é necessário
+  disponibilizar novamente os dois conjuntos completos no mesmo caminho local.
+
+Regeneração e validação:
+
+```powershell
+python tools/generate-game-localization.py
+node tests/game-localization.test.js
+```

@@ -278,8 +278,18 @@ document.addEventListener("DOMContentLoaded",()=>activateAssetFallbacks(document
 })();
 // O módulo global observa também o conteúdo criado dinamicamente pelas ferramentas.
 if(!document.querySelector('script[data-pme-i18n]')){
-  const i18nScript=document.createElement("script");
-  i18nScript.src="i18n.js?v=20260727-4";
-  i18nScript.dataset.pmeI18n="1";
-  document.head.appendChild(i18nScript);
+  const loadI18n=()=>{
+    if(document.querySelector('script[data-pme-i18n]'))return;
+    const i18nScript=document.createElement("script");
+    i18nScript.src="i18n.js?v=20260728-1";
+    i18nScript.dataset.pmeI18n="1";
+    document.head.appendChild(i18nScript);
+  };
+  if(window.PME_GAME_L10N)loadI18n();
+  else{
+    const localizationScript=document.createElement("script");
+    localizationScript.src="game-localization-data.js?v=20260728-1";
+    localizationScript.onload=loadI18n;
+    document.head.appendChild(localizationScript);
+  }
 }

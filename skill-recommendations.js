@@ -73,7 +73,7 @@ function skillRecommendationsPanel(pal){
     <div class="skill-mode-tabs">${Object.entries(SKILL_LOADOUT_MODES).map(([id,m],i)=>`<button type="button" class="${i===0?"is-active":""}" data-skill-mode="${id}">${m.label}</button>`).join("")}</div>
     <p class="muted" data-skill-description>${SKILL_LOADOUT_MODES.balanced.description}</p>
     <div class="skill-loadout" data-skill-loadout></div>
-    <p class="skill-estimate-note">A nota considera Power, cooldown, elemento do Pal, cobertura e alcance. Tempo de animação, múltiplos acertos e precisão da IA só entram quando houver medição registrada.</p>
+    <p class="skill-estimate-note">A nota considera potência, tempo de recarga, elemento do Pal, cobertura e alcance. Tempo de animação, múltiplos acertos e precisão da IA só entram quando houver medição registrada.</p>
   </section>`;
 }
 

@@ -51,12 +51,13 @@ function statsRows(stats){
       <b>${Number(stats[k]).toLocaleString("pt-BR")}</b>
     </div>`).join("");
 }
-function activeRows(actives){
-  if(!actives?.length)return '<div class="paldex-empty">Nenhuma habilidade ativa registrada.</div>';
+function activeRows(pal){
+  const actives=pal.actives||[];
+  if(!actives.length)return '<div class="paldex-empty">Nenhuma habilidade ativa registrada.</div>';
   return `<div class="paldex-skills">${actives.map(a=>`
     <article class="paldex-skill-card">
       <header>
-        <div><span class="paldex-skill-element">${ELEMENT_ICONS[a.element]||"◆"}</span><h3>${esc(a.name)}</h3></div>
+        <div><span class="paldex-skill-element">${ELEMENT_ICONS[a.element]||"◆"}</span><h3 data-pme-skill-source="${esc(a.desc||"")}" data-pme-skill-field="name">${esc(a.name)}</h3></div>
         <span>Lv ${a.level??"—"}</span>
       </header>
       <div class="paldex-skill-meta">
@@ -64,7 +65,7 @@ function activeRows(actives){
         <span>Cooldown <b>${a.cooldown??"—"}</b></span>
         <span>Range <b>${a.minRange??"—"}–${a.maxRange??"—"}</b></span>
       </div>
-      <p>${esc(a.desc||"")}</p>
+      <p data-pme-skill-source="${esc(a.desc||"")}" data-pme-skill-field="description">${esc(a.desc||"")}</p>
     </article>`).join("")}</div>`;
 }
 function relatedPals(p){
@@ -127,7 +128,7 @@ if(!pal){
           </div>
           <span class="paldex-number">${palNumber(pal)}</span>
           <h1>${esc(pal.name)}</h1>
-          <p>“${esc(pal.prefix||"")}”</p>
+          <p>“<span data-pme-pal-key="${esc(pal.key||"")}" data-pme-pal-field="prefix">${esc(pal.prefix||"")}</span>”</p>
           <div class="paldex-badges">
             ${(pal.elements||[]).map(elementBadge).join("")}
             <span class="paldex-rarity">${esc(rarity)}</span>
@@ -155,12 +156,12 @@ if(!pal){
 
         <div class="paldex-tab-content">
           <section data-tab-panel="overview">
-            <blockquote class="paldex-description">${esc(pal.description||"Sem descrição registrada.")}</blockquote>
+            <blockquote class="paldex-description" data-pme-pal-key="${esc(pal.key||"")}" data-pme-pal-field="description">${esc(pal.description||"Sem descrição registrada.")}</blockquote>
 
             <section class="paldex-content-card">
               <span class="paldex-eyebrow">PARTNER SKILL</span>
-              <h2>${esc(partner.name||"Não registrada")}</h2>
-              <p class="partner-description">${esc(partner.desc||"Sem descrição registrada.")}</p>
+              <h2 data-pme-pal-key="${esc(pal.key||"")}" data-pme-pal-field="partnerName">${esc(partner.name||"Não registrada")}</h2>
+              <p class="partner-description" data-pme-pal-key="${esc(pal.key||"")}" data-pme-pal-field="partnerDescription">${esc(partner.desc||"Sem descrição registrada.")}</p>
             </section>
 
             <section class="paldex-content-section">
@@ -179,7 +180,7 @@ if(!pal){
 
           <section data-tab-panel="skills" hidden>
             ${skillRecommendationsPanel(pal)}
-            ${activeRows(pal.actives)}
+            ${activeRows(pal)}
           </section>
 
           <section data-tab-panel="related" hidden>
