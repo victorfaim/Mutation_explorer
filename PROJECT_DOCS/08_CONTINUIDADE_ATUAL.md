@@ -5,7 +5,7 @@
 `breeding.html` oferece consultas de pais para filho e de filho para pais para o resultado
 padrão. A página reutiliza diretamente `normalChild()` de `core.js`; regras especiais
 oficiais mantêm precedência e o índice reverso é derivado em tempo de execução, sem uma
-tabela manual nova. Mutações, gênero, passivas e IVs não integram essa calculadora.
+tabela manual nova. Os fluxos **Pais → filho** e **Filho → pais** usam abas exclusivas; somente o primeiro fica visível inicialmente, com troca por clique ou teclado. Mutações, gênero, passivas e IVs não integram essa calculadora.
 
 Este documento registra o estado observado no `HEAD` `9d36c50` da branch `main`, em
 21/07/2026. Ele complementa os documentos 01–06 e prevalece quando houver divergência
@@ -133,6 +133,7 @@ atualizar todos os consumidores.
 ### Mapa público
 
 - `mapa.html` é a superfície pública do mapa e o destino do item **Mapa** na navegação;
+- no desktop, a superfície pública usa uma lateral compacta para mapa, busca, categorias, ações e legenda; o canvas ocupa o restante da área e o painel de detalhes aparece sobre ele, mantendo adaptação específica para tablet e mobile;
 - `mapa-lab.html` permanece separado, com `noindex`, controles técnicos e URL direta;
 - a página pública reutiliza Leaflet local, `mapa-lab-transform.js`, imagens, calibrações e
   datasets derivados existentes, sem alterar coordenadas ou transformações;

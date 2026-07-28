@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Calculadora de Breeding</title>
   <link rel="stylesheet" href="style.css?v=20260728-1">
-  <link rel="stylesheet" href="breeding.css?v=20260727-1">
+  <link rel="stylesheet" href="breeding.css?v=20260728-1">
 </head>
 <body>
 <header><nav><a href="index.html">Início</a></nav></header>
@@ -19,8 +19,8 @@
   </div>
 
   <div class="breeding-tabs" role="tablist" aria-label="Modo da calculadora">
-    <button id="tab-parents" class="is-active" role="tab" aria-selected="true" aria-controls="panel-parents">Pais → filho</button>
-    <button id="tab-child" role="tab" aria-selected="false" aria-controls="panel-child">Filho → pais</button>
+    <button id="tab-parents" class="is-active" type="button" role="tab" aria-selected="true" aria-controls="panel-parents" tabindex="0">Pais → filho</button>
+    <button id="tab-child" type="button" role="tab" aria-selected="false" aria-controls="panel-child" tabindex="-1">Filho → pais</button>
   </div>
 
   <div id="breeding-notice" class="status" aria-live="polite" hidden></div>
@@ -61,6 +61,6 @@
 <script src="pal-tooltip-data.js?v=20260721-1"></script>
 <script src="asset-config.js?v=20260720-13"></script>
 <script src="core.js?v=20260728-2"></script>
-<script src="breeding.js?v=20260727-1"></script>
+<script src="breeding.js?v=20260728-1"></script>
 </body>
 </html>

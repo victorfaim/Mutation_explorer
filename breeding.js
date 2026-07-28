@@ -102,8 +102,11 @@
       d.getElementById("panel-parents").hidden=childMode;d.getElementById("panel-child").hidden=!childMode;
       d.getElementById("tab-parents").classList.toggle("is-active",!childMode);d.getElementById("tab-child").classList.toggle("is-active",childMode);
       d.getElementById("tab-parents").setAttribute("aria-selected",String(!childMode));d.getElementById("tab-child").setAttribute("aria-selected",String(childMode));
+      d.getElementById("tab-parents").tabIndex=childMode?-1:0;d.getElementById("tab-child").tabIndex=childMode?0:-1;
     }
-    d.getElementById("tab-parents").onclick=()=>mode(false);d.getElementById("tab-child").onclick=()=>mode(true);
+    const tabs=[d.getElementById("tab-parents"),d.getElementById("tab-child")];
+    tabs[0].onclick=()=>mode(false);tabs[1].onclick=()=>mode(true);
+    tabs.forEach((tab,index)=>tab.addEventListener("keydown",event=>{if(!["ArrowLeft","ArrowRight","Home","End"].includes(event.key))return;event.preventDefault();const next=event.key==="Home"?0:event.key==="End"?1:event.key==="ArrowRight"?(index+1)%2:(index+1)%2;mode(next===1);tabs[next].focus();}));
     d.getElementById("swap-parents").onclick=()=>{[state.parent1,state.parent2]=[state.parent2,state.parent1];renderAll();url();};
     d.getElementById("clear-parents").onclick=()=>{state.parent1=state.parent2=null;renderAll();url();};
     ["pair-search","hide-identical","special-only"].forEach(id=>d.getElementById(id).addEventListener(id==="pair-search"?"input":"change",()=>{state.shown=40;reverse();}));

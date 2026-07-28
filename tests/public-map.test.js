@@ -73,10 +73,15 @@ for(const label of ["Fonte de Água Benta","Poder de captura"]){assert(i18n.incl
 assert(i18n.includes("^Efígie de (.+)$"),"Padrão de tradução das efígies ausente");
 assert(i18n.includes("^Estátua de (.+)$"),"Padrão de tradução das estátuas ausente");
 assert.deepStrictEqual(PublicMap.ICON_SIZES,{"fast-travel":30,"story-tower":38,"alpha-boss":34,"holy-water":32,relic:30},"Tamanhos devem acompanhar o Mapa Lab");
-assert(html.includes("mapa.css?v=20260728-1"));
+assert(html.includes("mapa.css?v=20260728-2"));
 assert(html.includes("mapa-details.js?v=20260728-5"));
 assert(html.includes("mapa.js?v=20260728-4"));
 assert(html.includes('id="public-map-details" class="public-map-details" aria-live="polite"'));
 assert.strictEqual((html.match(/id="public-map-details"/g)||[]).length,1,"Deve existir um único painel visual de detalhes");
+for(const hook of ["public-map-shell","public-map-sidebar","public-map-workspace","public-map-canvas-wrap"]){assert(html.includes(`class="${hook}`),`Estrutura visual ausente: ${hook}`);}
+const mapCss=fs.readFileSync(path.join(root,"mapa.css"),"utf8");
+assert(mapCss.includes("grid-template-columns:310px minmax(0,1fr)"),"Mapa não usa lateral e canvas amplo");
+assert(mapCss.includes(".public-map-details{position:absolute"),"Detalhes não estão sobrepostos ao mapa no desktop");
+assert(mapCss.includes("#public-map-canvas{width:100%;height:100%;background:#050b14}"),"Canvas não possui fundo integrado ao tema");
 
 console.log("public-map: separação, mapas, filtros, busca, projeção e i18n aprovados");

@@ -27,4 +27,14 @@ for(const row of reverse.slice(0,100))assert.strictEqual(engine.result(row.a.id,
 assert.strictEqual(fold("Água Bênta"),"agua benta");
 assert.strictEqual(fold("  LAMBALL  "),"lamball");
 assert(engine.parents.every(p=>p.combiRank&&p.combiRank!==9999&&!p.isBoss));
+const breedingHtml=fs.readFileSync(path.join(root,"breeding.html"),"utf8");
+const breedingCss=fs.readFileSync(path.join(root,"breeding.css"),"utf8");
+const breedingSource=fs.readFileSync(path.join(root,"breeding.js"),"utf8");
+assert(breedingHtml.includes('id="panel-child" class="panel breeding-panel" role="tabpanel" aria-labelledby="tab-child" hidden'));
+assert(breedingHtml.includes('breeding.css?v=20260728-1'));
+assert(breedingHtml.includes('breeding.js?v=20260728-1'));
+assert(breedingCss.includes('.breeding-panel[hidden]{display:none}'),"Painel inativo não está realmente oculto");
+assert(breedingCss.includes('grid-template-columns:1fr 1fr'),"Seletor de modo não usa duas opções lado a lado");
+assert(breedingSource.includes('tabIndex=childMode?-1:0'),"Estado de foco das abas ausente");
+assert(breedingSource.includes('["ArrowLeft","ArrowRight","Home","End"]'),"Navegação de teclado das abas ausente");
 console.log(`breeding-calculator: ${reverse.length} pares de Warsect e regras padrão/especiais aprovadas`);
