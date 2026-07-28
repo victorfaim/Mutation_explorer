@@ -280,3 +280,18 @@ As páginas usam scripts clássicos e globais em `window`. A ordem é significat
 - `PROJECT_DOCS/07_INVENTARIO_ARQUIVOS.json` foi gerado antes dos commits mais recentes,
   ainda lista `CONTINUAR_EM_OUTRO_CHAT.txt` e possui hashes antigos. É um snapshot histórico.
 - `testwrite` é vazio, mas versionado desde `dbadfdd`; remoção exige decisão explícita.
+## Consolidação dos ícones oficiais de itens (2026-07-27)
+
+- `item-icon-map.js` é o mapa público derivado `ItemId -> textura`; itens, drops, Palpedia e mapa público o carregam antes dos consumidores.
+- `item-texture-manifest.json` registra somente metadados das 896 texturas locais: caminho relativo, basename, extensão, dimensões e SHA-256.
+- `item-icon-coverage.json` registra a cobertura por método sem incluir dumps brutos.
+- `tools/generate-item-icon-map.py` lê `DT_ItemDataTable.json` e `LOCAL_RESEARCH/raw/fmodel/mutation/inbox/Texture/`, publica apenas texturas vinculadas em `assets/items/`, gera compostos de Blueprint e atualiza os ícones do dataset derivado de drops.
+- A prioridade é override confirmado, ItemId exato, `TypeA + IconName`, alias existente, composição confirmada e fallback. Não existe fuzzy matching.
+- `window.RELIC_ICON_OVERRIDES` permanece com valores nulos: os itens `Relic_01`–`Relic_12` têm textura confirmada, mas a ligação `EPalRelicType -> Relic_XX` ainda não foi encontrada.
+- Galeria técnica local: `LOCAL_RESEARCH/reviews/item-icon-coverage.html`. Ela não faz parte da navegação pública.
+
+Regeneração local:
+
+```powershell
+python tools/generate-item-icon-map.py
+```

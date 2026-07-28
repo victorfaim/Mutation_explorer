@@ -1,0 +1,33 @@
+{
+  "backgroundTexture": "T_itemicon_Material_Blueprint.png",
+  "outputSize": 256,
+  "overlayScale": 0.68,
+  "offsetX": 0,
+  "offsetY": 0,
+  "format": "png",
+  "resolutionMethod": "blueprint-composite",
+  "confidence": "confirmed-pattern",
+  "textureAliases": {
+    "AssaultRifle_Default": "T_itemicon_Weapon_AssaultRifle_Default1.png",
+    "LeatherClothing": "T_itemicon_Armor_ClothArmor.png",
+    "ShotGun_Default": "T_itemicon_Weapon_PumpActionShotgun.png"
+  },
+  "calibrationItems": [
+    "Blueprint_Otomo_ElementBoost_Electricity_1_2",
+    "Blueprint_Launcher_Default_5",
+    "Blueprint_CopperArmor_5",
+    "Blueprint_CopperHelmet_5"
+  ],
+  "itemAliases": {
+    "Herbs": "T_itemicon_Food_Herbs.png",
+    "Narcotic": "T_itemicon_Food_Narcotic.png",
+    "Opium": "T_itemicon_Food_Opium.png",
+    "PalCrystal_Ex": "T_itemicon_Material_AncientParts2.png",
+    "Poppy": "T_itemicon_Food_Poppy.png",
+    "Potion_High": "T_itemicon_Food_Potion_High.png",
+    "StatusPointResetSan": "T_itemicon_Food_StatusPointResetSan.png",
+    "UniqueMaterial_FlowerPrince": "T_itemicon_Food_Poppy.png",
+    "UniqueMaterial_Mothman": "T_itemicon_Food_PoisonMushroom.png",
+    "WorldTreeHolyWater": "T_itemicon_Material_WorldTreeHolyWater.png"
+  }
+}

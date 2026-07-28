@@ -109,8 +109,14 @@ function palIconTooltip(p){
   return `N-#${number}/${rarity} · ${elements.length?elements.join(" + "):"Elemento desconhecido"}`;
 }
 
+function itemIconName(item){
+  const mapped=item?.id?window.ITEM_ICON_MAP?.[item.id]:null;
+  return mapped?.textureBasename||item?.icon||"";
+}
+
 function itemIconUrl(item){
-  return item?.icon?localAssetUrl(ASSETS.itemsDirectory,item.icon):"";
+  const name=itemIconName(item);
+  return name?localAssetUrl(ASSETS.itemsDirectory,name):"";
 }
 
 function elementIconName(element){

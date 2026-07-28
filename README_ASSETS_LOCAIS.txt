@@ -32,3 +32,9 @@ Publicação:
 4. Aguarde o deploy e use Ctrl+F5.
 
 O site não depende mais do PalBreed para ícones de Pals ou drops.
+ÍCONES OFICIAIS DE ITENS
+- Fonte pública central: item-icon-map.js
+- Arquivos publicados: assets/items/
+- Manifesto técnico: item-texture-manifest.json
+- Gerador: python tools/generate-item-icon-map.py
+- Exports brutos em LOCAL_RESEARCH/raw/ continuam fora do Git.
