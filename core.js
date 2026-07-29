@@ -279,7 +279,7 @@ document.addEventListener("DOMContentLoaded",()=>activateAssetFallbacks(document
   const footer=document.querySelector("footer.home-footer")||document.createElement("footer");
   if(!footer.classList||!document.body)return;
   footer.classList.add("site-footer");
-  footer.innerHTML=`<div class="site-footer-copy"><span><strong>Pal Forge</strong><span>Projeto comunitário não oficial de Palworld.</span></div><nav class="site-footer-links" aria-label="Links institucionais">${links.map(([href,label])=>`<a href="${href}"${page===href?' aria-current="page"':""}>${label}</a>`).join("")}<a href="https://github.com/victorfaim/Mutation_explorer" target="_blank" rel="noopener noreferrer">GitHub</a><span>Versão v1.0.0</span></nav>`;
+  footer.innerHTML=`<div class="site-footer-copy"><span><strong>Pal Forge</strong><span>Projeto comunitário não oficial de Palworld.</span></div><nav class="site-footer-links" aria-label="Links institucionais">${links.map(([href,label])=>`<a href="${href}"${page===href?' aria-current="page"':""}>${label}</a>`).join("")}<span>Versão v1.0.0</span></nav>`;
   if(!footer.isConnected)document.body.appendChild(footer);
 })();
 // O módulo global observa também o conteúdo criado dinamicamente pelas ferramentas.

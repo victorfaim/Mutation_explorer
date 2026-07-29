@@ -22,7 +22,7 @@ for(const [pt,en] of Object.entries(requiredPairs)){
 for(const pattern of ['candidatos? encontrados?','aderência média','Foram encontrados','Torre de história','Elemento desconhecido','Versátil:']) assert(i18n.includes(pattern),`Padrão dinâmico ausente: ${pattern}`);
 for(const page of fs.readdirSync(root).filter(name=>name.endsWith('.html'))){
   const html=fs.readFileSync(path.join(root,page),'utf8');
-  if(html.includes('core.js?v=')) assert(html.includes('core.js?v=20260728-8'),`Cache de core desatualizado: ${page}`);
+  if(html.includes('core.js?v=')) assert(html.includes('core.js?v=20260728-9'),`Cache de core desatualizado: ${page}`);
   if(html.includes('i18n.js?v=')) assert(html.includes('i18n.js?v=20260728-12'),`Cache de i18n desatualizado: ${page}`);
 }
 assert(fs.readFileSync(path.join(root,'core.js'),'utf8').includes('i18n.js?v=20260728-12'));
